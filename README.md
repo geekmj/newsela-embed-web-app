@@ -1,68 +1,95 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+* Redux integrated
+* Plop for component generation
+* Error handling using error boundaries React
+* Logging the errors
+* Nodejs server added and configured to run concurrently
+* Routing integrated
+* SASS and CSS loaders configured :art:
+* Hot reload configured :sunny:
+* Unit test tools configured :microscope:
+* Production build optimized :chart_with_upwards_trend:
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Node.js v8 or above
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+You can check your node version using the command:
 
-### `npm test`
+```CLI
+node --version
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing
 
-### `npm run build`
+Install dependencies and start using [yarn](https://yarnpkg.com):
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```CLI
+yarn install
+yarn start
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Or via [npm](https://www.npmjs.com/):
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```CLI
+npm install
+npm start
+```
 
-### `npm run eject`
+### Testing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+You can run your tests using:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```CLI
+yarn test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+It´s possible to generate the code coverage of your code. Jest will generate a HTML file with all information from your tests. To do this run the command:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```CLI
+yarn test:coverage
+```
 
-## Learn More
+### Production build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can generate an optimized distribution bundle. To do this run the command:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```CLI
+yarn build
+```
 
-### Code Splitting
+It´s possible to check the size and content of your bundled file. To do this run the command:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```CLI
+yarn analyze
+```
 
-### Analyzing the Bundle Size
+## Generate component
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```CLI
+npm run generate
+```
+and follow the further instructions
 
-### Making a Progressive Web App
+## Built With
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+* [React](https://babeljs.io/) - JavaScript library for building user interfaces
+* [Babel](https://babeljs.io/) - EcmaScript Transpiler
+* [Yarn](https://yarnpkg.com) - Dependency Management
+* [Jest](https://jestjs.io/) - JavaScript Testing
+* [Enzyme](https://airbnb.io/enzyme/docs/api/) - Component tests for React
+* Redux
+* Plop
+* Nodejs
 
-### Advanced Configuration
+## Contributing
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+Suggestions or pull requests are welcome.
 
-### Deployment
+For major changes, please open an issue first to discuss what you would like to change.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
+## License
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project is licensed under the MIT Licensed - see the [LICENSE](LICENSE) file for details
