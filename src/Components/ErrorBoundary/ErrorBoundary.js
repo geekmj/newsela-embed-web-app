@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {logError} from '../../Services/common.services';
+import {logError} from '../../services/common.services';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -28,3 +28,4 @@ class ErrorBoundary extends Component {
 }
 
 export default ErrorBoundary;
+ 
