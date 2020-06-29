@@ -13,6 +13,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
@@ -46,6 +47,10 @@
   "devDependencies": {
     "concurrently": "^5.2.0",
     "css-loader": "^3.6.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^24.9.0",
+    "jest-enzyme": "^7.1.2",
     "node-sass": "^4.14.1",
     "plop": "^2.7.1",
     "sass-loader": "^8.0.2"
