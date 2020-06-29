@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
-import App from './Components/App';
-import store from './Store/store';
+import App from './components/App';
+import store from './store/store';
 
 import './assets/styles/style.sass';
 import './assets/styles/style.css';

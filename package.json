@@ -19,7 +19,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "server": "node Server/Server.js",
+    "server": "node server/Server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
