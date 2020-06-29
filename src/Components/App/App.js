@@ -5,7 +5,11 @@ import Routes from '../../Routes';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
+
   render() {
+    console.log('NODE_ENV :', process.env.NODE_ENV)
+    // console.log = function(){};
+
     return (
       <BrowserRouter>
         <ErrorBoundary>
