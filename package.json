@@ -20,7 +20,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "server": "nodemon server/Server.js",
+    "server": "nodemon server/server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
