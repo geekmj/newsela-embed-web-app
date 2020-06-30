@@ -5,9 +5,6 @@ import Routes from '../../Routes';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
-  dataFunction(){
-    return 10;
-  }
   render() {
     return (
       <BrowserRouter>

@@ -1,9 +1,11 @@
 import React from "react";
+import { shallow } from 'enzyme'
 import App from "./App";
 import renderer from "react-test-renderer";
+import Routes from '../../Routes'
 
-test("Checking Funtion testing",()=>{
- let  componant= renderer.create(<App />).getInstance();
- let tree = componant.dataFunction();  
-  expect(tree).toBe(10);
+it('should render app', () => {
+    const wrapper = shallow(<App />);
+    const routes = wrapper.find(Routes );
+    expect(routes.exists()).toBe(true);
 });
