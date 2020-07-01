@@ -10,6 +10,10 @@ class App extends Component {
   render() {
     log.info('NODE_ENV :', process.env.NODE_ENV)
 
+    if(process.env.NODE_ENV == 'production'){
+      log.setLevel('warn')
+    }
+
     return (
       <BrowserRouter>
         <ErrorBoundary>
