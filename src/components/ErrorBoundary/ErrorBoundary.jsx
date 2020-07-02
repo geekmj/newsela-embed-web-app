@@ -1,5 +1,5 @@
-import React from './node_modules/react';
-import log from './node_modules/loglevel';
+import React from 'react';
+import log from 'loglevel';
 
 class ErrorBoundary extends React.Component {
 

@@ -1,4 +1,4 @@
-import React, { Component } from './node_modules/react'
+import React, { Component } from 'react'
 import {checkNodeServer} from '../../services/common.services'
 
 export default class Demo extends Component {
