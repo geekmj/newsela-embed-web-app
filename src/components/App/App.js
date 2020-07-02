@@ -3,16 +3,21 @@ import { BrowserRouter } from 'react-router-dom';
 import {register} from '../../serviceWorker';
 import Routes from '../../routes';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Header from "../header/Header.jsx";
+import Footer from "../footer/Footer.jsx";
+import Card1 from "../card/Card.jsx";
 
 class App extends Component {
 
   render() {
     console.log('NODE_ENV :', process.env.NODE_ENV)
-
     return (
       <BrowserRouter>
         <ErrorBoundary>
+          < Header />
+          < Card1 />
           <Routes />
+          <Footer />
         </ErrorBoundary>
       </BrowserRouter>
     );
