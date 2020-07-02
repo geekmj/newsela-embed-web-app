@@ -13,7 +13,7 @@ module.exports = plop => {
           type: 'add',
           // Plop will create directories for us if they do not exist
           // so it's okay to add files in nested locations.
-          path: 'src/Components/{{pascalCase name}}/{{pascalCase name}}.js',
+          path: 'src/components/{{pascalCase name}}/{{pascalCase name}}.jsx',
           templateFile:
             'plop-templates/Component/Component.js.hbs',
         },
@@ -32,7 +32,7 @@ module.exports = plop => {
         // },
         {
           type: 'add',
-          path: 'src/Components/{{pascalCase name}}/index.js',
+          path: 'src/components/{{pascalCase name}}/index.jsx',
           templateFile: 'plop-templates/Component/index.js.hbs',
         },
         // {

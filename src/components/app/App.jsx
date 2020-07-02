@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import log from 'loglevel';
+import React, { Component } from './node_modules/react';
+import { BrowserRouter } from './node_modules/react-router-dom';
+import log from './node_modules/loglevel';
 import {register} from '../../serviceWorker';
 import Routes from '../../routes';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '../errorboundary/ErrorBoundary';
 
 class App extends Component {
                    
