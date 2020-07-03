@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import log from 'loglevel';
-import {register} from '../../serviceWorker';
+import * as Sentry from '@sentry/react';
+import { register } from '../../serviceWorker';
 import Routes from '../../routes';
-import ErrorBoundary from '../errorboundary/ErrorBoundary';
 
+function Wrapper() {
+  return (<>
+    <Routes />
+  </>)
+}
+
+function FallbackComponent() {
+  
+  return (
+    <div>An error has occured</div>
+  )
+
+}
 class App extends Component {
-                   
+
   render() {
     log.info('NODE_ENV :', process.env.NODE_ENV)
 
-    if(process.env.NODE_ENV == 'production'){
+    if (process.env.NODE_ENV == 'production') {
       log.setLevel('warn')
     }
 
     return (
       <BrowserRouter>
-        <ErrorBoundary>
-          <Routes />
-        </ErrorBoundary>
+        <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
+          <Wrapper/>
+        </Sentry.ErrorBoundary>
       </BrowserRouter>
     );
   }

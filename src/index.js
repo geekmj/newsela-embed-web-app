@@ -2,12 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import * as Sentry from '@sentry/react';
 
 import App from './components/app';
 import store from './store/store';
 
 import './assets/styles/style.sass';
 import './assets/styles/style.css';
+
+Sentry.init({
+  dsn: 'https://ebe2ed01e569434abd2520b423dcb4a9@o6997.ingest.sentry.io/5305278'
+});
 
 ReactDOM.render(
   <Provider store = {store}>
