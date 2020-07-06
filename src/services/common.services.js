@@ -1,14 +1,14 @@
-import apiCaller from './apiCaller'
-import config from '../config'
+import apiCaller from './apiCaller';
+import {CHECK_NODE_SERVER} from '../constants/apiEndpoints';
+import config from '../config';
 
-import {CHECK_NODE_SERVER} from '../constants/apiEndpoints'
+export const checkNodeServer = () => {
 
-export function checkNodeServer(){
-
-    let reqObj = {}
+    const reqObj = {};
     reqObj.url = config.API_BASE_URL + CHECK_NODE_SERVER
-    reqObj.method = 'get'
-    reqObj.authorized = false
+    reqObj.method = 'get';
+    reqObj.authorized = false;
 
-    return apiCaller(reqObj)
-}
+    return apiCaller(reqObj);
+
+};
