@@ -4,7 +4,7 @@ import img from '../../assets/images/Blue_logo.png'
 
 function Header() {
     return (
-        <div>
+        <div className="header">
              <Navbar color="light" light expand="md">
                  <NavbarBrand href="/">
                    <img src={img} alt='image1' width="120px" height="25px"/>

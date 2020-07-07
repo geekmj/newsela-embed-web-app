@@ -1,45 +1,73 @@
-import React from 'react'
-import {Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody
-  } from 'reactstrap';
-import img1 from "../../assets/images/download1.jpg"  
+import React, { Component } from 'react'
+import Pagination from '../pagination/Pagination.jsx'
+import posts from "../../data.json"
+import Checkbox from "../checkbox/Checkbox"
 
-function Card1(){
-    return (
-        <div className="my-5">
-        <div className="container">
-        <CardDeck>
-          <Card>
-              <CardImg top width="100%" src={img1} alt="Card image cap" />
-               <CardBody>
-                 <CardTitle>Card title</CardTitle>
-                    <CardSubtitle>Card subtitle</CardSubtitle>
-                       <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                         <Button>Button</Button>
-                </CardBody>
-          </Card>
-          <Card>
-              <CardImg top width="100%" src={img1} alt="Card image cap" />
-               <CardBody>
-                 <CardTitle>Card title</CardTitle>
-                    <CardSubtitle>Card subtitle</CardSubtitle>
-                       <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                         <Button>Button</Button>
-                </CardBody>
-          </Card>
-          <Card>
-              <CardImg top width="100%" src={img1} alt="Card image cap" />
-               <CardBody>
-                 <CardTitle>Card title</CardTitle>
-                    <CardSubtitle>Card subtitle</CardSubtitle>
-                       <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                         <Button>Button</Button>
-                </CardBody>
-          </Card>
-        </CardDeck>
-    </div>
-   </div>
-    )
+class Card extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showPerPage:4,
+            search:"",
+            pagination:{
+                start: 0,
+                end: 4
+            }
+        }
+    }
+    onPaginationChange = (start, end) =>{
+         this.setState({
+             pagination:{
+                 start:start,
+                 end:end
+             }
+         })
+    }
+
+     updateSearch = (event)=>{
+         this.setState({
+             search:event.target.value.substr(0,20)
+         })
+     }
+    render() {
+
+        let filterTitle= posts.filter(
+            (Tit)=>{
+                return Tit.title.toLocaleLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !==-1;
+            }
+        )
+
+        return (
+            <div className="card2">
+            <label className="mt-3 ml-4">Search</label>
+            <input type="text" value ={this.state.search} onChange={this.updateSearch} />
+            <div className="container py-4 mt-3">
+              <div className="row pb-4" >
+                {filterTitle.slice(this.state.pagination.start, this.state.pagination.end).map((post,i) => (
+                  <div className="col-md-3 mb-3" key={post.id}>
+                    <div className="card">
+                    <img src={post.image} width="100%" alt="imgage.png" />
+                      <div className="card-body">
+                        <h6>
+                          #{post.id} {post.title}
+                        </h6>
+                        <p>{post.body}</p>
+                      </div>
+                      <Checkbox  />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Pagination
+                showPerPage={this.state.showPerPage}
+                onPaginationChange={this.onPaginationChange}
+                total={posts.length}
+              />
+            </div>
+          </div>
+        )
+    }
 }
 
-export default Card1
+export default Card
+

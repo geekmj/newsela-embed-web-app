@@ -27,8 +27,37 @@
   .page-footer{
     background-color:#555;
     color:white;
-   
     width:100%;
     bottom:0;
     left:0;
+  }
+
+  /* .app{
+    display: grid;
+    height: 100%;
+    grid-template-columns: repeat(6,1fr);
+    grid-template-rows: 60px 1fr 1fr 1fr 1fr 60px;
+    grid-template-areas:
+    "n n n n n n"
+    "r m m m m m"
+    "r m m m m m"
+    "r m m m m m"
+    "r m m m m m"
+    "f f f f f f";
+  } */
+
+  .header{
+    grid-area: n;
+  }
+  .left{
+    grid-area: r;
+  }
+  .card2{
+    grid-area: m;
+  }
+  .footer{
+    grid-area: f;
+  }
+  .left{
+    background-color: #e9eaec;
   }

@@ -3,23 +3,27 @@ import { BrowserRouter } from 'react-router-dom';
 import {register} from '../../serviceWorker';
 import Routes from '../../routes';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import Header from "../header/Header.jsx";
-import Footer from "../footer/Footer.jsx";
-import Card1 from "../card/Card.jsx";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+import Card from '../card/Card';
+import '../../assets/styles/style.css'
+
 
 class App extends Component {
 
   render() {
     console.log('NODE_ENV :', process.env.NODE_ENV)
     return (
+    <div className="app">
       <BrowserRouter>
         <ErrorBoundary>
           < Header />
-          < Card1 />
-          <Routes />
+          <Card />
+           <Routes /> 
           <Footer />
         </ErrorBoundary>
       </BrowserRouter>
+    </div>
     );
   }
 }
