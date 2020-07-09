@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import * as Sentry from '@sentry/react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './components/app';
 import store from './store/store';

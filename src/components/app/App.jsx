@@ -4,6 +4,10 @@ import log from 'loglevel';
 import * as Sentry from '@sentry/react';
 import { register } from '../../serviceWorker';
 import Routes from '../../routes';
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+import Card from '../card/Card';
+import '../../assets/styles/style.css'
 
 function Wrapper() {
   return (<>
@@ -30,7 +34,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
-          <Wrapper/>
+          <Header />
+          <Card />
+          <Wrapper/> 
+          <Footer />
         </Sentry.ErrorBoundary>
       </BrowserRouter>
     );
