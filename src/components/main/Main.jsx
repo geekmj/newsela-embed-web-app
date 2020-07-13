@@ -3,15 +3,18 @@ import {connect} from 'react-redux'
 
 import {checkNodeServer, callSearchAssessmentApis} from '../../services/common.services'
 import {saveQueryParamsOnLaunchAction} from '../../actions/mainAction.js'
-
+import Card from '../card'
+import posts from "../../data.json"
 class Main extends Component {
-    state = { }
+    state = {
+        jsonData : posts
+     }
 
     componentDidMount(){
         // throw new Error("An error has occured in component!");
 
         //Get query params from url
-        this.props.saveQueryParamsOnLaunch(this.props.location.search);
+        this.props.saveQueryParamsOnLaunch(this.parseQuery(this.props.location.search));
         
         callSearchAssessmentApis().then((response) => {
             this.setState({
@@ -20,11 +23,19 @@ class Main extends Component {
         })
     }
 
+    parseQuery(queryString) {
+        var query = {};
+        var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split('=');
+            query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+        }
+        return query;
+    }
     render() {
 
         return (<>
-        Hello ,This is Demo component...
-        Nodejs Server status : <div><pre>{JSON.stringify(this.state.message, null, 2) }</pre></div>
+            <Card jsonData = {this.state.jsonData}/>
         </>)
     }
 } 
