@@ -24,7 +24,7 @@ export const searchApi = (searchKeyword)=>{
     return apiCaller(reqObj)
 }
 
-export const assginmentApi = (searchKeyword) => {
+export const assignmentApi = (searchKeyword) => {
 
     const reqObj = {}
     reqObj.url = ASSIGNMENT_API_URL + ASSIGNMENT
