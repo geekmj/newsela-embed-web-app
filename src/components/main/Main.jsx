@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-
+import {parseQuery,readCookie} from '../../utils/commonFunctions'
 import {checkNodeServer, callSearchAssessmentApis} from '../../services/common.services'
 import {saveQueryParamsOnLaunchAction} from '../../actions/mainAction.js'
 import Card from '../card'
@@ -12,9 +12,9 @@ class Main extends Component {
 
     componentDidMount(){
         // throw new Error("An error has occured in component!");
-
+        
         //Get query params from url
-        this.props.saveQueryParamsOnLaunch(this.parseQuery(this.props.location.search));
+        this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
         
         callSearchAssessmentApis().then((response) => {
             this.setState({
@@ -23,15 +23,7 @@ class Main extends Component {
         })
     }
 
-    parseQuery(queryString) {
-        var query = {};
-        var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
-        for (var i = 0; i < pairs.length; i++) {
-            var pair = pairs[i].split('=');
-            query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
-        }
-        return query;
-    }
+  
     render() {
 
         return (<>
