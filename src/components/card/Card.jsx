@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import {connect} from "react-redux";
 import Pagination from '../pagination/Pagination.jsx'
 // import posts from "../../data.json"
 import Checkbox from "../checkbox/Checkbox"
+import {saveSelectionAction} from '../../actions/cardAction'
 import * as _ from 'lodash'
 
 class Card extends Component {
@@ -14,29 +16,12 @@ class Card extends Component {
         start: 0,
         end: 4
       },
-      posts: this.props.jsonData,
-      selectedContent: []
+     selectedContent: []
     }
   }
 
   setSelectedContent = (content) => {
-    let selectedContent = _.cloneDeep(this.state.selectedContent), tempIndex
-
-    let tempContent = content && Object.keys(content).length > 0 && selectedContent && selectedContent.length > 0 && selectedContent.filter((value, index) => {
-      // if(value.id === content.id){
-      //   return tempIndex = index
-      // }
-    })
-
-    if (tempContent && tempContent.length > 0) {
-      selectedContent.splice(tempIndex, 1)
-    } else {
-      selectedContent.push(content)
-    }
-
-    this.setState({
-      selectedContent: selectedContent
-    })
+    this.props.saveSelection(content);
   }
 
   onPaginationChange = (start, end) => {
@@ -55,12 +40,7 @@ class Card extends Component {
   }
 
   render() {
-
-    let filterTitle = this.state.posts && this.state.posts.length > 0 && this.state.posts.filter(
-      (Tit) => {
-        return Tit.title.toLocaleLowerCase().indexOf(this.state.search.toLocaleLowerCase()) !== -1;
-      }
-    )
+    let data = this.props.jsonData
 
     return (
       <div className="card2">
@@ -68,25 +48,25 @@ class Card extends Component {
         <input type="text" value={this.state.search} onChange={this.updateSearch} />
         <div className="container py-4 mt-3">
           <div className="row pb-4" >
-            {filterTitle && filterTitle.slice(this.state.pagination.start, this.state.pagination.end).map((post, i) => (
+            {data && data.slice(this.state.pagination.start, this.state.pagination.end).map((post, i) => (
               <div className="col-md-3 mb-3" key={post.id}>
                 <div className="card">
                   <img src={post.image} width="100%" alt="imgage.png" />
                   <div className="card-body">
                     <h6>
-                      #{post.id} {post.title}
+                      {post.object.short_title}
                     </h6>
-                    <p>{post.body}</p>
+                    <p>{post.title}</p>
                   </div>
                   <Checkbox key={`checkbox-${i}`} content={post} setSelectedContent={this.setSelectedContent} />
                 </div>
               </div>
             ))}
           </div>
-          {this.state.posts && this.state.posts.length ? <Pagination
+          {data && data.length ? <Pagination
             showPerPage={this.state.showPerPage}
             onPaginationChange={this.onPaginationChange}
-            total={this.state.posts && this.state.posts.length}
+            total={data && data.length}
           /> : ""}
 
         </div>
@@ -95,4 +75,15 @@ class Card extends Component {
   }
 }
 
-export default Card;
+function mapStateToProps(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    saveSelection: (params) => dispatch(saveSelectionAction(params))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card)
+

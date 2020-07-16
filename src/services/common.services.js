@@ -31,16 +31,3 @@ export const assignmentApi = (searchKeyword) => {
     reqObj.method = 'get'
     return apiCaller(reqObj)
 }
-
-export const callSearchAssessmentApis = () => {
-
-    const reqObj = {}
-    reqObj.url = `${SEARCH_API_URL}?facets=true&format=full&objects=header&page=1&page_size=2&needle=memorial+day`
-    reqObj.method = 'get'
-
-    let searchReq = apiCaller(reqObj)
-    reqObj.url = ASSIGNMENT_API_URL + ASSIGNMENT
-
-    let assignmentReq = apiCaller(reqObj)
-    return axios.all([searchReq,assignmentReq])
-}

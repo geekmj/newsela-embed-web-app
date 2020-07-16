@@ -18,7 +18,7 @@ class Checkbox extends Component {
     render() {
         return (
             <div>
-                <input type="checkbox" check={this.props.content.id == this.state.id} onChange={() => this.handleChange(this.props.content)} />
+                <input type="radio" name='checkbox' check={this.props.content.id == this.state.id} onChange={() => this.handleChange(this.props.content)} />       
             </div>
         )
     }
