@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Pagination from '../pagination/Pagination.jsx'
 // import posts from "../../data.json"
 import Checkbox from "../checkbox/Checkbox"
+import Filter from '../filter'
 import {saveSelectionAction} from '../../actions/cardAction'
 import * as _ from 'lodash'
 
@@ -44,13 +45,14 @@ class Card extends Component {
 
     return (
       <div className="card2">
-        <label className="mt-3 ml-4">Search</label>
-        <input type="text" value={this.state.search} onChange={this.updateSearch} />
+        {/* <label className="mt-3 ml-4">Search</label>
+        <input type="text" value={this.state.search} onChange={this.updateSearch} /> */}
         <div className="container py-4 mt-3">
+        <Filter />
           <div className="row pb-4" >
             {data && data.slice(this.state.pagination.start, this.state.pagination.end).map((post, i) => (
               <div className="col-md-3 mb-3" key={post.id}>
-                <div className="card">
+                <div className="card h-100 ">
                   <img src={post.image} width="100%" alt="imgage.png" />
                   <div className="card-body">
                     <h6>

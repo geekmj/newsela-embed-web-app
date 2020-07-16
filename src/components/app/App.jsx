@@ -6,6 +6,7 @@ import { register } from '../../serviceWorker';
 import Routes from '../../routes';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import Searchbar from '../searchbar/Searchbar';
 import '../../assets/styles/style.css'
 
 function Wrapper() {
@@ -34,6 +35,7 @@ class App extends Component {
       <BrowserRouter>
         <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
           <Header />
+          < Searchbar />
           <Wrapper/> 
           <Footer />
         </Sentry.ErrorBoundary>
