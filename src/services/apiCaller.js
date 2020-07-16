@@ -16,7 +16,7 @@ const apiCaller = ({
     method,
     url,
     data = null,
-    authorized = true,
+    authorized = false,
     headers = { 'Content-Type': 'application/json' },
 }) => {
 
@@ -35,6 +35,7 @@ const apiCaller = ({
         options.data = data
     }
 
+    axios.defaults.withCredentials = true
     return axios(options)
         .catch(function (error) {
             if (error.response) {

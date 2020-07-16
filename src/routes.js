@@ -1,7 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-const Demo = lazy(() => import('./components/demo'))
+const Main = lazy(() => import('./components/main'))
 const NotFound = lazy(() => import('./components/notfound'))
 
 class Routes extends Component {
@@ -10,7 +10,7 @@ class Routes extends Component {
             <Suspense fallback={<>Loading...</>}>
                 <Switch>
                     <Route
-                        path='/demo' exact component={Demo} />
+                        path='/main' exact component={Main} />
                     <Route
                         path='*' component={NotFound} />
                 </Switch>
