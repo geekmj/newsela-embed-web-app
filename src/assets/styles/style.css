@@ -24,7 +24,7 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-  
+
   .page-footer{
     background-color:#555;
     color:white;
@@ -33,11 +33,12 @@
     left:0;
   }
 
-  .container input {
+  .container .searchbarsection input {
     width: calc(100% - 135px);
     height: 56px;
-    line-height: 60px;
-    font-size: 1.777rem;
+    line-height: 80px;
+    padding: 0 4px;
+    font-size: 2.369rem;
     font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
     font-weight: 700;
     color: #333;
@@ -51,3 +52,109 @@
     text-overflow: ellipsis;
 
   }
+  .container .searchbarsection input:focus{
+    outline: none;
+  }
+  .card2{
+    background-color: #f8f9fb;
+  }
+  .searchbarsection{
+    position: relative;
+    margin: 30px auto 58px auto;
+    padding: 0 16px;
+    max-width: 832px;
+
+  }
+
+  .searchmg{
+    margin-top:80px;
+  }
+
+  .searchbutton{
+    cursor: pointer;
+    width: 112px;
+    height: 56px;
+    border: none;
+    border-radius: 4px;
+    background-color: #0768fd;
+    font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 1.33rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 0 19px;
+    vertical-align: top;
+  }
+  .searchbutton:hover{
+    background-color: #0557d5;
+  }
+  .searchbutton:focus{
+    outline: none;
+  }
+
+  .filter{
+    display: flex;
+    margin-bottom: 34px;
+    position: relative;
+  }
+  
+
+  .filterbutton{
+    border-radius: 300px;
+    padding: .5em 1em;
+    border: 1px solid #333 !important;
+    width: max-content;
+    font-size: .875rem;
+    display: inline-flex;
+    font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: all 0.12s;
+    cursor: pointer;
+    line-height: 1em;
+    margin-right: 1em;
+    background-color: #fff;
+    color:#333;
+  }
+  .filterbutton:hover{
+    color: white;
+    background-color: #1a1a1a;
+  }
+  .filterbutton:focus{
+   outline: none;
+   border-color: #1a1a1a !important;
+  }
+
+  .dropdownvalue{
+    background-color: #fff;
+    border: 0;
+    padding: 12px 10px;
+    z-index: 1;
+    box-shadow: 0 2px 10px #777777;
+    position: absolute;
+    min-width: 325px;
+    top: 48px;
+    display: grid;
+  }
+
+  .card{
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2) !important;
+  background-color: #ffffff;
+  border-radius: 0;
+  border:0;
+  width: 300px;
+  height: 366px;
+  }
+
+  .card-img-top {
+    height: 12rem;
+    object-fit: cover;
+}
+.container{
+ 
+}

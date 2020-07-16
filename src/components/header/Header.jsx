@@ -1,13 +1,13 @@
 import React from 'react'
 import {Navbar,NavbarBrand} from 'reactstrap';
-import img from '../../assets/images/Blue-logo.png'
+import img from '../../assets/logo/full-logo/1x/Artboard 1.png'
 
 function Header() {
     return (
         <div className="header">
-             <Navbar color="light" light expand="md">
+             <Navbar>
                  <NavbarBrand href="/">
-                   <img src={img} alt='image1' width="120px" height="25px"/>
+                   <img src={img} alt='image1' width="100%" height="100%"/>
                  </NavbarBrand>
             </Navbar>
         </div>

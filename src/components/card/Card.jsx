@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import Pagination from '../pagination/Pagination.jsx'
 import posts from "../../data.json"
 import Checkbox from "../checkbox/Checkbox"
+import Filter from "../filter/Filter"
 
 class Card extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showPerPage:4,
+            showPerPage:8,
             search:"",
             pagination:{
                 start: 0,
@@ -39,21 +40,22 @@ class Card extends Component {
 
         return (
             <div className="card2">
-            <label className="mt-3 ml-4">Search</label>
-            <input type="text" value ={this.state.search} onChange={this.updateSearch} />
+            {/* <label className="mt-3 ml-4">Search</label> */}
+            {/* <input type="text" value ={this.state.search} onChange={this.updateSearch} /> */}
             <div className="container py-4 mt-3">
+            < Filter />
               <div className="row pb-4" >
                 {filterTitle.slice(this.state.pagination.start, this.state.pagination.end).map((post,i) => (
                   <div className="col-md-3 mb-3" key={post.id}>
-                    <div className="card">
-                    <img src={post.image} width="100%" alt="imgage.png" />
-                      <div className="card-body">
-                        <h6>
+                    <div className="card  h-100">
+                    <img className="card-img-top" src={post.image} width="100%" alt="imgage.png" />
+                      <div className="card-body ">
+                        <h6 class="card-title ">
                           #{post.id} {post.title}
                         </h6>
-                        <p>{post.body}</p>
+                        <p class="card-text">{post.body}</p>
                       </div>
-                      <Checkbox  />
+                      {/* <Checkbox  /> */}
                     </div>
                   </div>
                 ))}
