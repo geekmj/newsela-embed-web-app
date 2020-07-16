@@ -55,7 +55,7 @@ class Main extends Component {
     render() {
 
         return (<>
-            <DropDown  selectedType= {this.selectedType}/>
+            {/* <DropDown  selectedType= {this.selectedType}/> */}
             <Card jsonData={this.state.jsonData} />
         </>)
     }
