@@ -6,7 +6,6 @@ import { register } from '../../serviceWorker';
 import Routes from '../../routes';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import Card from '../card/Card';
 import Searchbar from '../searchbar/Searchbar';
 import '../../assets/styles/style.css'
 
@@ -37,7 +36,6 @@ class App extends Component {
         <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
           <Header />
           < Searchbar />
-          <Card />
           <Wrapper/> 
           <Footer />
         </Sentry.ErrorBoundary>
