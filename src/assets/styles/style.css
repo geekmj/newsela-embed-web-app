@@ -208,6 +208,21 @@
 .upload-loading img {
   width: 60px;
 }
+.load-more-button{
+    background-color: #106FF3 !important;
+    float: right;
+    margin-left: 6px;
+    font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: .9em 1.5em;
+    border: 0.15em solid transparent;
+    color:#fff;
+    margin-right:30px;
+}
+
+
 @media screen and (max-width:767px) {
 .upload-loading{
   margin: -20px 0 0 -20px;

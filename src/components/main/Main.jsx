@@ -103,7 +103,7 @@ class Main extends Component {
             {/* <DropDown  selectedType= {this.selectedType}/> */}
             <Searchbar searchAndSave = {this.searchAndSave} updateValue={this.updateValue} filterData={this.filterData} jsonData={this.props.jsonData} />
             <Card isLoading = {this.state.isLoading} jsonData={this.state.jsonData} />
-            <button className="searchbutton" onClick={() => this.loadMore()}>Load More</button>
+            <button className="load-more-button" onClick={() => this.loadMore()}>Load More</button>
             {this.state.isLoading ? <Loader /> : ""}
         </>)
     }
