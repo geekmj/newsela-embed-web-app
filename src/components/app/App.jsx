@@ -35,7 +35,7 @@ class App extends Component {
         <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
           <Header />
           <Wrapper/> 
-          <Footer />
+          {/* <Footer /> */}
         </Sentry.ErrorBoundary>
       </BrowserRouter>
     );

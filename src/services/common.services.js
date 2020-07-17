@@ -1,5 +1,5 @@
 import apiCaller from './apiCaller';
-import {CHECK_NODE_SERVER, ASSIGNMENT} from '../constants/apiEndpoints';
+import { CHECK_NODE_SERVER, ASSIGNMENT } from '../constants/apiEndpoints';
 import { SEARCH_API_URL, ASSIGNMENT_API_URL } from '../constants/urls'
 import config from '../config';
 import axios from 'axios';
@@ -15,10 +15,10 @@ export const checkNodeServer = () => {
 
 };
 
-export const searchApi = (searchKeyword)=>{
+export const searchApi = (searchKeyword, pageNo) => {
 
-    const reqObj={}
-    reqObj.url = `${SEARCH_API_URL}?facets=true&format=full&objects=header&page=1&page_size=2&needle=memorial+day`
+    const reqObj = {}
+    reqObj.url = `${SEARCH_API_URL}?facets=true&format=full&objects=header&page=${pageNo}&page_size=20&needle=${searchKeyword}`
     reqObj.method = 'get'
 
     return apiCaller(reqObj)

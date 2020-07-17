@@ -8,9 +8,13 @@ import Card from '../card'
 import DropDown from '../dropdown'
 import Searchbar from '../searchbar';
 import embedResType from '../../utils/embedResTypes'
+import Loader from '../loader'
 class Main extends Component {
     state = {
-        jsonData: []
+        jsonData: [],
+        searchKey: '',
+        currentPage: 1,
+        isLoading: false
     }
 
     componentDidMount() {
@@ -18,13 +22,29 @@ class Main extends Component {
 
         //Get query params from url
         this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
+        this.searchAndSave()
+    }
 
-        searchApi().then((response) => {
-            console.log("response", response)
+    searchAndSave = (type='') => {
+        this.setState({
+            isLoading: true
+        })
+
+        searchApi(this.state.searchKey, this.state.currentPage).then((response) => {
+            let updatedJson
+            if(type =='loadMore'){
+                updatedJson = this.state.jsonData
+                updatedJson = [...updatedJson, ...response.data.results]
+            }else{
+                updatedJson = response.data.results
+            }
+           
             this.setState({
-                jsonData: response.data.results
+                jsonData: updatedJson,//response.data.results,
+                currentPage: this.state.currentPage + 1,
+                isLoading: false
             })
-            this.props.saveResults(response.data.results)
+            this.props.saveResults(updatedJson)
         })
     }
 
@@ -55,16 +75,36 @@ class Main extends Component {
 
     filterData = (data) => {
         this.setState({
-            jsonData: data
+            jsonData: data,
         })
+    }
+
+    updateValue = (key, value) => {
+
+        if (key == 'searchKey') {
+            this.setState({
+                searchKey: value
+            })
+        } else if (key == 'currentPage') {
+            this.setState({
+                currentPage: value
+            })
+        }
+
+    }
+
+    loadMore = () => {
+        this.searchAndSave('loadMore')
     }
 
     render() {
 
         return (<>
             {/* <DropDown  selectedType= {this.selectedType}/> */}
-            <Searchbar filterData={this.filterData} jsonData={this.props.jsonData} />
-            <Card jsonData={this.state.jsonData} />
+            <Searchbar searchAndSave = {this.searchAndSave} updateValue={this.updateValue} filterData={this.filterData} jsonData={this.props.jsonData} />
+            <Card isLoading = {this.state.isLoading} jsonData={this.state.jsonData} />
+            <button className="searchbutton" onClick={() => this.loadMore()}>Load More</button>
+            {this.state.isLoading ? <Loader /> : ""}
         </>)
     }
 }

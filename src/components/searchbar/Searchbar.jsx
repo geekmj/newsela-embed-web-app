@@ -17,8 +17,9 @@ class Searchbar extends Component {
     handleOnInputChange = (value) => {
         this.setState({
             searchKey: value,
-            showSuggestions:true
+            showSuggestions: true
         })
+        this.props.updateValue('searchKey', value)
         this.searchWord(value)
     }
 
@@ -30,18 +31,21 @@ class Searchbar extends Component {
     }
 
     searchWord = (searchKey, type = '') => {
-        
-        let filteredData = this.filterBasedOnSearchKey(searchKey);
-        
-        this.setState({
-            suggestions: filteredData,
-            searchKey: searchKey
-        })
+
+        // let filteredData = this.filterBasedOnSearchKey(searchKey);
+
+        // this.setState({
+        //     suggestions: filteredData,
+        //     searchKey: searchKey
+        // })
+        // if (type == 'search') {
+        //     this.props.filterData(filteredData)
+        //     this.setState({
+        //         showSuggestions: false
+        //     })
+        // }
         if (type == 'search') {
-            this.props.filterData(filteredData)
-            this.setState({
-                showSuggestions:false
-            })
+            this.props.searchAndSave()
         }
     }
 
@@ -55,7 +59,6 @@ class Searchbar extends Component {
                         <button className="searchbutton" onClick={() => this.searchWord(this.state.searchKey, 'search')}>Search</button>
                     </div>
                 </div>
-                {this.state.searchKey && this.state.showSuggestions ? <Suggestions searchWord={this.searchWord} items={this.state.suggestions} /> : ""}
             </div>
         )
     }
