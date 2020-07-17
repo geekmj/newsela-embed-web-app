@@ -26,8 +26,8 @@
   }
 
   .page-footer{
-    background-color:#555;
-    color:white;
+    /* background-color:#555; */
+    color:#333;
     width:100%;
     bottom:0;
     left:0;
@@ -100,6 +100,7 @@
     display: flex;
     margin-bottom: 34px;
     position: relative;
+    flex-wrap: wrap;
   }
   
 
@@ -120,6 +121,7 @@
     margin-right: 1em;
     background-color: #fff;
     color:#333;
+    margin-bottom: 5px;
   }
   .filterbutton:hover{
     color: white;
@@ -147,21 +149,44 @@
   background-color: #ffffff;
   border-radius: 0;
   border:0;
-  /* width: 300px;
-  height: 366px;
-  margin: 0px 8px 24px; */
   }
 
   .card-img-top {
     height: 12rem;
     object-fit: cover;
 }
-.container{
-  margin: 0 auto !important;
-  padding: 20px 24px 20px 24px;
-  max-width: 1530px;
+
+.card-footer{
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fff !important;
+  border:0 !important;
+}
+.sendbutton{
+  margin-left:5px;
+  color:#0557d5;
+  background-color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  border: 0;
+}
+.sendbutton:focus{
+  outline: none;
 }
 
+.viewbutton{
+  margin-left:5px;
+  color: #333333;;
+  background-color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  border: 0;
+}
+.viewbutton:focus{
+  outline: none;
+}
 
 .upload-loading-img{
   position: fixed;
@@ -183,6 +208,21 @@
 .upload-loading img {
   width: 60px;
 }
+.load-more-button{
+    background-color: #106FF3 !important;
+    float: right;
+    margin-left: 6px;
+    font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: .9em 1.5em;
+    border: 0.15em solid transparent;
+    color:#fff;
+    margin-right:30px;
+}
+
+
 @media screen and (max-width:767px) {
 .upload-loading{
   margin: -20px 0 0 -20px;

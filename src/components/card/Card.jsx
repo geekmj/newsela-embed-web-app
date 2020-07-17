@@ -24,20 +24,24 @@ class Card extends Component {
 
     return (
       <div className="card2">
-        <div className="container py-4 mt-3">
+        <div className="container-fluid py-4 mt-3 px-4">
           <Filter />
-          {data && data.length > 0 ? <div className="row pb-4" >
+          {data && data.length > 0 ? <div className="row pb-4 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
-              <div className="col-md-3 mb-3" key={post.id}>
+              <div className="col-md-3 mb-3 pr-0" key={post.id}>
                 <div className="card h-100 ">
                   <img src={post.image} width="100%" alt="imgage.png" />
                   <div className="card-body">
-                    <h6>
+                    <h6 className="card-title" >
                       {post.object.short_title}
                     </h6>
-                    <p>{post.title}</p>
+                    <p className="card-text">{post.title}</p>
+                  </div> 
+                  <div className="card-footer">
+                  <button className="viewbutton">View</button>
+                  <button className="sendbutton  dropdown-toggle">Send</button>
                   </div>
-                  <Checkbox key={`checkbox-${i}`} content={post} setSelectedContent={this.setSelectedContent} />
+                  {/* <Checkbox key={`checkbox-${i}`} content={post} setSelectedContent={this.setSelectedContent} /> */}
                 </div>
               </div>
             ))}
