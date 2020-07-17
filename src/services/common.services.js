@@ -18,7 +18,7 @@ export const checkNodeServer = () => {
 export const searchApi = (searchKeyword)=>{
 
     const reqObj={}
-    reqObj.url = `${SEARCH_API_URL}?facets=true&format=full&objects=header&page=1&page_size=2&needle=memorial+day`
+    reqObj.url = `${SEARCH_API_URL}?facets=true&format=full&objects=header&page=1&page_size=25&needle=memorial+day`
     reqObj.method = 'get'
 
     return apiCaller(reqObj)

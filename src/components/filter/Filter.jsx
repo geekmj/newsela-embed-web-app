@@ -18,7 +18,7 @@ export class Filter extends Component {
                 {this.state.option?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
                   <lable>
-                  <input type="checkbox" value="hello"/>
+                  <input  type="checkbox" value="hello"/>
                    Election 2020
                   </lable>
                   <lable>
