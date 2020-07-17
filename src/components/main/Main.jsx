@@ -25,20 +25,20 @@ class Main extends Component {
         this.searchAndSave()
     }
 
-    searchAndSave = (type='') => {
+    searchAndSave = (type = '') => {
         this.setState({
             isLoading: true
         })
 
         searchApi(this.state.searchKey, this.state.currentPage).then((response) => {
             let updatedJson
-            if(type =='loadMore'){
+            if (type == 'loadMore') {
                 updatedJson = this.state.jsonData
                 updatedJson = [...updatedJson, ...response.data.results]
-            }else{
+            } else {
                 updatedJson = response.data.results
             }
-           
+
             this.setState({
                 jsonData: updatedJson,//response.data.results,
                 currentPage: this.state.currentPage + 1,
@@ -103,7 +103,7 @@ class Main extends Component {
             {/* <DropDown  selectedType= {this.selectedType}/> */}
             <Searchbar searchAndSave = {this.searchAndSave} updateValue={this.updateValue} filterData={this.filterData} jsonData={this.props.jsonData} />
             <Card isLoading = {this.state.isLoading} jsonData={this.state.jsonData} />
-            <button className="load-more-button" onClick={() => this.loadMore()}>Load More</button>
+            {this.state.jsonData && this.state.jsonData.length == 0 ? "" : <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button>}
             {this.state.isLoading ? <Loader /> : ""}
         </>)
     }
