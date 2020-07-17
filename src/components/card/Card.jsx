@@ -49,7 +49,7 @@ class Card extends Component {
         <input type="text" value={this.state.search} onChange={this.updateSearch} /> */}
         <div className="container py-4 mt-3">
         <Filter />
-          <div className="row pb-4" >
+          {data && data.length >0 ? <div className="row pb-4" >
             {data && data.slice(this.state.pagination.start, this.state.pagination.end).map((post, i) => (
               <div className="col-md-3 mb-3" key={post.id}>
                 <div className="card h-100 ">
@@ -64,13 +64,12 @@ class Card extends Component {
                 </div>
               </div>
             ))}
-          </div>
+          </div>: <>No Results found</>}
           {data && data.length ? <Pagination
             showPerPage={this.state.showPerPage}
             onPaginationChange={this.onPaginationChange}
             total={data && data.length}
           /> : ""}
-
         </div>
       </div>
     )
