@@ -1,22 +1,62 @@
 import React, { Component } from 'react'
-import { connect } from "react-redux";
-import Checkbox from "../checkbox/Checkbox"
+import DropDown from '../dropdown'
 import Filter from '../filter'
-import { saveSelectionAction } from '../../actions/cardAction'
 import * as _ from 'lodash'
+import embedResType from '../../utils/embedResTypes'
+import ErrorFallback from '../errorFallback/ErrorFallback';
+import { NEWSELA_URL } from '../../constants/urls'
+
 class Card extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showPerPage: 4,
       search: "",
-     
+
       selectedContent: []
     }
   }
 
-  setSelectedContent = (content) => {
-    this.props.saveSelection(content);
+  prepareJson = (value, data) => {
+
+    let selectedType = value;
+    let selectedData = data;
+
+    let jsonData = embedResType[selectedType]
+
+    let slug = data.object.slug
+    let contentId = data.content_id
+    let contentItemUrl = "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId
+
+    jsonData['@graph'][0].title = selectedData.title
+    jsonData['@graph'][0].url = contentItemUrl;
+
+    switch (selectedType) {
+      case 'LtiLinkItem':
+        jsonData['@graph'][0]['@id'] = contentItemUrl;
+        jsonData['@graph'][0].text = selectedData.title;
+        break;
+      case 'smallThumbnail':
+        jsonData['@graph'][0].thumbnail['@id'] = data.image
+        break;
+      case 'mediumThumbnail':
+        jsonData['@graph'][0].thumbnail['@id'] = data.image
+        break
+      case 'largeThumbnail':
+        jsonData['@graph'][0].thumbnail['@id'] = data.image
+        break;
+    }
+
+    console.log('SELECTED CARD DATA---->>>>>', data)
+    console.log('Prepared Respose JSON -------->>>>>>>', jsonData)
+  }
+
+  selectedType = (value, itemData) => {
+    this.prepareJson(value, itemData)
+  }
+
+  openArticle = (path) => {
+    window.open(NEWSELA_URL + path)
   }
 
   render() {
@@ -30,37 +70,21 @@ class Card extends Component {
             {data && data.length > 0 && data.map((post, i) => (
               <div className="col-md-3 mb-3 pr-0" key={post.id}>
                 <div className="card h-100 ">
-                  <img src={post.image} width="100%" alt="imgage.png" />
-                  <div className="card-body">
-                    <h6 className="card-title" >
-                      {post.object.short_title}
-                    </h6>
+                  <div className="card-body" style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
+                    <img src={post.image} width="100%" alt="imgage.png" />
                     <p className="card-text">{post.title}</p>
-                  </div> 
-                  <div className="card-footer">
-                  <button className="viewbutton">View</button>
-                  <button className="sendbutton  dropdown-toggle">Send</button>
                   </div>
-                  {/* <Checkbox key={`checkbox-${i}`} content={post} setSelectedContent={this.setSelectedContent} /> */}
+                  <div className="card-footer">
+                    <DropDown itemData={post} selectedType={this.selectedType} />
+                  </div>
                 </div>
               </div>
             ))}
-          </div> : this.props.isLoading ? "" : <>No Results found</>}
+          </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
         </div>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return state
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    saveSelection: (params) => dispatch(saveSelectionAction(params))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Card)
-
+export default Card
