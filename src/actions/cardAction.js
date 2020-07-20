@@ -1,4 +1,4 @@
-import {SAVE_SELECTION, SELECTED_TYPE} from '../constants/actionConstants'
+import {SAVE_SELECTION, SELECTED_TYPE} from '../constants/actionConstants';
 
 export const saveSelectionAction = (params) => {
     return {

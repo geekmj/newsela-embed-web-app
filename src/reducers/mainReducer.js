@@ -4,8 +4,12 @@ const INITIAL_STATE = {
     queryParams: null,
     selectedData: null,
     selectedType: null,
-    resultsData: null
-}
+    resultsData: null,
+    selectArticles: null,
+    selectArticlesFilters: null,
+    selectFiltersByUser: null,
+    
+};
 
 const mainReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {

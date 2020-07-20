@@ -1,11 +1,11 @@
-const express = require('express')
-const path = require('path')
-const app = express()
-const os = require('os')
+const express = require('express');
+const path = require('path');
+const app = express();
+const os = require('os');
 
 app.use(express.static(path.join(__dirname).replace("server", "build")));
 
-const PORT = 4000 || process.env.PORT
+const PORT = 4000 || process.env.PORT;
 
 app.get('/check', (req, res) => {
 

@@ -32,18 +32,18 @@ const apiCaller = ({
     }
 
     if(data){
-        options.data = data
+        options.data = data;
     }
 
-    axios.defaults.withCredentials = true
+    axios.defaults.withCredentials = true;
     return axios(options)
         .catch(function (error) {
             if (error.response) {
             //    log.error(error.response.data);
             //    log.error(error.response.status);
-                throw new Error(error)
+                throw new Error(error);
             }
         });
-}
+};
 
 export default apiCaller
