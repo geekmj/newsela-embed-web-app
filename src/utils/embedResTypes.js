@@ -34,6 +34,25 @@ module.exports = {
          }
       ]
    },
+   'mediumThumbnail':{
+      "@context":"http://purl.imsglobal.org/ctx/lti/v1/ContentItem",
+      "@graph":[
+         {
+            "@type":"ContentItem",
+            "url":"contentItemUrl",
+            "mediaType":"text/html",
+            "thumbnail":{
+               "@id":"contentThumbnailImageUrl",
+               "width":200,
+               "height":200
+            },
+            "title":"title",
+            "placementAdvice":{
+               "presentationDocumentTarget":"window"
+            }
+         }
+      ]
+   },
    'largeThumbnail':{
     "@context":"http://purl.imsglobal.org/ctx/lti/v1/ContentItem",
     "@graph":[

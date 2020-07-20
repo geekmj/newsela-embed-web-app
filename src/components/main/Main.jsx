@@ -3,22 +3,18 @@ import { connect } from 'react-redux'
 import { parseQuery, readCookie } from '../../utils/commonFunctions'
 import { checkNodeServer, searchApi } from '../../services/common.services'
 import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/mainAction.js'
-import { selectedTypeAction } from "../../actions/cardAction"
 import Card from '../card'
-import DropDown from '../dropdown'
 import Searchbar from '../searchbar';
-import embedResType from '../../utils/embedResTypes'
 import Loader from '../loader'
 class Main extends Component {
     state = {
         jsonData: [],
         searchKey: '',
-        currentPage: 1,
+        currentPage: 0,
         isLoading: false
     }
 
     componentDidMount() {
-        // throw new Error("An error has occured in component!");
 
         //Get query params from url
         this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
@@ -26,57 +22,36 @@ class Main extends Component {
     }
 
     searchAndSave = (type = '') => {
-        this.setState({
-            isLoading: true
-        })
 
-        searchApi(this.state.searchKey, this.state.currentPage).then((response) => {
-            let updatedJson
-            if (type == 'loadMore') {
-                updatedJson = this.state.jsonData
-                updatedJson = [...updatedJson, ...response.data.results]
-            } else {
-                updatedJson = response.data.results
-            }
+        if ((type == 'search' && this.state.searchKey.trim()) || type != 'search') {
+
+            let currentPage = 1
 
             this.setState({
-                jsonData: updatedJson,//response.data.results,
-                currentPage: this.state.currentPage + 1,
-                isLoading: false
+                isLoading: true
             })
-            this.props.saveResults(updatedJson)
-        })
-    }
 
-    prepareJson = (value) => {
-        let selectedType = value//this.props.selectedResType;
-        let selectedData = this.props.selectedData;
-        let jsonData = embedResType[selectedType]
+            if (type == 'loadMore') {
+                currentPage = this.state.currentPage + 1
+            }
 
-        switch (selectedType) {
-            case 'LtiLinkItem':
-                jsonData.title = selectedData.title
-                break
-            case 'smallThumbnail':
-                jsonData.title = selectedData.title
-                break
-            case 'largeThumbnail':
-                jsonData.title = selectedData.title
-                break;
+            searchApi(this.state.searchKey, currentPage).then((response) => {
+                let updatedJson
+                if (type == 'loadMore') {
+                    updatedJson = this.state.jsonData
+                    updatedJson = [...updatedJson, ...response.data.results]
+                } else {
+                    updatedJson = response.data.results
+                }
+
+                this.setState({
+                    jsonData: updatedJson,
+                    currentPage: currentPage,
+                    isLoading: false
+                })
+                this.props.saveResults(updatedJson)
+            })
         }
-
-        console.log('>>>>>>>', selectedData, selectedType, jsonData)
-    }
-
-    selectedType = (value) => {
-        this.props.selectedType(value)
-        this.prepareJson(value)
-    }
-
-    filterData = (data) => {
-        this.setState({
-            jsonData: data,
-        })
     }
 
     updateValue = (key, value) => {
@@ -85,12 +60,7 @@ class Main extends Component {
             this.setState({
                 searchKey: value
             })
-        } else if (key == 'currentPage') {
-            this.setState({
-                currentPage: value
-            })
         }
-
     }
 
     loadMore = () => {
@@ -100,9 +70,8 @@ class Main extends Component {
     render() {
 
         return (<>
-            {/* <DropDown  selectedType= {this.selectedType}/> */}
-            <Searchbar searchAndSave = {this.searchAndSave} updateValue={this.updateValue} filterData={this.filterData} jsonData={this.props.jsonData} />
-            <Card isLoading = {this.state.isLoading} jsonData={this.state.jsonData} />
+            <Searchbar searchAndSave={this.searchAndSave} updateValue={this.updateValue} jsonData={this.props.jsonData} />
+            <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData} />
             {this.state.jsonData && this.state.jsonData.length == 0 ? "" : <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button>}
             {this.state.isLoading ? <Loader /> : ""}
         </>)
@@ -111,8 +80,6 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedResType: state.rootReducer.mainReducer.selectedType,
-        selectedData: state.rootReducer.mainReducer.selectedData,
         jsonData: state.rootReducer.mainReducer.resultsData
     }
 }
@@ -120,7 +87,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         saveQueryParamsOnLaunch: (params) => dispatch(saveQueryParamsOnLaunchAction(params)),
-        selectedType: (params) => dispatch(selectedTypeAction(params)),
         saveResults: (params) => dispatch(saveResultsAction(params))
     }
 }
