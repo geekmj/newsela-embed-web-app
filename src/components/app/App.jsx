@@ -6,6 +6,8 @@ import { register } from '../../serviceWorker';
 import Routes from '../../routes';
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
+import ErrorFallback from '../errorFallback/ErrorFallback';
+
 import '../../assets/styles/style.css'
 
 function Wrapper() {
@@ -15,10 +17,8 @@ function Wrapper() {
 }
 
 function FallbackComponent() {
-  
-  return (
-    <div>An error has occured</div>
-  )
+
+  return (<ErrorFallback message="An error has accured" />)
 
 }
 class App extends Component {
@@ -34,7 +34,7 @@ class App extends Component {
       <BrowserRouter>
         <Sentry.ErrorBoundary fallback={FallbackComponent} showDialog={true}>
           <Header />
-          <Wrapper/> 
+          <Wrapper />
           {/* <Footer /> */}
         </Sentry.ErrorBoundary>
       </BrowserRouter>
