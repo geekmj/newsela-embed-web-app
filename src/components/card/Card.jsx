@@ -12,6 +12,7 @@ class Card extends Component {
     this.state = {
       showPerPage: 4,
       search: "",
+      changeView:false,
       selectedContent: []
     }
   }
@@ -58,12 +59,12 @@ class Card extends Component {
     window.open(NEWSELA_URL + path)
   }
 
-  handleChangeView = () =>{
+  handleChangeViewList = () =>{
     this.setState({
       changeView:true
     })
   }
-  handleChangeViewList = () =>{
+  handleChangeViewGrid = () =>{
     this.setState({
       changeView:false
     })
@@ -77,16 +78,29 @@ class Card extends Component {
     return (
       <div className="card2">
         <div className="container-fluid py-4 mt-3 px-4">
-          <Filter />
+         <div className="row">
+            <div className="co-md-8">
+                 <Filter />
+            </div>
+            <div className="co-md-4">
+                <button onClick={this.handleChangeViewGrid}>Grid</button>
+                <button onClick={this.handleChangeViewList}>List</button>
+            </div>
+          </div>
           {data && data.length > 0 ? <div className="row pb-4 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
-              <div className="col-md-3 mb-3 pr-0" key={post.id}>
-                <div className="card h-100 ">
-                  <div className="card-body" style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
-                    <img src={post.image} width="100%" alt="imgage.png" />
-                    <p className="card-text">{post.title}</p>
-                  </div>
-                  <div className="card-footer">
+              <div className={`mb-3 pr-0 ${changeView?'col-md-6':'col-md-3'}`} key={post.id}>
+                <div className={`card h-100 ${changeView?'p-3':''}`} >
+                  <div className={`h-100 ${changeView?'row list-wrap':''}`}  style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
+                      <div className={`${changeView?'col-md-4 pr-0':''}`}>
+                        <img src={post.image} width="100%" alt="imgage.png" />
+                      </div>
+                    <div className={`${changeView?'col-md-8':'card-body'}`} >
+                       
+                       <p className="card-text">{post.title}</p>
+                    </div>
+                   </div>
+                  <div className={`${changeView?'list-footer':'card-footer'}`}>
                     <DropDown itemData={post} selectedType={this.selectedType} />
                   </div>
                 </div>
@@ -95,6 +109,34 @@ class Card extends Component {
           </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
         </div>
       </div>
+
+
+
+      // <div className="card2">
+      //   <div className="container-fluid py-4 mt-3 px-4">
+      //     <Filter />
+      //     {data && data.length > 0 ? <div className="row pb-4 pr-3" >
+      //       {data && data.length > 0 && data.map((post, i) => (
+      //         <div className="col-md-6 mb-3 pr-0" key={post.id}>
+      //           <div className="card h-100 p-3 ">
+      //             <div className=" row list-wrap h-100 " style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
+      //                 <div className="col-md-4 pr-0">
+      //                 <img src={post.image} width="100%" alt="imgage.png" />
+      //                 </div>
+      //               <div className="col-md-8" >
+                       
+      //                  <p className="card-text">{post.title}</p>
+      //               </div>
+      //              </div>
+      //             <div className="card-footer">
+      //               <DropDown itemData={post} selectedType={this.selectedType} />
+      //             </div>
+      //           </div>
+      //         </div>
+      //       ))}
+      //     </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
+      //   </div>
+      // </div>
     )
   }
 }
