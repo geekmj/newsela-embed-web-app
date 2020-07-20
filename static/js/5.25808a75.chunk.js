@@ -1,0 +1,2 @@
+(this["webpackJsonpnewsela-embed-web-app"]=this["webpackJsonpnewsela-embed-web-app"]||[]).push([[5],{107:function(e,n,t){"use strict";t.r(n);var a=t(25),r=t(26),u=t(28),c=t(27),p=t(0),s=t.n(p),b=function(e){Object(u.a)(t,e);var n=Object(c.a)(t);function t(){return Object(a.a)(this,t),n.apply(this,arguments)}return Object(r.a)(t,[{key:"render",value:function(){return s.a.createElement(s.a.Fragment,null,"NotFound")}}]),t}(p.Component);n.default=b}}]);
+//# sourceMappingURL=5.25808a75.chunk.js.map

@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/newsela-embed-web-app/static/css/main.ccd82fce.chunk.css",
+    "main.js": "/newsela-embed-web-app/static/js/main.25d65245.chunk.js",
+    "main.js.map": "/newsela-embed-web-app/static/js/main.25d65245.chunk.js.map",
+    "runtime-main.js": "/newsela-embed-web-app/static/js/runtime-main.2a0287b2.js",
+    "runtime-main.js.map": "/newsela-embed-web-app/static/js/runtime-main.2a0287b2.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/newsela-embed-web-app/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.fff9c0f6.chunk.js": "/newsela-embed-web-app/static/js/2.fff9c0f6.chunk.js",
+    "static/js/2.fff9c0f6.chunk.js.map": "/newsela-embed-web-app/static/js/2.fff9c0f6.chunk.js.map",
+    "static/js/3.ce2272e3.chunk.js": "/newsela-embed-web-app/static/js/3.ce2272e3.chunk.js",
+    "static/js/3.ce2272e3.chunk.js.map": "/newsela-embed-web-app/static/js/3.ce2272e3.chunk.js.map",
+    "static/js/4.81f20dc1.chunk.js": "/newsela-embed-web-app/static/js/4.81f20dc1.chunk.js",
+    "static/js/4.81f20dc1.chunk.js.map": "/newsela-embed-web-app/static/js/4.81f20dc1.chunk.js.map",
+    "static/js/5.25808a75.chunk.js": "/newsela-embed-web-app/static/js/5.25808a75.chunk.js",
+    "static/js/5.25808a75.chunk.js.map": "/newsela-embed-web-app/static/js/5.25808a75.chunk.js.map",
+    "index.html": "/newsela-embed-web-app/index.html",
+    "precache-manifest.b818751907622d0c5e4e9621d3575ab7.js": "/newsela-embed-web-app/precache-manifest.b818751907622d0c5e4e9621d3575ab7.js",
+    "service-worker.js": "/newsela-embed-web-app/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/newsela-embed-web-app/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.ccd82fce.chunk.css.map": "/newsela-embed-web-app/static/css/main.ccd82fce.chunk.css.map",
+    "static/js/2.fff9c0f6.chunk.js.LICENSE.txt": "/newsela-embed-web-app/static/js/2.fff9c0f6.chunk.js.LICENSE.txt",
+    "static/js/3.ce2272e3.chunk.js.LICENSE.txt": "/newsela-embed-web-app/static/js/3.ce2272e3.chunk.js.LICENSE.txt",
+    "static/media/spiner.svg": "/newsela-embed-web-app/static/media/spiner.bd30e7f1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2a0287b2.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.fff9c0f6.chunk.js",
+    "static/css/main.ccd82fce.chunk.css",
+    "static/js/main.25d65245.chunk.js"
+  ]
+}
