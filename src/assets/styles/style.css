@@ -170,6 +170,8 @@
   font-size: 14px;
   font-weight: bold;
   border: 0;
+  float:right;
+  margin-top:-10px;
 }
 .sendbutton:focus{
   outline: none;
@@ -222,6 +224,27 @@
     margin-right:30px;
 }
 
+.btn-secondary:hover {
+  color: #106FF3;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-secondary:active {
+  color: #106FF3 !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+.btn-secondary:focus{
+  outline: none !important;
+}
+.list-wrap{
+  flex-wrap: nowrap !important;
+}
+
+
+.cardbody{
+  padding-left: 15px;
+}
 
 @media screen and (max-width:767px) {
 .upload-loading{
