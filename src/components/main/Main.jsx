@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { parseQuery, readCookie } from '../../utils/commonFunctions'
-import { checkNodeServer, searchApi } from '../../services/common.services'
+import { searchApi } from '../../services/common.services'
 import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/mainAction.js'
 import Card from '../card'
 import Searchbar from '../searchbar';
