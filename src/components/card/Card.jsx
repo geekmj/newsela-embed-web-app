@@ -5,6 +5,8 @@ import * as _ from 'lodash'
 import embedResType from '../../utils/embedResTypes'
 import ErrorFallback from '../errorFallback/ErrorFallback';
 import { NEWSELA_URL } from '../../constants/urls'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faThLarge,faThList}  from '@fortawesome/free-solid-svg-icons'
 
 class Card extends Component {
   constructor(props) {
@@ -78,13 +80,16 @@ class Card extends Component {
     return (
       <div className="card2">
         <div className="container-fluid py-4 mt-3 px-4">
-         <div className="row">
+         <div className="row px-3 list-grid">
             <div className="co-md-8">
                  <Filter />
             </div>
             <div className="co-md-4">
-                <button onClick={this.handleChangeViewGrid}>Grid</button>
-                <button onClick={this.handleChangeViewList}>List</button>
+            <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid}  className={`grid ${changeView?'':'active'}`}/>
+            <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView?'active':''}`} />
+                {/* <button onClick={this.handleChangeViewGrid}>Grid</button> */}
+                {/* <button onClick={this.handleChangeViewList}>List</button> */}
+                
             </div>
           </div>
           {data && data.length > 0 ? <div className="row pb-4 pr-3" >
