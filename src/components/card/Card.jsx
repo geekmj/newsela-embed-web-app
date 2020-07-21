@@ -87,9 +87,6 @@ class Card extends Component {
             <div className="co-md-4">
             <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid}  className={`grid ${changeView?'':'active'}`}/>
             <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView?'active':''}`} />
-                {/* <button onClick={this.handleChangeViewGrid}>Grid</button> */}
-                {/* <button onClick={this.handleChangeViewList}>List</button> */}
-                
             </div>
           </div>
           {data && data.length > 0 ? <div className="row pb-4 pr-3" >
@@ -114,34 +111,6 @@ class Card extends Component {
           </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
         </div>
       </div>
-
-
-
-      // <div className="card2">
-      //   <div className="container-fluid py-4 mt-3 px-4">
-      //     <Filter />
-      //     {data && data.length > 0 ? <div className="row pb-4 pr-3" >
-      //       {data && data.length > 0 && data.map((post, i) => (
-      //         <div className="col-md-6 mb-3 pr-0" key={post.id}>
-      //           <div className="card h-100 p-3 ">
-      //             <div className=" row list-wrap h-100 " style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
-      //                 <div className="col-md-4 pr-0">
-      //                 <img src={post.image} width="100%" alt="imgage.png" />
-      //                 </div>
-      //               <div className="col-md-8" >
-                       
-      //                  <p className="card-text">{post.title}</p>
-      //               </div>
-      //              </div>
-      //             <div className="card-footer">
-      //               <DropDown itemData={post} selectedType={this.selectedType} />
-      //             </div>
-      //           </div>
-      //         </div>
-      //       ))}
-      //     </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
-      //   </div>
-      // </div>
     )
   }
 }
