@@ -5,6 +5,8 @@ import * as _ from 'lodash'
 import embedResType from '../../utils/embedResTypes'
 import ErrorFallback from '../errorFallback/ErrorFallback';
 import { NEWSELA_URL } from '../../constants/urls'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faThLarge,faThList}  from '@fortawesome/free-solid-svg-icons'
 
 class Card extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class Card extends Component {
     this.state = {
       showPerPage: 4,
       search: "",
-
+      changeView:false,
       selectedContent: []
     }
   }
@@ -59,22 +61,48 @@ class Card extends Component {
     window.open(NEWSELA_URL + path)
   }
 
+  handleChangeViewList = () =>{
+    this.setState({
+      changeView:true
+    })
+  }
+  handleChangeViewGrid = () =>{
+    this.setState({
+      changeView:false
+    })
+  }
+
+
   render() {
     let data = this.props.jsonData
+    let {changeView}= this.state;
 
     return (
       <div className="card2">
         <div className="container-fluid py-4 mt-3 px-4">
-          <Filter />
+         <div className="row px-3 list-grid">
+            <div className="co-md-8">
+                 <Filter />
+            </div>
+            <div className="co-md-4">
+            <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid}  className={`grid ${changeView?'':'active'}`}/>
+            <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView?'active':''}`} />
+            </div>
+          </div>
           {data && data.length > 0 ? <div className="row pb-4 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
-              <div className="col-md-3 mb-3 pr-0" key={post.id}>
-                <div className="card h-100 ">
-                  <div className="card-body" style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
-                    <img src={post.image} width="100%" alt="imgage.png" />
-                    <p className="card-text">{post.title}</p>
-                  </div>
-                  <div className="card-footer">
+              <div className={`mb-3 pr-0 ${changeView?'col-md-6':'col-md-3'}`} key={post.id}>
+                <div className={`card h-100 ${changeView?'p-3':''}`} >
+                  <div className={`h-100 ${changeView?'row list-wrap':''}`}  style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
+                      <div className={`${changeView?'col-md-4 pr-0':''}`}>
+                        <img src={post.image} width="100%" alt="imgage.png" />
+                      </div>
+                    <div className={`${changeView?'col-md-8':'card-body'}`} >
+                       
+                       <p className="card-text">{post.title}</p>
+                    </div>
+                   </div>
+                  <div className={`${changeView?'list-footer':'card-footer'}`}>
                     <DropDown itemData={post} selectedType={this.selectedType} />
                   </div>
                 </div>
