@@ -3,29 +3,43 @@ import '../../assets/styles/style.css'
 
 export class Filter extends Component {
     state={
-        option:false,
+        option1:false,
+        option2:false
     }
     handleOpenOptions = () =>{
         this.setState({
             option1:!this.state.option1,
+            option2:false
         })
     }
     handleOpenOptions1 = () =>{
         this.setState({
             option2:!this.state.option2,
+            option1:false
         })
     }
-
-    handleBlur = () =>{
+    closeOption = () =>{
         this.setState({
-            option1:false,
-            option2:false
+            option2:false,
+            option1:false
         })
     }
 
+    
+    componentDidMount (){
+        window.addEventListener("click", event=>{
+            if(this.state.option1  && !this.node.contains(event.target) || this.state.option2  && !this.node.contains(event.target)){
+                this.setState({
+                 option1:false,
+                 option2:false
+                })
+            }
+        })
+    }
+    
     render() {
         return (
-            <div className="filter" ref={n => (this.node=n)} onBlur={this.handleBlur}>
+            <div className="filter" ref={n =>(this.node = n)} >
                <div className="btn-1">
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
@@ -39,7 +53,7 @@ export class Filter extends Component {
                    Election 2021
                   </lable>
                   <div className="button-group">
-                     <button className="cancel">Cancel</button>
+                     <button className="cancel" onClick={this.closeOption}>Cancel</button>
                      <button className="apply">Apply</button>
                   </div>
                    </div>:null
@@ -58,7 +72,7 @@ export class Filter extends Component {
                    Election 2021
                   </lable>
                   <div className="button-group">
-                     <button className="cancel">Cancel</button>
+                     <button className="cancel" onClick={this.closeOption}>Cancel</button>
                      <button className="apply">Apply</button>
                   </div>
                    </div>:null

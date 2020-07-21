@@ -142,7 +142,7 @@
     min-width: 325px;
     top: 48px;
     display: grid;
-    border-radius: 3px;
+    border-radius: 0px;
   }
 
   .send-dropdown{
