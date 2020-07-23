@@ -12,7 +12,11 @@ class Routes extends Component {
                     <Route
                         path='/main' exact component={Main} />
                     <Route
+<<<<<<< HEAD
                         path='*' component={Main} />
+=======
+                        path='*' component={NotFound} />
+>>>>>>> upstream/master
                 </Switch>
             </Suspense>
         </>)

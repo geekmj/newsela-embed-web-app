@@ -4,7 +4,6 @@
 * Plop for component generation
 * Error handling using error boundaries React
 * Logging the errors
-* Nodejs server added and configured to run concurrently
 * Routing integrated
 * SASS and CSS loaders configured :art:
 * Hot reload configured :sunny:
