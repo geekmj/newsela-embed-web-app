@@ -1,0 +1,84 @@
+<svg class="circular-loader" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-qa-selector="loading_spinner">
+  <title>Loading Spinner</title>
+  <!---
+    There is some fun math going on in here.
+    - The viewbox has a width/height of 50.
+    - the circle wants to take up this full width which means the radius = 25.
+    - but we have a stroke width of 3 so subtract 6 from the diameter (50 - 6)/2 r=22
+    - circumference = 2* pi * r so our circumfrence is 138.23
+    - we have 5 circles minimic a section of one circle. 138.23/5 = 27.646
+    - stroke-dasharray = (length of stroke) length of gap.
+    - stroke-dasharray: 27.646 138.23
+    Who ever said you wouldn't use geometry in the real world?
+  -->
+  <style>
+    .circular-loader {
+      -webkit-animation: rotate 2s linear infinite;
+            animation: rotate 2s linear infinite;
+      height: auto;
+      -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+      transform-origin: center center;
+  }
+
+  .two {
+    stroke-dashoffset: -27.646;
+  }
+  .three {
+    stroke-dashoffset: -55.292;
+  }
+  .four {
+    stroke-dashoffset: -82.938;
+  }
+  .five {
+    stroke-dashoffset: -110.584;
+  }
+  .loader-path {
+    stroke-dasharray: 27.646, 138.23;
+    animation: grow 1.5s ease-in-out infinite;
+    stroke-linecap: round;
+  }
+
+  @-webkit-keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+
+  @keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+
+  @keyframes grow {
+    0% {
+      stroke-dasharray: 0, 138.23;
+    }
+    50% {
+      stroke-dasharray: 27.646, 138.23;
+    }
+    100% {
+      stroke-dasharray: 0, 138.23;
+    }
+  }
+  @-webkit-keyframes grow {
+    0% {
+      stroke-dasharray: 0, 138.23;
+    }
+    50% {
+      stroke-dasharray: 27.646, 138.23;
+    }
+    100% {
+      stroke-dasharray: 0, 138.23;
+    }
+}
+  </style>
+    <circle class="loader-path one" cx="25" cy="25" r="22" fill="none" stroke="#031E3E" stroke-width="3" />
+    <circle class="loader-path two" cx="25" cy="25" r="22" fill="none" stroke="#FE971E" stroke-width="3" />
+    <circle class="loader-path three" cx="25" cy="25" r="22" fill="none" stroke="#D54235" stroke-width="3" />
+    <circle class="loader-path four" cx="25" cy="25" r="22" fill="none" stroke="#52A821" stroke-width="3" />
+    <circle class="loader-path five" cx="25" cy="25" r="22" fill="none" stroke="#069bf3" stroke-width="3" />
+</svg>

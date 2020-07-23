@@ -14,7 +14,7 @@ class Card extends Component {
     this.state = {
       showPerPage: 4,
       search: "",
-      changeView: false,
+      changeView:false,
       selectedContent: []
     }
   }
@@ -97,9 +97,21 @@ class Card extends Component {
     </form>
   }
 
+  handleChangeViewList = () =>{
+    this.setState({
+      changeView:true
+    })
+  }
+  handleChangeViewGrid = () =>{
+    this.setState({
+      changeView:false
+    })
+  }
+
+
   render() {
     let data = this.props.jsonData
-    let { changeView } = this.state;
+    let {changeView}= this.state;
 
     return (
       <div className="card2">
@@ -141,3 +153,4 @@ class Card extends Component {
 }
 
 export default Card
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
