@@ -20,14 +20,20 @@ class DropDown extends Component {
             option:!this.state.option
         })
     }
-    handleBlur = () =>{
-        this.setState({
-            option:false
+
+    componentDidMount (){
+        window.addEventListener("click", event=>{
+            if(this.state.option && !this.node.contains(event.target)){
+                this.setState({
+                 option:false
+                })
+            }
         })
     }
+   
     render() {
         return (
-            <div className="dropdown" ref={n => (this.node=n)} onBlur={this.handleBlur}>
+            <div className="dropdown" ref={n =>(this.node = n)}>
                 <button className="sendbutton dropdown-toggle" type="button" onClick={()=>this.handleClick()}>
                     Send
                 </button>{
