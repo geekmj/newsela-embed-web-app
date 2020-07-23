@@ -91,7 +91,7 @@ class Card extends Component {
           </div>
           {data && data.length > 0 ? <div className="row pb-4 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
-              <div className={`mb-3 pr-0 ${changeView?'col-md-6':'col-md-3'}`} key={post.id}>
+              <div className={`mb-4 pr-0 ${changeView?'col-md-6':'col-md-3'}`} key={post.id}>
                 <div className={`card h-100 ${changeView?'p-3':''}`} >
                   <div className={`h-100 ${changeView?'row list-wrap':''}`}  style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
                       <div className={`${changeView?'col-md-4 pr-0':''}`}>
