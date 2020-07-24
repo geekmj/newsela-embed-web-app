@@ -17,7 +17,7 @@ class Card extends Component {
     this.state = {
       showPerPage: 4,
       search: "",
-      changeView:false,
+      changeView: false,
       selectedContent: []
     }
   }
@@ -100,20 +100,20 @@ class Card extends Component {
     </form>
   }
 
-  handleChangeViewList = () =>{
+  handleChangeViewList = () => {
     this.setState({
-      changeView:true
+      changeView: true
     })
   }
-  handleChangeViewGrid = () =>{
+  handleChangeViewGrid = () => {
     this.setState({
-      changeView:false
+      changeView: false
     })
   }
 
 
   render() {
-    let data = this.props.jsonData
+    let data = this.props.jsonData;
     let {changeView}= this.state;
     const filterList = this.props.filterList;
     const callFilter = this.props.callFilter;
@@ -128,7 +128,7 @@ class Card extends Component {
               <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
               <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
             </div>
-            
+
           </div>
           {this.responseForm()}
           {data && data.length > 0 ? <div className="row pb-3 pr-3" >
@@ -145,12 +145,16 @@ class Card extends Component {
                     </div>
                   </div>
                   <div className={`${changeView ? 'list-footer' : 'card-footer'}`}>
-                     <div className={`${changeView ? 'list-icon' : ''}`}>
-                       <img src={Quizicon} width="20px" height="17px"alt="quizicon" />
-                       <img src={Essentials} width="20px" height="17px"alt="quizicon" />
+                    <div className={`${changeView ? 'list-icon' : ''}`}  onClick={() => this.openArticle(post.url)}>
+                      {
+                        post && Object.keys(post["object"]).length > 0 && post["object"]["translations"] && post["object"]["translations"].length > 0 && post["object"]["translations"][0].display_language == "Spanish" ?
+                          <img src={Essentials} width="20px" height="17px" alt="quizicon" /> : ""
+                      }
+                      {/* <img src={Quizicon} width="20px" height="17px" alt="quizicon" /> */}
+
                     </div>
                     <div>
-                       <DropDown itemData={post} selectedType={this.selectedType} />
+                      <DropDown itemData={post} selectedType={this.selectedType} />
                     </div>
                   </div>
                 </div>

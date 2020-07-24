@@ -1,6 +1,5 @@
 import apiCaller from './apiCaller';
-import { ASSIGNMENT } from '../constants/apiEndpoints';
-import { SEARCH_API_URL, ASSIGNMENT_API_URL } from '../constants/urls'
+import { SEARCH_API_URL } from '../constants/urls'
 
 
 export const searchApi = (searchKeyword, pageNo) => {
@@ -12,10 +11,3 @@ export const searchApi = (searchKeyword, pageNo) => {
     return apiCaller(reqObj)
 }
 
-export const assignmentApi = (searchKeyword) => {
-
-    const reqObj = {}
-    reqObj.url = ASSIGNMENT_API_URL + ASSIGNMENT
-    reqObj.method = 'get'
-    return apiCaller(reqObj)
-}
