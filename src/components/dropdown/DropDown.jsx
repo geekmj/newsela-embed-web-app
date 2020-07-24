@@ -35,7 +35,7 @@ class DropDown extends Component {
         return (
             <div className="dropdown" ref={n =>(this.node = n)}>
                 <button className="sendbutton dropdown-toggle" type="button" onClick={()=>this.handleClick()}>
-                    Send
+                    Embed
                 </button>{
                     this.state.option?
                         <div className="send-dropdown" onClick= {(e)=>this.handleChange(e)}>
