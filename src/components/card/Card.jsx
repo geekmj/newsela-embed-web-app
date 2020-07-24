@@ -76,13 +76,14 @@ class Card extends Component {
   render() {
     let data = this.props.jsonData
     let {changeView}= this.state;
-
+    const filterList = this.props.filterList;
+    const callFilter = this.props.callFilter;
     return (
       <div className="card2">
         <div className="container-fluid py-4 mt-3 px-4">
          <div className="row px-3 list-grid">
             <div className="co-md-8">
-                 <Filter />
+                 <Filter filterList={filterList} callFilter={callFilter} />
             </div>
             <div className="co-md-4">
             <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid}  className={`grid ${changeView?'':'active'}`}/>
