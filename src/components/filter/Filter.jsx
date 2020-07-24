@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../../assets/styles/style.css'
+import MoreFilter from '../morefilter'
 
 export class Filter extends Component {
     state={
