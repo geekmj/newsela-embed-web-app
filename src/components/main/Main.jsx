@@ -9,6 +9,7 @@ import Loader from '../loader'
 class Main extends Component {
     state = {
         jsonData: [],
+        filter: [],
         searchKey: '',
         currentPage: 0,
         isLoading: false
@@ -19,6 +20,19 @@ class Main extends Component {
         //Get query params from url
         this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
         this.searchAndSave()
+    }
+    sortByDisplayOrder = (firstDisplayOrder,secondDisplayOrder) => {
+        if (firstDisplayOrder.display_order < secondDisplayOrder.display_order ){
+            return -1;
+          }
+          if (firstDisplayOrder.display_order > secondDisplayOrder.display_order ){
+            return 1;
+          }
+          return 0;
+    }
+
+    searchByFilter = (data) => {
+          alert("Test ----> "+data);
     }
 
     searchAndSave = (type = '') => {
@@ -36,7 +50,14 @@ class Main extends Component {
             }
 
             searchApi(this.state.searchKey, currentPage).then((response) => {
-                let updatedJson
+                const filter = response.data.aggregations.facets;
+                let filterRender = filter.sort(this.sortByDisplayOrder);
+                filterRender.forEach((item,index) => {
+                       console.log(item)      
+                })    
+                
+                
+                let updatedJson = null;
                 if (type == 'loadMore') {
                     updatedJson = this.state.jsonData
                     updatedJson = [...updatedJson, ...response.data.results]
@@ -46,8 +67,9 @@ class Main extends Component {
 
                 this.setState({
                     jsonData: updatedJson,
+                    filter:filterRender,
                     currentPage: currentPage,
-                    isLoading: false
+                    isLoading: false,
                 })
                 this.props.saveResults(updatedJson)
             })
@@ -70,9 +92,9 @@ class Main extends Component {
     render() {
 
         return (<>
-            <Searchbar searchAndSave={this.searchAndSave} updateValue={this.updateValue} jsonData={this.props.jsonData} />
-            <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData} />
-            {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"> <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
+            <Searchbar searchAndSave={this.searchAndSave}  updateValue={this.updateValue} jsonData={this.props.jsonData} />
+            <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData} callFilter={this.searchByFilter} filterList={this.state.filter} />
+            {this.state.jsonData && this.state.jsonData.length == 0 ? "" : <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button>}
             {this.state.isLoading ? <Loader /> : ""}
         </>)
     }

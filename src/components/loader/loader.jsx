@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../assets/styles/style.css'
-import loader from '../../assets/images/Loading-Spinner.svg';
+import loader from '../../assets/images/spiner.svg';
 
 class Loader extends Component {
 
