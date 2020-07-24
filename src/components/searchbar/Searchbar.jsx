@@ -11,12 +11,14 @@ class Searchbar extends Component {
     }
 
 
-    handleOnInputChange = (value) => {
+    handleOnInputChange = (e) => {
         this.setState({
-            searchKey: value,
+            searchKey: e.target.value,
         })
-
-        this.props.updateValue('searchKey', value)
+        if(e.charCode == 13){ 
+            this.searchWord()
+        }
+         this.props.updateValue('searchKey',e.target.value )
     }
 
     filterBasedOnSearchKey = (searchKey) => {
@@ -27,7 +29,7 @@ class Searchbar extends Component {
     }
 
     searchWord = () => {
-            this.props.searchAndSave('search')
+        this.props.searchAndSave('search')
     }
 
     render() {
@@ -36,7 +38,7 @@ class Searchbar extends Component {
             <div className="container">
                 <div className="searchmg">
                     <div className="searchbarsection">
-                        <input type="text" value={this.state.searchKey} placeholder="What do you want to teach?" onChange={(e) => this.handleOnInputChange(e.target.value)} />
+                        <input type="text"  maxlength="200" value={this.state.searchKey} placeholder="What do you want to teach?" onKeyPress={(e) => this.handleOnInputChange(e)} onChange={(e) => this.handleOnInputChange(e)} />
                         <button className="searchbutton" onClick={() => this.searchWord()}>Search</button>
                     </div>
                 </div>
