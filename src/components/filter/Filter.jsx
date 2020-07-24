@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import '../../assets/styles/style.css'
+import MoreFilter from '../morefilter'
 
 export class Filter extends Component {
     state={
         option1:false,
-        option2:false
+        option2:false,
+        more:false
     }
     handleOpenOptions = () =>{
         this.setState({
@@ -24,7 +26,12 @@ export class Filter extends Component {
             option1:false
         })
     }
-
+ 
+    handOpenMoreFilter = () =>{
+        this.setState({
+            more:!this.state.more
+        })
+    }
     
     componentDidMount (){
         window.addEventListener("click", event=>{
@@ -79,7 +86,10 @@ export class Filter extends Component {
                 }
                 </div>
                 <button className="filterbutton dropdown-toggle">Text Level </button>
-                <button className="filterbutton dropdown-toggle">Language </button>
+                <button className="filterbutton dropdown-toggle" onClick={this.handOpenMoreFilter}>More Filter </button>
+                {this.state.more?< MoreFilter />:null
+
+                }
             </div>
         )
     }

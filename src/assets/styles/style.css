@@ -57,6 +57,7 @@
   }
   .card2{
     background-color: #f8f9fb;
+    min-height:60vh;
   }
   .searchbarsection{
     position: relative;
@@ -164,17 +165,20 @@
     color: #333333;
   }
 
-  .card{
+.card{
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2) !important;
   background-color: #ffffff;
   border-radius: 0;
   border:0;
   height: 366px;
-  }
-
-  .card-img-top {
-    height: 12rem;
-    object-fit: cover;
+}
+.card:hover{
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.3) !important;
+  transition: 0.2s ease-in-out;
+}
+.card-img-top {
+  height: 12rem;
+  object-fit: cover;
 }
 
 .card-footer{
@@ -228,10 +232,15 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    padding: .9em 1.5em;
+    font-size: 14px;
+    padding: .5em 1.5em;
     border: 0.15em solid transparent;
     color:#fff;
-    margin-right:30px;
+    height: 48px;
+}
+.load-more-button:focus
+{
+  outline: none !important;
 }
 
 .btn-secondary:hover {
@@ -283,8 +292,24 @@
     padding: 0;
 }
 
+.card-text{
+  font-size: 20px;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.7rem;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
 .card-text:hover{
   text-decoration: underline;
+}
+.card-title{
+  font-size: 12px;
+  color: #333;
+  font-weight: bold;
 }
 
 .btn-1{
@@ -344,26 +369,29 @@ input[type=checkbox]:before {
   background-color: white;
   position: absolute;
 }
+input[type=checkbox]:checked:before {
+  background-color: #767676;
+}
 input[type=checkbox]:checked:after {
   content: "";
   display: block;
-  width: 5px;
+  width: 6px;
   height: 12px;
-  border: 1px solid #777;
+  border: 1px solid #fff;
   border-width: 0 2.5px 2.5px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   position: absolute;
   top: 2.5px;
-  left: 6.5px;
+  left: 7px;
 }
 
- .filter lable{
+ lable{
   width: 100%;
   padding: 6px 1.5rem;
 }
-.filter lable:hover{
+ lable:hover{
   cursor: pointer;
   user-select: none;
   color: #fff;
@@ -375,6 +403,31 @@ input[type=checkbox]:checked:after {
   padding: 5px 1rem;
 }
 
+.filter-wrapper{
+  background-color:#f8f9fb; 
+    border: 0;
+    padding: 12px 0px;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left:0;
+    border-radius: 0px;
+   min-height:100%;
+}
+.more-filer-list{
+  background-color: #fff;
+  border: 0;
+  padding: 12px 0px;
+  display: grid;
+  border-radius: 0px;
+}
+.load-more-bgcolor{
+  background-color: #f8f9fb;
+  padding-bottom: 100px;
+  padding-right: 25px;
+}
+
 @media screen and (max-width:767px) {
 .upload-loading{
   margin: -20px 0 0 -20px;
@@ -382,4 +435,18 @@ input[type=checkbox]:checked:after {
 .upload-loading img {
   width: 40px;
 }
+}
+
+@media (max-width: 479px){
+  .container .searchbarsection input {
+    font-size: 20px;
+  }
+  .searchbutton{
+    cursor: pointer;
+    width: 90px;
+    height: 45px;
+    font-size: 18px;
+    line-height: 0;
+    vertical-align: middle;
+  }
 }

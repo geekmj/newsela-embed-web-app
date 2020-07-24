@@ -116,8 +116,8 @@ class Card extends Component {
 
     return (
       <div className="card2">
-        <div className="container-fluid py-4 mt-3 px-4">
-          <div className="row px-3 list-grid">
+        <div className="container-fluid pt-4 mt-3 px-4">
+          <div className="row px-3 pt-2 list-grid">
             <div className="co-md-8">
               <Filter />
             </div>
@@ -125,18 +125,19 @@ class Card extends Component {
               <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
               <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
             </div>
-            {this.responseForm()}
+            
           </div>
-          {data && data.length > 0 ? <div className="row pb-4 pr-3" >
+          {this.responseForm()}
+          {data && data.length > 0 ? <div className="row pb-3 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
-              <div className={`mb-3 pr-0 ${changeView ? 'col-md-6' : 'col-md-3'}`} key={post.id}>
+              <div className={`mb-4 pr-0 ${changeView ? 'col-md-6' : 'col-md-3'}`} key={post.id}>
                 <div className={`card h-100 ${changeView ? 'p-3' : ''}`} >
                   <div className={`h-100 ${changeView ? 'row list-wrap' : ''}`} style={{ 'cursor': 'pointer' }} onClick={() => this.openArticle(post.url)}>
                     <div className={`${changeView ? 'col-md-4 pr-0' : ''}`}>
                       <img src={post.image} width="100%" alt="imgage.png" />
                     </div>
-                    <div className={`${changeView ? 'col-md-8' : 'card-body'}`} >
-                      <p className="card-text">{post.display_category}</p>
+                    <div className={`${changeView ? 'col-md-8' : 'card-body pt-3'}`} >
+                      <h6 className="card-title text-uppercase mb-3">{post.display_category}</h6>
                       <p className="card-text">{post.title}</p>
                     </div>
                   </div>
