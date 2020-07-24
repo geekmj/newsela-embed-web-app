@@ -72,7 +72,7 @@ class Main extends Component {
         return (<>
             <Searchbar searchAndSave={this.searchAndSave} updateValue={this.updateValue} jsonData={this.props.jsonData} />
             <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData} />
-            {this.state.jsonData && this.state.jsonData.length == 0 ? "" : <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button>}
+            {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"> <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
             {this.state.isLoading ? <Loader /> : ""}
         </>)
     }
