@@ -7,6 +7,8 @@ import ErrorFallback from '../errorFallback/ErrorFallback';
 import { NEWSELA_URL } from '../../constants/urls'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons'
+import Quizicon from '../../assets/images/Quiz-icon.png'
+import Essentials from '../../assets/images/Essentials.png'
 
 class Card extends Component {
   constructor(props) {
@@ -137,11 +139,17 @@ class Card extends Component {
                     </div>
                     <div className={`${changeView ? 'col-md-8' : 'card-body pt-3'}`} >
                       <h6 className="card-title text-uppercase mb-3">{post.display_category}</h6>
-                      <p className="card-text">{post.title}</p>
+                      <p className={`${changeView ? 'list-text' : 'card-text'}`}>{post.title}</p>
                     </div>
                   </div>
                   <div className={`${changeView ? 'list-footer' : 'card-footer'}`}>
-                    <DropDown itemData={post} selectedType={this.selectedType} />
+                     <div className={`${changeView ? 'list-icon' : ''}`}>
+                       <img src={Quizicon} width="20px" height="17px"alt="quizicon" />
+                       <img src={Essentials} width="20px" height="17px"alt="quizicon" />
+                    </div>
+                    <div>
+                       <DropDown itemData={post} selectedType={this.selectedType} />
+                    </div>
                   </div>
                 </div>
               </div>
