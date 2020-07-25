@@ -67,10 +67,10 @@ class Card extends Component {
         break;
     }
 
-    this.handleHiddenForm(jsonData)
+    // this.handleHiddenForm(jsonData)
 
-    console.log('SELECTED CARD DATA---->>>>>', selectedData)
-    console.log('Prepared Respose JSON -------->>>>>>>', jsonData)
+    console.log('SELECTED CARD DATA---->>>>>',selectedData)
+    console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
   }
 
   selectedType = (value, itemData) => {
@@ -145,14 +145,14 @@ class Card extends Component {
                     </div>
                   </div>
                   <div className={`${changeView ? 'list-footer' : 'card-footer'}`}>
-                    <div className={`${changeView ? 'list-icon' : ''}`}  onClick={() => this.openArticle(post.url)}>
+                  <div className={`${changeView ? 'list-icon' : ''}`}  onClick={() => this.openArticle(post.url)}>
                       {
                         post && Object.keys(post["object"]).length > 0 && post["object"]["translations"] && post["object"]["translations"].length > 0 && post["object"]["translations"][0].display_language == "Spanish" ?
                           <img src={Essentials} width="20px" height="17px" alt="quizicon" /> : ""
                       }
                       {/* <img src={Quizicon} width="20px" height="17px" alt="quizicon" /> */}
 
-                    </div>
+                     </div> 
                     <div>
                       <DropDown itemData={post} selectedType={this.selectedType} />
                     </div>
