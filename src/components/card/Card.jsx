@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import DropDown from '../dropdown'
-import Filter from '../filter'
 import { get } from 'lodash'
 import config from '../../config'
 import embedResType from '../../utils/embedResTypes'
 import ErrorFallback from '../errorFallback/ErrorFallback';
 import { NEWSELA_URL } from '../../constants/urls'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons'
+import './Card.css'
 import Quizicon from '../../assets/images/Quiz-icon.png'
 import Essentials from '../../assets/images/Essentials.png'
 
@@ -17,7 +15,6 @@ class Card extends Component {
     this.state = {
       showPerPage: 4,
       search: "",
-      changeView: false,
       selectedContent: []
     }
   }
@@ -100,36 +97,15 @@ class Card extends Component {
     </form>
   }
 
-  handleChangeViewList = () => {
-    this.setState({
-      changeView: true
-    })
-  }
-  handleChangeViewGrid = () => {
-    this.setState({
-      changeView: false
-    })
-  }
+ 
 
 
   render() {
     let data = this.props.jsonData;
-    let {changeView}= this.state;
-    const filterList = this.props.filterList;
-    const callFilter = this.props.callFilter;
+    const changeView=this.props.changeView;
+   
     return (
-      <div className="card2">
-        <div className="container-fluid pt-4 mt-3 px-4">
-          <div className="row px-3 pt-2 list-grid">
-            <div className="co-md-8">
-                 <Filter filterList={filterList} callFilter={callFilter} />
-            </div>
-            <div className="co-md-4">
-              <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
-              <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
-            </div>
-
-          </div>
+      <div>
           {this.responseForm()}
           {data && data.length > 0 ? <div className="row pb-3 pr-3" >
             {data && data.length > 0 && data.map((post, i) => (
@@ -161,7 +137,6 @@ class Card extends Component {
               </div>
             ))}
           </div> : this.props.isLoading ? "" : <ErrorFallback message="No Results Found!" />}
-        </div>
       </div>
     )
   }

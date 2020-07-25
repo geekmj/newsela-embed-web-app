@@ -6,13 +6,19 @@ import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/
 import Card from '../card'
 import Searchbar from '../searchbar';
 import Loader from '../loader'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons'
+import Filter from '../filter'
+import MoreFilter from '../morefilter'
 class Main extends Component {
     state = {
         jsonData: [],
         filter: [],
         searchKey: '',
         currentPage: 0,
-        isLoading: false
+        isLoading: false,
+        changeView: false,
+        moreFilter:false
     }
 
     componentDidMount() {
@@ -89,13 +95,49 @@ class Main extends Component {
         this.searchAndSave('loadMore')
     }
 
-    render() {
+    handleChangeViewList = () => {
+        this.setState({
+          changeView: true
+        })
+      }
+      handleChangeViewGrid = () => {
+        this.setState({
+          changeView: false
+        })
+      }
+      showMoreFilter = () =>{
+        this.setState({
+            moreFilter: !this.state.moreFilter
+          })
+      }
 
+    render() {
+        let {changeView}= this.state;
+        
         return (<>
-            <Searchbar searchAndSave={this.searchAndSave}  updateValue={this.updateValue} jsonData={this.props.jsonData} />
-            <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData} callFilter={this.searchByFilter} filterList={this.state.filter} />
+            <Searchbar searchAndSave={this.searchAndSave}  updateValue={this.updateValue} jsonData={this.props.jsonData} />  
+            <div className="container-wrapper" >
+            <div className="container-fluid pt-4 mt-3 px-4">
+            <div className="icon-grid-list">
+              <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
+              <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
+            </div>
+            <div className="ff">
+                 <Filter callFilter={this.searchByFilter} filterList={this.state.filter} />
+                 <button class="filterbutton dropdown-toggle" onClick={this.showMoreFilter}>More Filters</button>{
+                     this.state.moreFilter? <MoreFilter cancel={this.showMoreFilter}  />
+                     : <div><Card isLoading={this.state.isLoading} jsonData={this.state.jsonData}  changeView={this.state.changeView} />
+                     {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"><button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
+                     {this.state.isLoading ? <Loader /> : ""}
+                     </div>
+                 }
+            </div>
+            
+            {/* <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData}  changeView={this.state.changeView} />
             {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"><button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
-            {this.state.isLoading ? <Loader /> : ""}
+            {this.state.isLoading ? <Loader /> : ""} */}
+            </div>
+            </div>
         </>)
     }
 }
