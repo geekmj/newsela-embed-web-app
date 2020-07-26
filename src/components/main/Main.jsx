@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { parseQuery, readCookie } from '../../utils/commonFunctions'
-import { searchApi } from '../../services/common.services'
-import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/mainAction.js'
-import Card from '../card'
+import { connect } from 'react-redux';
+import { parseQuery, readCookie } from '../../utils/commonFunctions';
+import { searchApi } from '../../services/common.services';
+import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/mainAction.js';
+import Card from '../card';
 import Searchbar from '../searchbar';
-import Loader from '../loader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons'
-import Filter from '../filter'
-import MoreFilter from '../morefilter'
+import Loader from '../loader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
+import Filter from '../filter';
+import MoreFilter from '../morefilter';
+import { findIndex, get, isEqual, reduce } from 'lodash';
+
+
 class Main extends Component {
     state = {
         jsonData: [],
         filter: [],
+        selectedFilterOption: [],
         searchKey: '',
         currentPage: 0,
         isLoading: false,
@@ -22,8 +26,6 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        console.log("--->",document.cookie)
-        //Get query params from url
         this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
         this.searchAndSave()
     }
@@ -38,24 +40,47 @@ class Main extends Component {
     }
 
     searchByFilter = (data) => {
-          alert("Test ----> "+data);
+          let getSelectedFilter = this.state.selectedFilterOption;
+          const isFilterCategoryExist = findIndex(getSelectedFilter,
+                                        (filter) => { 
+                                            return isEqual(
+                                                    get(filter,'filterCategory',null),
+                                                    get(data,'filterCategory',null)
+                                                    );   
+                                        }); 
+          if(isFilterCategoryExist >= 0){
+            getSelectedFilter[isFilterCategoryExist] = data;
+          }else{
+            getSelectedFilter.push(data);       
+          }
+          this.setState({ selectedFilterOption: getSelectedFilter });
+          this.searchAndSave('filterSearch');
     }
 
     searchAndSave = (type = '') => {
+        let requestParam =   `&needle=${this.state.searchKey.trim()}`;
+        let getSelectedFilter = this.state.selectedFilterOption;
 
-        if ((type == 'search' && this.state.searchKey.trim()) || type != 'search') {
+        if ((type == 'search' && requestParam!="") || type != 'search') {
 
-            let currentPage = 1
-
-            this.setState({
-                isLoading: true
-            })
+            let currentPage = 1;
+            this.setState({ isLoading: true })
 
             if (type == 'loadMore') {
-                currentPage = this.state.currentPage + 1
+                currentPage = this.state.currentPage + 1;
             }
 
-            searchApi(this.state.searchKey, currentPage).then((response) => {
+            if(getSelectedFilter.length > 0){
+                requestParam = "";
+                getSelectedFilter.forEach((filter) => {
+                    const filterItems =  filter.filterItems.join(",");
+                    requestParam += `&${filter.filterCategory}=${filterItems}`;
+                });
+            }
+            //console.log(" requestParam -------> ",requestParam);  
+
+
+            searchApi(requestParam, currentPage).then((response) => {
                 const filter = response.data.aggregations.facets;
                 let filterRender = filter.sort(this.sortByDisplayOrder);
                 filterRender.forEach((item,index) => {
@@ -65,10 +90,10 @@ class Main extends Component {
                 
                 let updatedJson = null;
                 if (type == 'loadMore') {
-                    updatedJson = this.state.jsonData
+                    updatedJson = this.state.jsonData;
                     updatedJson = [...updatedJson, ...response.data.results]
                 } else {
-                    updatedJson = response.data.results
+                    updatedJson = response.data.results;
                 }
 
                 this.setState({
@@ -77,7 +102,7 @@ class Main extends Component {
                     currentPage: currentPage,
                     isLoading: false,
                 })
-                this.props.saveResults(updatedJson)
+                this.props.saveResults(updatedJson);
             })
         }
     }
@@ -123,19 +148,33 @@ class Main extends Component {
               <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
             </div>
             <div className="ff">
-                 <Filter callFilter={this.searchByFilter} filterList={this.state.filter} />
-                 <button class="filterbutton dropdown-toggle" onClick={this.showMoreFilter}>More Filters</button>{
-                     this.state.moreFilter? <MoreFilter cancel={this.showMoreFilter}  />
-                     : <div><Card isLoading={this.state.isLoading} jsonData={this.state.jsonData}  changeView={this.state.changeView} />
-                     {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"><button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
-                     {this.state.isLoading ? <Loader /> : ""}
-                     </div>
+                 <Filter 
+                    callFilter={this.searchByFilter} 
+                    filterList={this.state.filter} 
+                    selectedFilter={this.state.selectedFilterOption}
+                    showMoreFilter={this.showMoreFilter} 
+                 />
+                 
+                 {
+                     this.state.moreFilter ? 
+                       (<MoreFilter 
+                          cancel={this.showMoreFilter} 
+                          callFilter={this.searchByFilter} 
+                          filterList={this.state.filter} 
+                          selectedFilter={this.state.selectedFilterOption}
+                        />)
+                        :
+                        (<div>
+                         <Card 
+                           isLoading={this.state.isLoading} 
+                           jsonData={this.state.jsonData}  
+                           changeView={this.state.changeView} 
+                         />
+                        {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"><button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
+                        {this.state.isLoading ? <Loader /> : ""}
+                      </div>)
                  }
             </div>
-            
-            {/* <Card isLoading={this.state.isLoading} jsonData={this.state.jsonData}  changeView={this.state.changeView} />
-            {this.state.jsonData && this.state.jsonData.length == 0 ? "" :<div className="load-more-bgcolor"><button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button></div>}
-            {this.state.isLoading ? <Loader /> : ""} */}
             </div>
             </div>
         </>)

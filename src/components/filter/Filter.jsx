@@ -1,5 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import '../../assets/styles/style.css';
+import { set,indexOf,get,isEqual,findIndex } from 'lodash';
 import './Filter.css'
+
+// import MoreFilter from '../morefilter'
 
 export class Filter extends Component {
     state={
@@ -35,6 +39,41 @@ export class Filter extends Component {
         alert(getFilterData);
         this.props.callFilter(filterCategory);
         this.setState({filterMenuId:0});
+    }
+
+    handleArticleSearch = (event, searchType) => {
+        event.preventDefault();
+        const form = event.target;
+        const data = new FormData(form);
+        let filterObject = {};
+        let filterItem = [];
+
+        for(let name of data.keys()) 
+        {
+            filterItem.push(data.get(name));
+        }
+       if(filterItem.length > 0)
+        {
+            set(filterObject, 'filterCategory', searchType);
+            set(filterObject, 'filterItems', filterItem);
+            this.props.callFilter(filterObject);
+            this.setState({filterMenuId:0});
+        }
+
+    }
+
+    isFilterItemSelected = (category, item) => {
+        alert("test") 
+        const getFilterSelected = this.props.selectedFilter;
+        const isFilterCategoryExist = findIndex(getFilterSelected,
+            (filter) => { 
+                return (isEqual(
+                        get(filter,'filterCategory',null),
+                        category
+                        ) && (indexOf(get(filter,'filterItems',[]),item)>=0));   
+            });
+       return (isFilterCategoryExist > 0) ? true : false;
+           
     }
 
     
@@ -75,25 +114,40 @@ export class Filter extends Component {
               </div>
 
               
-               {filterList.map((filterItem,index) => ( 
+               {filterList.slice(0, 4).map((filterItem,index) => (
+                    
                 <div className="btn-1">
-                
+                <form name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event,filterItem.slug)}>
                   <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{filterItem.display_name}</button>
                   { (this.state.filterMenuId === filterItem.display_order) ?<div className="dropdownvalue">
                   <p>Find content from your {filterItem.display_name}.</p>
-                  { filterItem.filters.map((Item,index) => ( 
-                      <lable><input  type="checkbox" value={Item.value}/> {Item.display_name} ({Item.count})</lable>
+                  
+                  { 
+                    filterItem.filters.map((Item,keyItem) => ( 
+                      <lable>
+                        <input  type="checkbox" 
+                          name={`${filterItem.slug}_${keyItem}`} 
+                          value={Item.value}
+                        /> 
+                        {Item.display_name} ({Item.count})
+                      </lable>
                    ))
                   }
                   <div className="button-group">
                      <button className="cancel" onClick={this.closeOption}>Cancel</button>
-                     <button className="apply" onClick={() => this.filterSearch(filterItem.slug)}>Apply</button>
+                     <button className="apply" type='submit'>Apply</button>
                   </div>
                    </div>:null
                 }
+                </form>
                 </div>
 
                ))}
+
+
+               <div className="btn-1">
+                <button className="filterbutton  dropdown-toggle" onClick={this.props.showMoreFilter}>More Filter</button>
+              </div>
                 
             </div>
 
