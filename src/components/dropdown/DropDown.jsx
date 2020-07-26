@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../../assets/styles/style.css'
+import './DropDown.css'
 class DropDown extends Component {
     state = {
         option: false
