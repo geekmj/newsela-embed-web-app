@@ -7,7 +7,7 @@ const NotFound = lazy(() => import('./components/notfound'))
 class Routes extends Component {
     render() {
         return (<>
-            <Suspense fallback={<>Loading...</>}>
+            <Suspense fallback={<></>}>
                 <Switch>
                     <Route
                         path='/main' exact component={Main} />
