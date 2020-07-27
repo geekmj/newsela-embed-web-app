@@ -128,3 +128,9 @@ lable:hover{
     width: 100%;
     padding: 5px 1rem;
 }
+
+@media screen and (max-width:479px){
+    .hidden{
+      display: none;
+    }
+  }

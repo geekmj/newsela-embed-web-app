@@ -1,15 +1,21 @@
 import React from 'react'
-import {Navbar,NavbarBrand} from 'reactstrap';
-import img from '../../assets/logo/full-logo/1x/Artboard 1.png'
+import img from '../../assets/logo/full-logo/Blue-Logomark.png'
+import './Header.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
     return (
         <div className="header">
-             <Navbar>
-                 <NavbarBrand href="/">
-                   <img src={img} alt='image1' width="100%" height="100%"/>
-                 </NavbarBrand>
-            </Navbar>
+            <nav className="navbar">
+                <a className="navbar-brand" href="#">
+                    <img src={img} alt='image1' width="35px" height="35px"/>
+                </a>
+                 <p className="navbar-text">You are selecting content for Canvas</p>
+                 <div>
+                 Exit <FontAwesomeIcon icon={faSignOutAlt} className="signout"  />
+                 </div>
+            </nav>
         </div>
     )
 }
