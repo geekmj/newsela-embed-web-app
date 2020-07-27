@@ -1,5 +1,5 @@
 export default {
     ENV: 'Dev',
-    API_BASE_URL:'http://localhost:4000',
-    RETURN_URL :"https://newsela.com/apps/universal-embed/finish/"
+    API_BASE_URL:'https://magic-consulting.newsela.com',
+    RETURN_URL :" https://newsela.com/apps/lti-tool-provider/universal-embed/finish/"
 }
