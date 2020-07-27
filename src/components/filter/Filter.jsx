@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Checkbox from './Checkbox'
 import { set,indexOf,get,isEqual,findIndex } from 'lodash';
 import './Filter.css'
 
