@@ -11,6 +11,7 @@ import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import Filter from '../filter';
 import MoreFilter from '../morefilter';
 import { findIndex, get, isEqual, reduce } from 'lodash';
+import '../../assets/styles/style.css'
 
 
 class Main extends Component {
@@ -147,7 +148,7 @@ class Main extends Component {
               <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
               <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
             </div>
-            <div className="ff">
+            <div>
                  <Filter 
                     callFilter={this.searchByFilter} 
                     filterList={this.state.filter} 
