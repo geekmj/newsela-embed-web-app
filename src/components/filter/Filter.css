@@ -72,7 +72,7 @@
     font-weight: bold;
 }
 .cancel:hover{
-    background-color: #333;
+    background-color: #030303;
     color:#fff;
 }
     
@@ -122,11 +122,11 @@ input[type=checkbox]:checked:after {
     -webkit-appearance: none;
     -moz-appearance: none;
 }    
-lable{
+label{
     width: 100%;
     padding: 6px 1.5rem;
 }
-lable:hover{
+label:hover{
     cursor: pointer;
     user-select: none;
     color: #fff;

@@ -95,14 +95,14 @@ export class Filter extends Component {
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
-                  <lable>
+                  <label>
                   <input  type="checkbox" value="hello"/>
                    Election 2020
-                  </lable>
-                  <lable>
+                  </label>
+                  <label>
                   <input type="checkbox" value="hello"/>
                    Election 2021
-                  </lable>
+                  </label>
                   <div className="button-group">
                      <button className="cancel" onClick={this.closeOption}>Cancel</button>
                      <button className="apply">Apply</button>
@@ -122,13 +122,13 @@ export class Filter extends Component {
                   
                   { 
                     filterItem.filters.map((Item,keyItem) => ( 
-                      <lable>
+                      <label>
                        <input  type="checkbox" 
                           name={`${filterItem.slug}_${keyItem}`} 
                           value={Item.value}
                         /> 
                         {Item.display_name} ({Item.count})
-                      </lable>
+                      </label>
                    ))
                   }
                   <div className="button-group">

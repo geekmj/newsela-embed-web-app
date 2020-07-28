@@ -13,7 +13,7 @@ function Header() {
                 </a>
                  <p className="navbar-text">You are selecting content for Canvas</p>
                  <div>
-                 Exit <FontAwesomeIcon icon={faSignOutAlt} className="signout"  />
+                 <span className="hide">Exit</span> <FontAwesomeIcon icon={faSignOutAlt} className="signout"  />
                  </div>
             </nav>
         </div>
