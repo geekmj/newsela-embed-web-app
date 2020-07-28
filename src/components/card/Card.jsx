@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import DropDown from '../dropdown'
 import { set } from 'lodash'
-import config from '../../config'
 import embedResType from '../../utils/embedResTypes'
 import ErrorFallback from '../errorFallback/ErrorFallback';
-import { NEWSELA_URL } from '../../constants/urls'
 import './Card.css'
 import Quizicon from '../../assets/images/Quiz-icon.png'
 import Essentials from '../../assets/images/Essentials.png'
@@ -71,7 +69,7 @@ class Card extends Component {
   }
 
   openArticle = (path) => {
-    window.open(NEWSELA_URL + path)
+    window.open(process.env.REACT_APP_NEWSELA_URL + path)
   }
 
   handleChangeViewList = () => {
@@ -87,14 +85,11 @@ class Card extends Component {
   }
 
   responseForm = () => {
-    return <form id="responseForm" action={config.RETURN_URL} method="post">
+    return <form id="responseForm" action={process.env.REACT_APP_RETURN_URL} method="post">
       <input type="hidden" name="content_items" id="content_items" value="" />
       <input type="hidden" name="request_id" id="request_id" value="" />
     </form>
   }
-
- 
-
 
   render() {
     let data = this.props.jsonData;

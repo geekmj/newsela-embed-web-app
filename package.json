@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -27,6 +28,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:qc": "env-cmd -f ./.env.qc npm run build",
+    "build:production": "env-cmd -f ./.env.production npm run build",
     "test": "react-scripts test --setupFiles ./src/setupTests.js",
     "eject": "react-scripts eject",
     "test:coverage": "jest --coverage --setupFiles ./src/setupTests.js",
