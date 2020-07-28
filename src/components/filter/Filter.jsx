@@ -23,7 +23,7 @@ export class Filter extends Component {
 
     handleOpenOptions = () =>{
         this.setState({
-            option1:!this.state.option1,
+            option1:true,
             filterMenuId:0,
         })
     }

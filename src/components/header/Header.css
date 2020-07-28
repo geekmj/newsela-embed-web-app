@@ -16,6 +16,9 @@
 .navbar{
     flex-wrap: nowrap;
 }
+.navbar-brand{
+    margin-right: 2px !important;
+}
 
 @media(max-width:479px)
 {
