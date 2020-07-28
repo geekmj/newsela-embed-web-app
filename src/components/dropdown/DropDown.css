@@ -14,7 +14,7 @@
   .dropdown-item{
     padding: .35rem 1rem !important;
     font-size: 14px;
-    color: #333333;
+    color: #333 !important;
     cursor: pointer;
     font-weight:500;
   }
