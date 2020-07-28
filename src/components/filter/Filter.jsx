@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../assets/styles/style.css';
 import { set,indexOf,get,isEqual,findIndex } from 'lodash';
 import './Filter.css'
 
@@ -8,28 +7,32 @@ import './Filter.css'
 export class Filter extends Component {
     state={
         option1:false,
-        option2:false,
         filterMenuId:0,
     }
+
+    componentDidMount (){
+        window.addEventListener("click", event=>{
+            if(this.state.option1  && !this.node.contains(event.target) || this.state.filterMenuId  && !this.node.contains(event.target)){
+                this.setState({
+                 option1:false,
+                 filterMenuId:0
+                })
+            }
+        })
+    }
+
     handleOpenOptions = () =>{
         this.setState({
             option1:!this.state.option1,
-            option2:false
+            filterMenuId:0,
         })
     }
     handleFilterMenu = (id) => {
-        this.setState({filterMenuId:id});
+        this.setState({filterMenuId:id,option1:false});
     }
 
-    handleOpenOptions1 = () =>{
-        this.setState({
-            option2:!this.state.option2,
-            option1:false
-        })
-    }
     closeOption = () =>{
         this.setState({
-            option2:false,
             option1:false,
             filterMenuId:0,
         })
@@ -39,6 +42,12 @@ export class Filter extends Component {
         alert(getFilterData);
         this.props.callFilter(filterCategory);
         this.setState({filterMenuId:0});
+    }
+
+    filterItemCheckbox = () =>{
+        return(
+            <input type="checkbox" checked={true} value="hello"/>
+        )
     }
 
     handleArticleSearch = (event, searchType) => {
@@ -77,34 +86,23 @@ export class Filter extends Component {
     }
 
     
-    componentDidMount (){
-        window.addEventListener("click", event=>{
-            if(this.state.option1  && !this.node.contains(event.target) || this.state.option2  && !this.node.contains(event.target)){
-                this.setState({
-                 option1:false,
-                 option2:false
-                })
-            }
-        })
-    }
-    
     render() {
         const filterList = this.props.filterList;
 
         return (
             <div className="filter" ref={n =>(this.node = n)} >
-               <div className="btn-1">
+               <div className="btn-1 hidden">
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
-                  <lable>
+                  <label>
                   <input  type="checkbox" value="hello"/>
                    Election 2020
-                  </lable>
-                  <lable>
+                  </label>
+                  <label>
                   <input type="checkbox" value="hello"/>
                    Election 2021
-                  </lable>
+                  </label>
                   <div className="button-group">
                      <button className="cancel" onClick={this.closeOption}>Cancel</button>
                      <button className="apply">Apply</button>
@@ -116,7 +114,7 @@ export class Filter extends Component {
               
                {filterList.slice(0, 4).map((filterItem,index) => (
                     
-                <div className="btn-1">
+                <div className="btn-1 hidden" >
                 <form name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event,filterItem.slug)}>
                   <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{filterItem.display_name}</button>
                   { (this.state.filterMenuId === filterItem.display_order) ?<div className="dropdownvalue">
@@ -124,13 +122,13 @@ export class Filter extends Component {
                   
                   { 
                     filterItem.filters.map((Item,keyItem) => ( 
-                      <lable>
-                        <input  type="checkbox" 
+                      <label>
+                       <input  type="checkbox" 
                           name={`${filterItem.slug}_${keyItem}`} 
                           value={Item.value}
                         /> 
                         {Item.display_name} ({Item.count})
-                      </lable>
+                      </label>
                    ))
                   }
                   <div className="button-group">

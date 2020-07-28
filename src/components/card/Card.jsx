@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import DropDown from '../dropdown'
-import { get } from 'lodash'
-import config from '../../config'
+import { set } from 'lodash'
 import embedResType from '../../utils/embedResTypes'
 import ErrorFallback from '../errorFallback/ErrorFallback';
-import { NEWSELA_URL } from '../../constants/urls'
 import './Card.css'
 import Quizicon from '../../assets/images/Quiz-icon.png'
 import Essentials from '../../assets/images/Essentials.png'
@@ -41,26 +39,22 @@ class Card extends Component {
     let contentId = selectedData.content_id
     let contentItemUrl = "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId
 
-    let graph = get(jsonData, "['@graph'][0]")
-    let thumbnail = get(jsonData, "['@graph'][0].thumbnail['@id']")
-
-
-    graph.title = selectedData.title
-    graph.url = contentItemUrl;
+     set (jsonData ,"['@graph'][0].title",selectedData.title)
+     set (jsonData ,"['@graph'][0].url",selectedData.url)
 
     switch (selectedType) {
       case 'LtiLinkItem':
-        jsonData['@graph'][0]['@id'] = contentItemUrl;
-        jsonData['@graph'][0].text = selectedData.title;
+        set (jsonData ,"['@graph'][0]['@id']",contentItemUrl)
+        set (jsonData ,"['@graph'][0].text",selectedData.title)
         break;
       case 'smallThumbnail':
-        jsonData['@graph'][0].thumbnail['@id'] = selectedData.image
+        set(jsonData , "['@graph'][0].thumbnail['@id']",selectedData.image)
         break;
       case 'mediumThumbnail':
-        jsonData['@graph'][0].thumbnail['@id'] = selectedData.image
+        set(jsonData , "['@graph'][0].thumbnail['@id']",selectedData.image)
         break
       case 'largeThumbnail':
-        jsonData['@graph'][0].thumbnail['@id'] = selectedData.image
+        set(jsonData , "['@graph'][0].thumbnail['@id']",selectedData.image)
         break;
     }
 
@@ -75,7 +69,7 @@ class Card extends Component {
   }
 
   openArticle = (path) => {
-    window.open(NEWSELA_URL + path)
+    window.open(process.env.REACT_APP_NEWSELA_URL + path)
   }
 
   handleChangeViewList = () => {
@@ -91,14 +85,11 @@ class Card extends Component {
   }
 
   responseForm = () => {
-    return <form id="responseForm" action={config.RETURN_URL} method="post">
+    return <form id="responseForm" action={process.env.REACT_APP_RETURN_URL} method="post">
       <input type="hidden" name="content_items" id="content_items" value="" />
       <input type="hidden" name="request_id" id="request_id" value="" />
     </form>
   }
-
- 
-
 
   render() {
     let data = this.props.jsonData;
@@ -143,3 +134,4 @@ class Card extends Component {
 }
 
 export default Card
+
