@@ -7,7 +7,7 @@ import ErrorFallback from '../errorFallback/ErrorFallback';
 import { NEWSELA_URL } from '../../constants/urls'
 import './Card.css'
 import Quizicon from '../../assets/images/Quiz-icon.png'
-import Essentials from '../../assets/images/Essentials.png'
+import Spanish from '../../assets/images/Spanish.svg'
 
 class Card extends Component {
   constructor(props) {
@@ -120,7 +120,7 @@ class Card extends Component {
                   <div className={`${changeView ? 'list-icon' : ''}`}  onClick={() => this.openArticle(post.url)}>
                       {
                         post && Object.keys(post["object"]).length > 0 && post["object"]["translations"] && post["object"]["translations"].length > 0 && post["object"]["translations"][0].display_language == "Spanish" ?
-                          <img src={Essentials} width="20px" height="17px" alt="quizicon" /> : ""
+                          <img src={Spanish} width="15px" height="15px" alt="spanish-icon" /> : ""
                       }
                       {/* <img src={Quizicon} width="20px" height="17px" alt="quizicon" /> */}
 

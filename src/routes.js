@@ -10,7 +10,7 @@ class Routes extends Component {
             <Suspense fallback={<></>}>
                 <Switch>
                     <Route
-                        path='/main' exact component={Main} />
+                        path='/' exact component={Main} />
                     <Route
                         path='*' component={NotFound} />
                 </Switch>
