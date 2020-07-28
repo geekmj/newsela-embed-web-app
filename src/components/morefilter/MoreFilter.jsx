@@ -18,13 +18,13 @@ const MoreFilter = (props) => {
                          <p className="px-3">Find content from your {filterItem.display_name}.</p>
                          { 
                            filterItem.filters.map((Item,keyItem) => ( 
-                              <lable>
+                              <label>
                                  <input  type="checkbox" 
                                  name={`${filterItem.slug}_${keyItem}`} 
                                  value={Item.value}
                                  /> 
                                  {Item.display_name} ({Item.count})
-                              </lable>
+                              </label>
                            ))
                          }
                          
