@@ -130,8 +130,7 @@ export class Filter extends Component {
                         { 
                             filterItem.filters.map((Item,keyItem) => ( 
                             <label>
-                               {this.filterItemCheckbox ()} 
-                                {/* <input  type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} /> */}
+                                <input  type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} />
                                 {Item.display_name} ({Item.count})
                             </label>
                         ))
