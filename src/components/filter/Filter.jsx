@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { set,indexOf,get,isEqual,findIndex } from 'lodash';
-import './Filter.css'
-
-// import MoreFilter from '../morefilter'
+import './Filter.css';
 
 export class Filter extends Component {
     state={
@@ -37,6 +35,15 @@ export class Filter extends Component {
             filterMenuId:0,
         })
     }
+
+    filterItemCheckbox = (slug,keyItem,valueItem) => {
+        return (<input  type="checkbox" 
+        name={`${slug}_${keyItem}`} 
+        value={valueItem} 
+           
+        />);
+    }
+
     filterSearch = (filterCategory) => {
         let getFilterData = document.getElementByName(filterCategory+"[]").value;
         alert(getFilterData);
@@ -72,7 +79,6 @@ export class Filter extends Component {
     }
 
     isFilterItemSelected = (category, item) => {
-        alert("test") 
         const getFilterSelected = this.props.selectedFilter;
         const isFilterCategoryExist = findIndex(getFilterSelected,
             (filter) => { 
@@ -95,10 +101,10 @@ export class Filter extends Component {
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
-                  <label>
-                  <input  type="checkbox" value="hello"/>
-                   Election 2020
-                  </label>
+                  <lable>
+                      <input  type="checkbox" checked={true} value="hello" />
+                       Election 2020
+                  </lable>
                   <label>
                   <input type="checkbox" value="hello"/>
                    Election 2021
@@ -114,30 +120,29 @@ export class Filter extends Component {
               
                {filterList.slice(0, 4).map((filterItem,index) => (
                     
-                <div className="btn-1 hidden" >
-                <form name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event,filterItem.slug)}>
+                <div className="btn-1">
+                
                   <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{filterItem.display_name}</button>
-                  { (this.state.filterMenuId === filterItem.display_order) ?<div className="dropdownvalue">
-                  <p>Find content from your {filterItem.display_name}.</p>
-                  
-                  { 
-                    filterItem.filters.map((Item,keyItem) => ( 
-                      <label>
-                       <input  type="checkbox" 
-                          name={`${filterItem.slug}_${keyItem}`} 
-                          value={Item.value}
-                        /> 
-                        {Item.display_name} ({Item.count})
-                      </label>
-                   ))
-                  }
-                  <div className="button-group">
-                     <button className="cancel" onClick={this.closeOption}>Cancel</button>
-                     <button className="apply" type='submit'>Apply</button>
-                  </div>
-                   </div>:null
+                  { (this.state.filterMenuId === filterItem.display_order) ? 
+                  (<div>
+                        <form className="dropdownvalue" name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event,filterItem.slug)}>
+                        <p>Find content from your {filterItem.display_name}.</p>
+                        { 
+                            filterItem.filters.map((Item,keyItem) => ( 
+                            <lable>
+                                <input  type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} />
+                                {Item.display_name} ({Item.count})
+                            </lable>
+                        ))
+                        }
+                        <div className="button-group">
+                            <button className="cancel" onClick={this.closeOption}>Cancel</button>
+                            <button className="apply" type='submit'>Apply</button>
+                        </div>
+                        </form>
+                   </div>) : null
                 }
-                </form>
+               
                 </div>
 
                ))}
