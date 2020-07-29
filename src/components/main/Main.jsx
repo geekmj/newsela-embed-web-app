@@ -10,8 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import Filter from '../filter';
 import MoreFilter from '../morefilter';
-import { findIndex, get, isEqual, reduce } from 'lodash';
-import '../../assets/styles/style.css'
+import { findIndex, get, isEqual } from 'lodash';
 
 
 class Main extends Component {
@@ -61,7 +60,7 @@ class Main extends Component {
     searchAndSave = (type = '') => {
         let requestParam =   `&needle=${this.state.searchKey.trim()}`;
         let getSelectedFilter = this.state.selectedFilterOption;
-
+        let isFilterExist     = (this.state.filter.length > 0) ? true : false;
         if ((type == 'search' && requestParam!="") || type != 'search') {
 
             let currentPage = 1;
@@ -78,12 +77,11 @@ class Main extends Component {
                     requestParam += `&${filter.filterCategory}=${filterItems}`;
                 });
             }
-            //console.log(" requestParam -------> ",requestParam);  
 
 
             searchApi(requestParam, currentPage).then((response) => {
                 const filter = response.data.aggregations.facets;
-                let filterRender = filter.sort(this.sortByDisplayOrder);
+                let filterRender = isFilterExist ? this.state.filter : filter.sort(this.sortByDisplayOrder);
                 filterRender.forEach((item,index) => {
                        console.log(item)      
                 })    
