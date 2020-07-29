@@ -21,6 +21,15 @@
     outline: none;
   }
  
+  .container .searchbarsection input::-moz-selection {
+    color:#fff;
+    background-color:#000;
+  }
+  
+  .container .searchbarsection input::selection {
+    color:#fff;
+    background-color:#000;
+  }
   .searchbarsection{
     position: relative;
     margin: 30px auto 58px auto;
