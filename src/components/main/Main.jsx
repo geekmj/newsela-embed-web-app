@@ -58,7 +58,7 @@ class Main extends Component {
     }
 
     searchAndSave = (type = '') => {
-        let requestParam =   `&needle=${this.state.searchKey.trim()}`;
+        let requestParam =   (this.state.searchKey.trim() === "") ? "" : `&needle=${this.state.searchKey.trim()}`;
         let getSelectedFilter = this.state.selectedFilterOption;
         let isFilterExist     = (this.state.filter.length > 0) ? true : false;
         if ((type == 'search' && requestParam!="") || type != 'search') {
@@ -71,7 +71,7 @@ class Main extends Component {
             }
 
             if(getSelectedFilter.length > 0){
-                requestParam = "";
+                //requestParam = "";
                 getSelectedFilter.forEach((filter) => {
                     const filterItems =  filter.filterItems.join(",");
                     requestParam += `&${filter.filterCategory}=${filterItems}`;
@@ -146,7 +146,7 @@ class Main extends Component {
               <FontAwesomeIcon icon={faThLarge} onClick={this.handleChangeViewGrid} className={`grid ${changeView ? '' : 'active'}`} />
               <FontAwesomeIcon icon={faThList} onClick={this.handleChangeViewList} className={`list ${changeView ? 'active' : ''}`} />
             </div>
-            <div>
+            <div className="ff">
                  <Filter 
                     callFilter={this.searchByFilter} 
                     filterList={this.state.filter} 
