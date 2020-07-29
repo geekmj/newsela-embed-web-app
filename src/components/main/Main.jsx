@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { parseQuery, readCookie } from '../../utils/commonFunctions';
-import { searchApi } from '../../services/common.services';
+import { searchApi ,filterCollectionApi} from '../../services/common.services';
 import { saveQueryParamsOnLaunchAction, saveResultsAction } from '../../actions/mainAction.js';
 import Card from '../card';
 import Searchbar from '../searchbar';
@@ -23,12 +23,24 @@ class Main extends Component {
         isLoading: false,
         changeView: false,
         moreFilter: false,
-        showMoreLoading: false
+        showMoreLoading: false,
+        collectionData:[]
     }
 
     componentDidMount() {
         this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
-        this.searchAndSave()
+        this.searchAndSave();
+        this.getCollectionData();
+    }
+
+    getCollectionData =()=>{
+        filterCollectionApi().then((res)=>{
+            console.log("filterCollectionApi==>",JSON.stringify(res.data))
+            this.setState({
+                collectionData:res.data
+            })
+
+        })
     }
     sortByDisplayOrder = (firstDisplayOrder, secondDisplayOrder) => {
         if (firstDisplayOrder.display_order < secondDisplayOrder.display_order) {
@@ -165,6 +177,7 @@ class Main extends Component {
                             filterList={this.state.filter}
                             selectedFilter={this.state.selectedFilterOption}
                             showMoreFilter={this.showMoreFilter}
+                            collectionData ={this.state.collectionData}
                         />
 
                         {

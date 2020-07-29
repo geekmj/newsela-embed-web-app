@@ -8,9 +8,9 @@ export const searchApi = (searchKeyword, pageNo) => {
 }
 
 
-export const searchCollectionApi = (searchKeyword, pageNo) => {
+export const filterCollectionApi = ( ) => {
     const reqObj = {};
-    reqObj.url = `${process.env.REACT_APP_SEARCH_API_URL}?facets=true&format=full&objects=header&page=${pageNo}&page_size=12${searchKeyword}`;
+    reqObj.url = `${process.env.REACT_APP_COLLECTION_API}`; // https://newsela.com/api/v1/collection/"
     reqObj.method = 'get';
     return apiCaller(reqObj);
 }

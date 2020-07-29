@@ -6,6 +6,7 @@ export class Filter extends Component {
     state={
         option1:false,
         filterMenuId:0,
+        collectionData:[]
     }
 
     componentDidMount (){
@@ -25,6 +26,7 @@ export class Filter extends Component {
             filterMenuId:0,
         })
     }
+
     handleFilterMenu = (id) => {
         this.setState({filterMenuId:id,option1:false});
     }
@@ -94,21 +96,28 @@ export class Filter extends Component {
     
     render() {
         const filterList = this.props.filterList;
+        const collectionData = this.props.collectionData;
 
         return (
             <div className="filter" ref={n =>(this.node = n)} >
                <div className="btn-1 hidden">
+
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
-                  <label>
-                      <input  type="checkbox" checked={true} value="hello" />
-                       Election 2020
-                  </label>
-                  <label>
-                  <input type="checkbox" value="hello"/>
-                   Election 2021
-                  </label>
+                    {
+                        collectionData && collectionData.length>0 && collectionData.map((item,index)=>{
+                            return(
+                                <label>
+                                <input  type="checkbox" checked={true} value=" " />
+                                 {item.title}
+                            </label>
+                            )
+                        })
+                    }
+                 
+                 
+                  
                   <div className="button-group">
                      <button className="cancel" onClick={this.closeOption}>Cancel</button>
                      <button className="apply">Apply</button>
@@ -160,4 +169,3 @@ export class Filter extends Component {
 }
 
 export default Filter
-
