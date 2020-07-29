@@ -98,5 +98,13 @@
     .list-footer{
         justify-content: flex-end;
         margin-top: 0px;
-    }   
+    } 
+    
+    .list-text{
+        line-height: 1.4rem;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
 }
