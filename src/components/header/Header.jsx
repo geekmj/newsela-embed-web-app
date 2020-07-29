@@ -8,7 +8,7 @@ function Header() {
     return (
         <div className="header">
             <nav className="navbar">
-                <a className="navbar-brand" href="https://newsela.com/">
+                <a className="navbar-brand" href="/">
                     <img src={img} alt='logo' width="35px" height="35px"/>
                 </a>
                  <p className="navbar-text">You are selecting content for Canvas</p>
