@@ -101,10 +101,10 @@ export class Filter extends Component {
                 <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
                 {this.state.option1?<div className="dropdownvalue">
                   <p>Find content from your Collections.</p>
-                  <lable>
+                  <label>
                       <input  type="checkbox" checked={true} value="hello" />
                        Election 2020
-                  </lable>
+                  </label>
                   <label>
                   <input type="checkbox" value="hello"/>
                    Election 2021
@@ -129,10 +129,11 @@ export class Filter extends Component {
                         <p>Find content from your {filterItem.display_name}.</p>
                         { 
                             filterItem.filters.map((Item,keyItem) => ( 
-                            <lable>
-                                <input  type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} />
+                            <label>
+                               {this.filterItemCheckbox ()} 
+                                {/* <input  type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} /> */}
                                 {Item.display_name} ({Item.count})
-                            </lable>
+                            </label>
                         ))
                         }
                         <div className="button-group">
