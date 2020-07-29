@@ -22,11 +22,9 @@ class MoreFilter extends Component {
       {
           var getItemName = name.split("_");
           filterItem.push(data.get(name));
-          console.log("####### -----> ",getItemName[0], data.get(name));
       }
      if(filterItem.length > 0)
       {
-          console.log(JSON.stringify(filterItem));
           set(filterObject, 'filterCategory', getItemName[0]);
           set(filterObject, 'filterItems', filterItem);
           this.props.callFilter(filterObject);
@@ -75,7 +73,7 @@ class MoreFilter extends Component {
                      ))}
                   </div>
 
-                  <div className="button-group">
+                  <div className="button-group1">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
                      <button className="apply" type="submit">Apply</button>
                   </div>

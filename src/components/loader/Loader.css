@@ -31,6 +31,7 @@
   left: 50%;
   bottom: 5%;
   content: "";
+  margin: 0 0 0 -30px;
   /* background: rgba(0, 0, 0, 0.1); */
 }
 
