@@ -120,7 +120,7 @@ export class Filter extends Component {
               
                {filterList.slice(0, 4).map((filterItem,index) => (
                     
-                <div className="btn-1">
+                <div className="btn-1 hidden">
                 
                   <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{filterItem.display_name}</button>
                   { (this.state.filterMenuId === filterItem.display_order) ? 

@@ -6,9 +6,9 @@ const MoreFilter = (props) => {
          <div className="filter-wrapper">
             
             <div className="container-fluid my-4 px-4">
-            <form className="dropdownvalue" >
+            <form  >
               <div>
-                  <div className="button-group">
+                  <div className="button-group1">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
                      <button className="apply">Apply</button>
                   </div> 
@@ -36,7 +36,7 @@ const MoreFilter = (props) => {
                   ))}
                   </div> 
 
-                  <div className="button-group">
+                  <div className="button-group1">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
                      <button className="apply" type="submit">Apply</button>
                   </div>   
