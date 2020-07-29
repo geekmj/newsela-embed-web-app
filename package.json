@@ -26,6 +26,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
+    "start": "react-scripts start",
     "start:dev": "env-cmd -f .env.qc react-scripts start",
     "start:stage": "env-cmd -f .env.production react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",

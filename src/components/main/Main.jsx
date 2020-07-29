@@ -59,7 +59,7 @@ class Main extends Component {
     }
 
     searchAndSave = (type = '') => {
-        let requestParam = `&needle=${this.state.searchKey.trim()}`;
+        let requestParam =   (this.state.searchKey.trim() === "") ? "" : `&needle=${this.state.searchKey.trim()}`;
         let getSelectedFilter = this.state.selectedFilterOption;
         let isFilterExist     = (this.state.filter.length > 0) ? true : false;
         if ((type == 'search' && requestParam!="") || type != 'search') {
@@ -76,9 +76,9 @@ class Main extends Component {
             if (type == 'loadMore') {
                 currentPage = this.state.currentPage + 1;
             }
-
-            if (getSelectedFilter.length > 0) {
-                requestParam = "";
+          
+            if(getSelectedFilter.length > 0){
+                //requestParam = "";
                 getSelectedFilter.forEach((filter) => {
                     const filterItems = filter.filterItems.join(",");
                     requestParam += `&${filter.filterCategory}=${filterItems}`;
