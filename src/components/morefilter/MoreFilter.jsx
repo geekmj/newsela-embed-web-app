@@ -42,7 +42,7 @@ class MoreFilter extends Component {
          <div className="filter-wrapper" >
 
             <div className="container-fluid my-4 px-4">
-               <div className="dropdownvalue">
+               <div>
                   <form onSubmit={(event) => this.handleArticleSearch(event)}>
                   <div className="button-group">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
