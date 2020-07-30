@@ -68,6 +68,11 @@
     outline: none;
   }
   
+  @media (max-width: 900px){
+    .container .searchbarsection input {
+      font-size: 28px;
+    }
+  }
 
   @media (max-width: 479px){
     .container .searchbarsection input {
