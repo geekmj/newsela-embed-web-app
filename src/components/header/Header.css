@@ -17,12 +17,15 @@
     flex-wrap: nowrap;
 }
 .navbar-brand{
-    margin-right: 2px !important;
+    margin-right: 5px !important;
 }
 
 @media(max-width:479px)
 {
     .hide{
         display: none;
+    }
+    .signout{
+        margin-left:5px;
     }
 }

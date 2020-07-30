@@ -95,6 +95,7 @@ input[type=checkbox] {
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
+    -o-appearance:none;
 }
 input[type=checkbox]:before {
   
@@ -109,7 +110,7 @@ input[type=checkbox]:before {
     position: absolute;
     -webkit-appearance: none;
     -moz-appearance: none;
-   
+    -o-appearance:none;
 }
 input[type=checkbox]:checked:before {
     background-color: #767676;
@@ -129,6 +130,7 @@ input[type=checkbox]:checked:after {
     left: 7px;
     -webkit-appearance: none;
     -moz-appearance: none;
+    -o-appearance:none;
 }    
 label{
     width: 100%;
