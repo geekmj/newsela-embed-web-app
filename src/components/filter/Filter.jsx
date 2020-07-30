@@ -159,9 +159,9 @@ export class Filter extends Component {
 
 
                 <div className="btn-1">
-                    <button className="filterbutton show dropdown-toggle" onClick={this.props.showMoreFilter}>More Filter</button>
+                    <button className="filterbutton show dropdown-toggle" onClick={this.props.showMoreFilter}>More Filters</button>
                       {/* hide button in desktop */}
-                    <button className="filterbutton hidebtn  dropdown-toggle" onClick={this.props.showMoreFilter}>All Filter</button>
+                    <button className="filterbutton hidebtn  dropdown-toggle" onClick={this.props.showMoreFilter}>All Filters</button>
                 </div>
 
             </div>
