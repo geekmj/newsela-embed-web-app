@@ -5,6 +5,7 @@
 .signout{
     font-size: 20px;
     margin-right: 0px;
+    cursor: pointer;
 }
 .navbar-text{
     padding:0;
