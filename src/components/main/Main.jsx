@@ -50,8 +50,16 @@ class Main extends Component {
             return 1;
         }
         return 0;
-    }
+    } 
 
+    resetFilter = ()=>{
+        this.setState({
+            selectedFilterOption:[],
+            collectionData:[]
+        })
+        this.searchAndSave();
+        this.getCollectionData();
+    }
     searchByFilter = (data) => {
         let getSelectedFilter = this.state.selectedFilterOption;
         const isFilterCategoryExist = findIndex(getSelectedFilter,
@@ -178,6 +186,7 @@ class Main extends Component {
                             selectedFilter={this.state.selectedFilterOption}
                             showMoreFilter={this.showMoreFilter}
                             collectionData ={this.state.collectionData}
+                            resetFilter ={this.resetFilter}
                         />
 
                         {
@@ -223,4 +232,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

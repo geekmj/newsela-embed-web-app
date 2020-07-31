@@ -13,7 +13,8 @@ export class Filter extends Component {
         currentSelectedFilter: [],
         tempFilters: [],
         collectionSelected: [],
-        formCollectionName: 'Form Collection'
+        formCollectionName: 'Form Collection',
+        filterClassName: "filterbutton  dropdown-toggle"
     }
 
     componentDidMount() {
@@ -69,14 +70,27 @@ export class Filter extends Component {
             set(filterObject, 'filterCategory', searchType);
             set(filterObject, 'filterItems', filterItem);
             this.props.callFilter(filterObject);
-            this.setState({ filterMenuId: 0, option1: false, tempFilters: this.state.currentSelectedFilter });
+            this.setState({ filterMenuId: 0, option1: false });
         }
-        if(searchType == 'collection_id'){
+        if (searchType == 'collection_id') {
             this.renderCollectionDisplayName()
-        }
 
+        }
+        this.setState({ filterMenuId: 0, option1: false });
     }
 
+    clearAll = () => {
+        this.props.resetFilter()
+        this.setState({
+            currentSelectedFilter: [],
+            collectionSelected: [],
+            formCollectionName: 'Form Collection',
+            filterClassName: "filterbutton  dropdown-toggle"
+        })
+
+
+
+    }
     isFilterItemSelected = (category, item) => {
         const getFilterSelected = this.props.selectedFilter;
         const isFilterCategoryExist = findIndex(getFilterSelected,
@@ -165,19 +179,24 @@ export class Filter extends Component {
     renderCollectionDisplayName = () => {
         let defaultName = 'From Collection', collectionDisplayName;
 
-
         let collectionSelected = cloneDeep(this.state.collectionSelected)
+        let filterClassChange = this.state.filterClassName
         if (collectionSelected.length > 0) {
             if (collectionSelected.length == 1) {
                 collectionDisplayName = collectionSelected[0]
+
             } else {
                 collectionDisplayName = `${defaultName} (${collectionSelected.length})`
             }
+            filterClassChange = "filterSelect dropdown-toggle"
         } else {
             collectionDisplayName = defaultName
+            filterClassChange = "filterbutton  dropdown-toggle"
+
         }
         this.setState({
-            formCollectionName: collectionDisplayName
+            formCollectionName: collectionDisplayName,
+            filterClassName: filterClassChange
         })
     }
 
@@ -189,7 +208,7 @@ export class Filter extends Component {
             <div className="filter" ref={n => (this.node = n)} >
                 <div className="btn-1 hidden">
 
-                    <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>{this.state.formCollectionName} </button>
+                    <button className={this.state.filterClassName} onClick={this.handleOpenOptions}>{this.state.formCollectionName} </button>
                     {this.state.option1 ? <div className="dropdownvalue">
                         <p>Find content from your Collections.</p>
                         <form onSubmit={(event) => this.handleArticleSearch(event, 'collection_id')}>
@@ -198,11 +217,11 @@ export class Filter extends Component {
                                 collectionData && collectionData.length > 0 && collectionData.map((item, index) => {
                                     return (
                                         <label>
-                                            <input type="checkbox"  
-                                            name={item.title} 
-                                            value={item.id} 
-                                            onChange={() => this.onChange(item.title, 'collection')}
-                                            checked={this.isFilterItemSelected(item.slug, item.title)}
+                                            <input type="checkbox"
+                                                name={item.title}
+                                                value={item.id}
+                                                onChange={() => this.onChange(item.title, 'collection')}
+                                                checked={this.isFilterItemSelected(item.slug, item.title)}
 
                                             />
                                             {item.title}
@@ -223,7 +242,7 @@ export class Filter extends Component {
                 </div>
 
 
-                {filterList.slice(0, 4).map((filterItem, index) => (
+                {filterList.slice(0, 2).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
                         <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
@@ -234,7 +253,7 @@ export class Filter extends Component {
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
                                             <label >
-                                                {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
+                                                {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
                                                     name={`${filterItem.slug}_${keyItem}`}
                                                     value={Item.value}
                                                     disabled={!Item.count}
@@ -260,9 +279,16 @@ export class Filter extends Component {
 
                 <div className="btn-1">
                     <button className="filterbutton show dropdown-toggle" onClick={this.props.showMoreFilter}>More Filters</button>
-                      {/* hide button in desktop */}
+                    {/* hide button in desktop */}
                     <button className="filterbutton hidebtn  dropdown-toggle" onClick={this.props.showMoreFilter}>All Filters</button>
                 </div>
+                {
+                    this.props.selectedFilter.length > 0 ?
+                        <div className="btn-1">
+                            <button className="filterbutton" onClick={() => this.clearAll()}>Clear</button>
+                        </div> : ""
+                }
+
 
             </div>
 
