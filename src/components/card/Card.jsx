@@ -25,7 +25,7 @@ class Card extends Component {
     let responseJsonContentId = document.getElementById('request_id');
 
     resonseJsonContentItems.value = JSON.stringify(preparedJson);
-    responseJsonContentId.value = this.props.queryParms && this.props.queryParms.request_id;
+    responseJsonContentId.value = this.props.queryParms && this.props.queryParms.request_id ? this.props.queryParms.request_id : "NO_REQUEST_ID" ;
 
     hiddenForm.submit();
 
@@ -59,7 +59,7 @@ class Card extends Component {
     }
 
     // this.handleHiddenForm(jsonData)
-
+    
     console.log('SELECTED CARD DATA---->>>>>',selectedData)
     console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
   }
