@@ -2,6 +2,6 @@ DOMAIN=https://magic-consulting.newsela.com
 REACT_APP_NEWSELA_URL=$DOMAIN
 REACT_APP_SEARCH_API_URL=$DOMAIN/search-service/v1
 REACT_APP_API_BASE_URL=$DOMAIN
-REACT_APP_RETURN_URL=$DOMAIN/apps/lti-tool-provider/universal-embed/finish/
+REACT_APP_RETURN_URL=$DOMAIN/apps/universal-embed/finish/
 REACT_APP_SESSION_COOKIE_NAME=sessionid_dev
 REACT_APP_COLLECTION_API=$DOMAIN/api/v1/collection/
