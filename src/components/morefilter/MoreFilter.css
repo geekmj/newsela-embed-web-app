@@ -53,3 +53,12 @@
 .filter-wrapper .cancel:active{
     outline: none; 
 }
+
+.cross-icon{
+    font-size: 15px;
+    background-color: #BCBCBE;
+    padding: 0 5px;
+    color: #fff;
+    margin-right: 10px;
+    cursor: default;
+ }
