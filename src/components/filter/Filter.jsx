@@ -223,7 +223,7 @@ export class Filter extends Component {
                 </div>
 
 
-                {filterList.slice(0, 4).map((filterItem, index) => (
+                {filterList.slice(0, 2).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
                         <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
