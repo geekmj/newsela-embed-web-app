@@ -10,7 +10,7 @@ class Header extends Component {
     }
 
     render() {
-        let launch_by = this.state.queryParams && this.state.queryParams.launch_by
+        let launch_by = this.state.queryParams && this.state.queryParams.tool_consumer_info_product_family_code
         return (
             <div className="header">
                 <nav className="navbar">
