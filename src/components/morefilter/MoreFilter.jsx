@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { set } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./MoreFilter.css"
 
 class MoreFilter extends Component {
@@ -22,9 +24,11 @@ class MoreFilter extends Component {
       {
           var getItemName = name.split("_");
           filterItem.push(data.get(name));
+          console.log("####### -----> ",getItemName[0], data.get(name));
       }
      if(filterItem.length > 0)
       {
+          console.log(JSON.stringify(filterItem));
           set(filterObject, 'filterCategory', getItemName[0]);
           set(filterObject, 'filterItems', filterItem);
           this.props.callFilter(filterObject);
@@ -32,7 +36,6 @@ class MoreFilter extends Component {
       }
    
    }
-
 
    render() {
       let props = this.props
@@ -42,7 +45,7 @@ class MoreFilter extends Component {
          <div className="filter-wrapper" >
 
             <div className="container-fluid my-4 px-4">
-               <div>
+               <div className="dropdownvalue">
                   <form onSubmit={(event) => this.handleArticleSearch(event)}>
                   <div className="button-group1">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
@@ -59,10 +62,11 @@ class MoreFilter extends Component {
                               {
                                  filterItem.filters.map((Item, keyItem) => (
                                     <label>
-                                       <input type="checkbox"
+                                       {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
                                           name={`${filterItem.slug}_${keyItem}`}
                                           value={`${filterItem.slug}_${Item.value}`}
-                                       />
+                                          disabled={!Item.count}
+                                       />}
                                        {Item.display_name} ({Item.count})
                               </label>
                                  ))
@@ -73,7 +77,7 @@ class MoreFilter extends Component {
                      ))}
                   </div>
 
-                  <div className="button-group1">
+                  <div className="button-group">
                      <button className="cancel" onClick={props.cancel}>Cancel</button>
                      <button className="apply" type="submit">Apply</button>
                   </div>
