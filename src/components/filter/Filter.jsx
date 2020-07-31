@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import { set, indexOf, get, isEqual, findIndex } from 'lodash';
+import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Filter.css';
 
 export class Filter extends Component {
     state = {
         option1: false,
         filterMenuId: 0,
-        collectionData: []
+        collectionData: [],
+        checked: false,
+        currentSelectedFilter: [],
+        tempFilters: [],
+        collectionSelected: [],
+        formCollectionName: 'Form Collection'
     }
 
     componentDidMount() {
@@ -35,16 +42,10 @@ export class Filter extends Component {
         this.setState({
             option1: false,
             filterMenuId: 0,
+            // currentSelectedFilter: []
         })
     }
 
-    filterItemCheckbox = (slug, keyItem, valueItem) => {
-        return (<input type="checkbox"
-            name={`${slug}_${keyItem}`}
-            value={valueItem}
-
-        />);
-    }
 
     filterSearch = (filterCategory) => {
         let getFilterData = document.getElementByName(filterCategory + "[]").value;
@@ -53,11 +54,6 @@ export class Filter extends Component {
         this.setState({ filterMenuId: 0 });
     }
 
-    filterItemCheckbox = () => {
-        return (
-            <input type="checkbox" checked={true} value="hello" />
-        )
-    }
 
     handleArticleSearch = (event, searchType) => {
         event.preventDefault();
@@ -73,7 +69,10 @@ export class Filter extends Component {
             set(filterObject, 'filterCategory', searchType);
             set(filterObject, 'filterItems', filterItem);
             this.props.callFilter(filterObject);
-            this.setState({ filterMenuId: 0, option1 : false});
+            this.setState({ filterMenuId: 0, option1: false, tempFilters: this.state.currentSelectedFilter });
+        }
+        if(searchType == 'collection_id'){
+            this.renderCollectionDisplayName()
         }
 
     }
@@ -87,10 +86,100 @@ export class Filter extends Component {
                     category
                 ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
             });
-        return (isFilterCategoryExist > 0) ? true : false;
-
+        return (isFilterCategoryExist > 0 || this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
     }
 
+    onChange = (value, type = '', title = '') => {
+
+        let currentSelectedFilter = cloneDeep(this.state.currentSelectedFilter), tempIndex
+        if (currentSelectedFilter.length > 0) {
+
+            let tempIndex = currentSelectedFilter.indexOf(value)
+            if (tempIndex > -1) {
+                currentSelectedFilter.splice(tempIndex, 1)
+            }
+
+            if (tempIndex <= -1) {
+                currentSelectedFilter.push(value)
+            }
+        } else {
+            currentSelectedFilter.push(value)
+        }
+
+        if (type == 'collection') {
+            let collectionSelected = cloneDeep(this.state.collectionSelected)
+            if (collectionSelected.length > 0) {
+
+                tempIndex = collectionSelected.indexOf(value)
+                if (tempIndex > -1) {
+                    collectionSelected.splice(tempIndex, 1)
+                }
+
+                if (tempIndex <= -1) {
+                    collectionSelected.push(value)
+                }
+            } else {
+                collectionSelected.push(value)
+            }
+            this.setState({
+                collectionSelected: collectionSelected
+            })
+        }
+
+        this.setState({
+            currentSelectedFilter: currentSelectedFilter
+        })
+    }
+
+
+    renderDisplayName = (displayName, category) => {
+
+        let selectedFilter = this.props.selectedFilter
+
+        selectedFilter = selectedFilter && selectedFilter.length > 0 && selectedFilter.filter((item, index) => {
+            return item.filterCategory == category
+        })
+
+        if (selectedFilter && selectedFilter.length > 0 && selectedFilter[0].filterItems.length > 0) {
+            if (selectedFilter[0].filterItems.length == 1) {
+                let value = selectedFilter[0].filterItems[0]
+                let filterList = this.props.filterList;
+                filterList = filterList && filterList.length > 0 && filterList.filter((tempValue, i) => {
+                    return tempValue.slug == category
+                })
+
+                let tempFilters = filterList && filterList.length > 0 && filterList[0].filters
+                tempFilters = tempFilters && tempFilters.length > 0 && tempFilters.filter((teval, ind) => {
+                    return teval.value == value
+                })
+
+                return tempFilters && tempFilters.length > 0 && tempFilters[0].display_name
+            } else {
+                return `${displayName} (${selectedFilter[0].filterItems.length})`
+            }
+        } else {
+            return displayName
+        }
+    }
+
+    renderCollectionDisplayName = () => {
+        let defaultName = 'From Collection', collectionDisplayName;
+
+
+        let collectionSelected = cloneDeep(this.state.collectionSelected)
+        if (collectionSelected.length > 0) {
+            if (collectionSelected.length == 1) {
+                collectionDisplayName = collectionSelected[0]
+            } else {
+                collectionDisplayName = `${defaultName} (${collectionSelected.length})`
+            }
+        } else {
+            collectionDisplayName = defaultName
+        }
+        this.setState({
+            formCollectionName: collectionDisplayName
+        })
+    }
 
     render() {
         const filterList = this.props.filterList;
@@ -100,7 +189,7 @@ export class Filter extends Component {
             <div className="filter" ref={n => (this.node = n)} >
                 <div className="btn-1 hidden">
 
-                    <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>From Collections </button>
+                    <button className="filterbutton  dropdown-toggle" onClick={this.handleOpenOptions}>{this.state.formCollectionName} </button>
                     {this.state.option1 ? <div className="dropdownvalue">
                         <p>Find content from your Collections.</p>
                         <form onSubmit={(event) => this.handleArticleSearch(event, 'collection_id')}>
@@ -109,7 +198,13 @@ export class Filter extends Component {
                                 collectionData && collectionData.length > 0 && collectionData.map((item, index) => {
                                     return (
                                         <label>
-                                            <input type="checkbox" name = {item.title} value={item.id} />
+                                            <input type="checkbox"  
+                                            name={item.title} 
+                                            value={item.id} 
+                                            onChange={() => this.onChange(item.title, 'collection')}
+                                            checked={this.isFilterItemSelected(item.slug, item.title)}
+
+                                            />
                                             {item.title}
                                         </label>
                                     )
@@ -131,18 +226,23 @@ export class Filter extends Component {
                 {filterList.slice(0, 4).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
-
-                        <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{filterItem.display_name}</button>
+                        <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
                         {(this.state.filterMenuId === filterItem.display_order) ?
                             (<div>
                                 <form className="dropdownvalue" name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event, filterItem.slug)}>
                                     <p>Find content from your {filterItem.display_name}.</p>
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
-                                            <label>
-                                                <input type="checkbox" name={`${filterItem.slug}_${keyItem}`} value={Item.value} />
+                                            <label >
+                                                {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
+                                                    name={`${filterItem.slug}_${keyItem}`}
+                                                    value={Item.value}
+                                                    disabled={!Item.count}
+                                                    onChange={() => this.onChange(Item.value)}
+                                                    checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
+                                                />}
                                                 {Item.display_name} ({Item.count})
-                            </label>
+                                            </label>
                                         ))
                                     }
                                     <div className="button-group">

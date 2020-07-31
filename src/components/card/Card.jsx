@@ -25,7 +25,7 @@ class Card extends Component {
     let responseJsonContentId = document.getElementById('request_id');
 
     resonseJsonContentItems.value = JSON.stringify(preparedJson);
-    responseJsonContentId.value = this.props.queryParms && this.props.queryParms.request_id;
+    responseJsonContentId.value = this.props.queryParms && this.props.queryParms.request_id ? this.props.queryParms.request_id : "NO_REQUEST_ID" ;
 
     hiddenForm.submit();
 
@@ -40,7 +40,7 @@ class Card extends Component {
     let contentItemUrl = "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId
 
      set (jsonData ,"['@graph'][0].title",selectedData.title)
-     set (jsonData ,"['@graph'][0].url",selectedData.url)
+     set (jsonData ,"['@graph'][0].url", process.env.REACT_APP_NEWSELA_URL+selectedData.url)
 
     switch (selectedType) {
       case 'LtiLinkItem':
@@ -59,7 +59,7 @@ class Card extends Component {
     }
 
     // this.handleHiddenForm(jsonData)
-
+    
     console.log('SELECTED CARD DATA---->>>>>',selectedData)
     console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
   }
@@ -134,4 +134,3 @@ class Card extends Component {
 }
 
 export default Card
-
