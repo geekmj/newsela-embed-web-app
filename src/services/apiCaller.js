@@ -1,5 +1,4 @@
-import axios from 'axios'
-import log from 'loglevel';
+import axios from "axios";
 
 /**
  * API caller common function
@@ -13,40 +12,36 @@ import log from 'loglevel';
  */
 
 const apiCaller = ({
-    method,
-    url,
-    data = null,
-    authorized = false,
-    headers = { 
-        'Content-Type': 'application/json', 
-         Cookie: document.cookie
-    },
+  method,
+  url,
+  data = null,
+  authorized = false,
+  headers = {
+    "Content-Type": "application/json",
+    Cookie: document.cookie,
+  },
 }) => {
+  let options = {
+    method,
+    url: url,
+    crossDomain: true,
+    headers,
+  };
 
-    let options = {
-        method,
-        url: url,
-        crossDomain: true,
-        headers,
+  if (authorized) {
+    options.headers.authorization = localStorage.getItem("authorization");
+  }
+
+  if (data) {
+    options.data = data;
+  }
+
+  axios.defaults.withCredentials = true;
+  return axios(options).catch(function (error) {
+    if (error.response) {
+      throw new Error(error);
     }
+  });
+};
 
-    if (authorized) {
-        options.headers.authorization = localStorage.getItem('authorization')
-    }
-
-    if(data){
-        options.data = data
-    }
-
-    axios.defaults.withCredentials = true
-    return axios(options)
-        .catch(function (error) {
-            if (error.response) {
-            //    log.error(error.response.data);
-            //    log.error(error.response.status);
-                throw new Error(error)
-            }
-        });
-}
-
-export default apiCaller
+export default apiCaller;

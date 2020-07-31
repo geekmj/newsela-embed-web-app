@@ -21,6 +21,15 @@
     outline: none;
   }
  
+  .container .searchbarsection input::-moz-selection {
+    color:#fff;
+    background-color:#000;
+  }
+  
+  .container .searchbarsection input::selection {
+    color:#fff;
+    background-color:#000;
+  }
   .searchbarsection{
     position: relative;
     margin: 30px auto 58px auto;
@@ -59,17 +68,24 @@
     outline: none;
   }
   
+  @media (max-width: 900px){
+    .container .searchbarsection input {
+      font-size: 28px;
+    }
+  }
 
   @media (max-width: 479px){
     .container .searchbarsection input {
       font-size: 20px;
+      width: calc(100% - 110px);
+      height: 48px;
+      
     }
     .searchbutton{
-      cursor: pointer;
-      width: 90px;
-      height: 45px;
-      font-size: 18px;
-      line-height: 0;
-      vertical-align: middle;
+     width: 90px;
+     height: 42px;
+     font-size: 18px;
+     line-height: 0;
+     vertical-align: middle;
     }
     }

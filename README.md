@@ -1,16 +1,4 @@
-
-
-* Redux integrated
-* Plop for component generation
-* Error handling using error boundaries React
-* Logging the errors
-* Routing integrated
-* SASS and CSS loaders configured :art:
-* Hot reload configured :sunny:
-* Unit test tools configured :microscope:
-* Production build optimized :chart_with_upwards_trend:
-
-### Prerequisites
+## Prerequisites
 
 * Node.js v8 or above
 
@@ -20,75 +8,41 @@ You can check your node version using the command:
 node --version
 ```
 
-### Installing
-
-Install dependencies and start using [yarn](https://yarnpkg.com):
-
-```CLI
-yarn install
-yarn start
-```
-
-Or via [npm](https://www.npmjs.com/):
+## Installing & Running in Development Mode
 
 ```CLI
 npm install
 npm start
 ```
 
-### Testing
+## Testing
 
 You can run your tests using:
 
 ```CLI
-yarn test
+npm run test
 ```
 
-It´s possible to generate the code coverage of your code. Jest will generate a HTML file with all information from your tests. To do this run the command:
+## Build
 
-```CLI
-yarn test:coverage
-```
+### QC 
 
-### Production build
+[Refer QC Enviornment Variables File](.env.qc)
 
 You can generate an optimized distribution bundle. To do this run the command:
 
 ```CLI
-yarn build
+npm run build:qc
 ```
 
-It´s possible to check the size and content of your bundled file. To do this run the command:
+### Production
+
+[Refer Production Enviornment Variables File](.env.production)
+
+You can generate an optimized distribution bundle. To do this run the command:
 
 ```CLI
-yarn analyze
+npm run build:production
 ```
 
-## Generate component
 
-```CLI
-npm run generate
-```
-and follow the further instructions
-
-## Built With
-
-* [React](https://babeljs.io/) - JavaScript library for building user interfaces
-* [Babel](https://babeljs.io/) - EcmaScript Transpiler
-* [Yarn](https://yarnpkg.com) - Dependency Management
-* [Jest](https://jestjs.io/) - JavaScript Testing
-* [Enzyme](https://airbnb.io/enzyme/docs/api/) - Component tests for React
-* Redux
-* Plop
-* Nodejs
-
-## Contributing
-
-Suggestions or pull requests are welcome.
-
-For major changes, please open an issue first to discuss what you would like to change.
-
-
-## License
-
-This project is licensed under the MIT Licensed - see the [LICENSE](LICENSE) file for details
