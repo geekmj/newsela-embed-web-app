@@ -1,0 +1,131 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:12
+
+jobs:
+  install_dependencies_and_test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Dependency Cache
+          keys:
+              - v1-yarn-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Node dependencies.
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Dependency Cache
+          key: v1-yarn-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache
+            - ~/node_modules
+      - run:
+          name: Run unit tests.
+          command: yarn test
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .cache
+            - node_modules
+  package_client:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Dependency Cache
+          keys:
+              - v1-yarn-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Node dependencies.
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Dependency Cache
+          key: v4-yarn-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache
+            - ~/node_modules
+      - run:
+          name: Build a deployable application.
+          command: yarn build:client
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .cache
+            - node_modules
+            - dist
+  create_github_release:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Create a release.
+          command: |
+            curl \
+              --header "Content-Type:application/json" \
+              --request POST \
+              --data '{"repo":"'"$CIRCLE_PROJECT_REPONAME"'","publish":"true"}' \
+              https://hermes.newsela.com/v1/create-github-release/
+  release_client:
+    working_directory: ~/repo
+    docker:
+      - image: garland/aws-cli-docker
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Notify people a release has started.
+          command: |
+            curl \
+              --header "Content-Type:application/json" \
+              --request POST \
+              --data '{"repo":"'"$CIRCLE_PROJECT_REPONAME"'","tag":"'"$CIRCLE_TAG"'","circle_build_url":"'"$CIRCLE_BUILD_URL"'"}' \
+              https://hermes.newsela.com/v1/release-start/
+      - run:
+          name: Deploy to S3.
+          command: |
+            aws s3 sync ./dist s3://newsela-universal-embed-spa/production/ --cache-control 'max-age=604800' --exclude index.html --exclude bundle.js --delete
+            aws s3 cp ./dist/index.html s3://newsela-universal-embed-spa/production/ --cache-control 'no-cache' --content-type="text/html; charset=UTF-8"
+      - run:
+          name: Send release notes to the releases channel.
+          command: |
+            curl \
+              --header "Content-Type:application/json" \
+              --request POST \
+              --data '{"repo":"'"$CIRCLE_PROJECT_REPONAME"'","tag":"'"$CIRCLE_TAG"'"}' \
+              https://hermes.newsela.com/v1/release-complete/
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - install_dependencies_and_test
+      - create_github_release:
+          requires:
+            - install_dependencies_and_test
+          filters:
+            branches:
+              only: master
+  release:
+    jobs:
+      - package_client:
+          context: production_aws
+          filters:
+            tags:
+              only: /^release.*/
+            branches:
+              ignore: /.*/
+      - release_client:
+          context: production_aws
+          requires:
+            - package_client
+          filters:
+            tags:
+              only: /^release.*/
+            branches:
+              ignore: /.*/
