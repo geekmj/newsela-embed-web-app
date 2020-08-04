@@ -62,7 +62,7 @@ class MoreFilter extends Component {
                               {
                                  filterItem.filters.map((Item, keyItem) => (
                                     <label>
-                                       {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
+                                       {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
                                           name={`${filterItem.slug}_${keyItem}`}
                                           value={`${filterItem.slug}_${Item.value}`}
                                           disabled={!Item.count}
