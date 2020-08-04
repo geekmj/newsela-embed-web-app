@@ -13,10 +13,10 @@ class Header extends Component {
         let launch_by = this.state.queryParams && this.state.queryParams.tool_consumer_info_product_family_code
         return (
             <div className="header">
-               <div className="container-fluid">
-                 <div className="row">
+               <div className="container-fluid ">
+                 <div className="row py-1">
                       <div className="col-2">
-                        <a className="navbar-brand" href="/">
+                        <a className="navbar-brand " href="/">
                             <img src={img} alt='logo' width="35px" height="35px" />
                         </a>
                     

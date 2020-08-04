@@ -50,6 +50,28 @@
    outline: none;
    border-color: #1a1a1a !important;
 }
+.clearbutton{
+    border-radius: 300px;
+    padding: .6em 1em;
+    border: none;
+    font-size: .875rem;
+    font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    transition: all 0.12s;
+    cursor: pointer;
+    line-height: 1em;
+    margin-right: 1em;
+    background-color: transparent;
+    color:#333;
+    margin-bottom: 5px;
+}
+.clearbutton:hover{
+    color: white;
+    background-color: #1a1a1a;
+}
+.clearbutton:focus{
+    outline: none;
+}
 .dropdownvalue{
     background-color: #fff;
     border: 0;
@@ -170,6 +192,14 @@ label:hover{
  .hidebtn{
     display: none;
 }
+.cross-icon{
+    font-size: 15px;
+    background-color: #BCBCBE;
+    padding: 0 5px;
+    color: #fff;
+    margin-right: 10px;
+    cursor: default;
+ }
 
 @media screen and (max-width:640px){
     .hidden{
@@ -183,11 +213,3 @@ label:hover{
     }
   }
 
-.cross-icon{
-    font-size: 15px;
-    background-color: #BCBCBE;
-    padding: 0 5px;
-    color: #fff;
-    margin-right: 10px;
-    cursor: default;
- }

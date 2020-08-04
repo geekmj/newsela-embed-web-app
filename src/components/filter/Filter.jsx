@@ -285,7 +285,9 @@ export class Filter extends Component {
                 {
                     this.props.selectedFilter.length > 0 ?
                         <div className="btn-1">
-                            <button className="filterbutton" onClick={() => this.clearAll()}>Clear</button>
+
+                            <button className="clearbutton" onClick={() => this.clearAll()}>Clear</button>
+                        
                         </div> : ""
                 }
 
