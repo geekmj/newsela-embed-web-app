@@ -39,10 +39,10 @@ class DropDown extends Component {
                 </button>{
                     this.state.option?
                         <div className="send-dropdown" onClick= {(e)=>this.handleChange(e)}>
-                            <a className="dropdown-item" selectedvalue="LtiLinkItem" value ="Send Link">Link</a>
-                            <a className="dropdown-item" selectedvalue ="smallThumbnail" value ="Embed Small">Small </a>
-                            <a className="dropdown-item" selectedvalue= "mediumThumbnail" value ="Embed Medium">Medium </a>
-                            <a className="dropdown-item" selectedvalue ="largeThumbnail" value ="Embed Large">Large </a>
+                            <a className="dropdown-item" href="#1" selectedvalue="LtiLinkItem" value ="Send Link">Link</a>
+                            <a className="dropdown-item" href="#2" selectedvalue ="smallThumbnail" value ="Embed Small">Small </a>
+                            <a className="dropdown-item" href="#3" selectedvalue= "mediumThumbnail" value ="Embed Medium">Medium </a>
+                            <a className="dropdown-item" href="#4" selectedvalue ="largeThumbnail" value ="Embed Large">Large </a>
                         </div> : ""
                 }
 

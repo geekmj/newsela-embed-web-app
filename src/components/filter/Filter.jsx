@@ -19,7 +19,7 @@ export class Filter extends Component {
 
     componentDidMount() {
         window.addEventListener("click", event => {
-            if (this.state.option1 && !this.node.contains(event.target) || this.state.filterMenuId && !this.node.contains(event.target)) {
+            if ((this.state.option1 || this.state.filterMenuId) && !this.node.contains(event.target)) {
                 this.setState({
                     option1: false,
                     filterMenuId: 0
@@ -72,7 +72,7 @@ export class Filter extends Component {
             this.props.callFilter(filterObject);
             this.setState({ filterMenuId: 0, option1: false });
         }
-        if (searchType == 'collection_id') {
+        if (searchType === 'collection_id') {
             this.renderCollectionDisplayName()
 
         }
@@ -120,7 +120,7 @@ export class Filter extends Component {
             currentSelectedFilter.push(value)
         }
 
-        if (type == 'collection') {
+        if (type === 'collection') {
             let collectionSelected = cloneDeep(this.state.collectionSelected)
             if (collectionSelected.length > 0) {
 
@@ -151,20 +151,20 @@ export class Filter extends Component {
         let selectedFilter = this.props.selectedFilter
 
         selectedFilter = selectedFilter && selectedFilter.length > 0 && selectedFilter.filter((item, index) => {
-            return item.filterCategory == category
+            return item.filterCategory === category
         })
 
         if (selectedFilter && selectedFilter.length > 0 && selectedFilter[0].filterItems.length > 0) {
-            if (selectedFilter[0].filterItems.length == 1) {
+            if (selectedFilter[0].filterItems.length === 1) {
                 let value = selectedFilter[0].filterItems[0]
                 let filterList = this.props.filterList;
                 filterList = filterList && filterList.length > 0 && filterList.filter((tempValue, i) => {
-                    return tempValue.slug == category
+                    return tempValue.slug === category
                 })
 
                 let tempFilters = filterList && filterList.length > 0 && filterList[0].filters
                 tempFilters = tempFilters && tempFilters.length > 0 && tempFilters.filter((teval, ind) => {
-                    return teval.value == value
+                    return teval.value === value
                 })
 
                 return tempFilters && tempFilters.length > 0 && tempFilters[0].display_name
@@ -182,7 +182,7 @@ export class Filter extends Component {
         let collectionSelected = cloneDeep(this.state.collectionSelected)
         let filterClassChange = this.state.filterClassName
         if (collectionSelected.length > 0) {
-            if (collectionSelected.length == 1) {
+            if (collectionSelected.length === 1) {
                 collectionDisplayName = collectionSelected[0]
 
             } else {
@@ -253,7 +253,7 @@ export class Filter extends Component {
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
                                             <label >
-                                                {Item.count == 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
+                                                {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
                                                     name={`${filterItem.slug}_${keyItem}`}
                                                     value={Item.value}
                                                     disabled={!Item.count}
