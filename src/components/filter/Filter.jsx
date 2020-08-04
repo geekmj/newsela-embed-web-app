@@ -14,7 +14,8 @@ export class Filter extends Component {
         tempFilters: [],
         collectionSelected: [],
         formCollectionName: 'Form Collection',
-        filterClassName: "filterbutton  dropdown-toggle"
+        filterClassName: "filterbutton  dropdown-toggle",
+        catArray: []
     }
 
     componentDidMount() {
@@ -76,7 +77,13 @@ export class Filter extends Component {
             this.renderCollectionDisplayName()
 
         }
-        this.setState({ filterMenuId: 0, option1: false });
+        let catArray = []
+
+        this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
+            catArray.push(item.filterCategory)
+        })
+
+        this.setState({ filterMenuId: 0, option1: false, catArray: catArray });
     }
 
     clearAll = () => {
@@ -85,7 +92,8 @@ export class Filter extends Component {
             currentSelectedFilter: [],
             collectionSelected: [],
             formCollectionName: 'Form Collection',
-            filterClassName: "filterbutton  dropdown-toggle"
+            filterClassName: "filterbutton  dropdown-toggle",
+            catArray: []
         })
 
 
@@ -120,7 +128,7 @@ export class Filter extends Component {
             currentSelectedFilter.push(value)
         }
 
-        if (type == 'collection') {
+        if (type === 'collection') {
             let collectionSelected = cloneDeep(this.state.collectionSelected)
             if (collectionSelected.length > 0) {
 
@@ -200,6 +208,23 @@ export class Filter extends Component {
         })
     }
 
+    filterContent = (type) => {
+
+        let textLevelContent = ""
+        switch (type) {
+            case "grade_levels":
+                textLevelContent = "Find articles that include a version written at a specific reading level."
+                break;
+            case "content_maturities":
+                textLevelContent = "Find articles Newsela recommends for each age group, based on the subject matter and background knowledge."
+                break;
+            default:
+                break;
+        }
+        return textLevelContent;
+
+    }
+
     render() {
         const filterList = this.props.filterList;
         const collectionData = this.props.collectionData;
@@ -245,11 +270,11 @@ export class Filter extends Component {
                 {filterList.slice(0, 2).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
-                        <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
+                        <button className={this.state.catArray.indexOf(filterItem.slug) > -1 ? "filterSelect  dropdown-toggle" : "filterbutton  dropdown-toggle"} onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
                         {(this.state.filterMenuId === filterItem.display_order) ?
                             (<div>
                                 <form className="dropdownvalue" name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event, filterItem.slug)}>
-                                    <p>Find content from your {filterItem.display_name}.</p>
+                                    <p>{this.filterContent(filterItem.slug)}</p>
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
                                             <label >
@@ -260,6 +285,7 @@ export class Filter extends Component {
                                                     onChange={() => this.onChange(Item.value)}
                                                     checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
                                                 />}
+                                                {filterItem.slug === "grade_levels" ? "Grade " : null}
                                                 {Item.display_name} ({Item.count})
                                             </label>
                                         ))
@@ -287,7 +313,7 @@ export class Filter extends Component {
                         <div className="btn-1">
 
                             <button className="clearbutton" onClick={() => this.clearAll()}>Clear</button>
-                        
+
                         </div> : ""
                 }
 
@@ -300,3 +326,5 @@ export class Filter extends Component {
 }
 
 export default Filter
+
+

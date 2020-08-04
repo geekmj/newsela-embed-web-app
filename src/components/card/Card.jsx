@@ -69,7 +69,7 @@ class Card extends Component {
   }
 
   openArticle = (path) => {
-    window.open(process.env.REACT_APP_NEWSELA_URL + path + "?mode=VIEW&from=LTI_INTEGRATION")
+    window.open(process.env.REACT_APP_NEWSELA_URL + path + "?preview_for=<tool_consumer_info_product_family_code>")
   }
 
   handleChangeViewList = () => {
