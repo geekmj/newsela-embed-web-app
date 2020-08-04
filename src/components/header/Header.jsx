@@ -26,9 +26,10 @@ class Header extends Component {
         let launch_by = this.state.queryParams && this.state.queryParams.tool_consumer_info_product_family_code
         return (
             <div className="header">
+
                <nav className="navbar">
                 <a className="navbar-brand" href="/">
-                    
+                  
                     {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
                     : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
                 </a>
