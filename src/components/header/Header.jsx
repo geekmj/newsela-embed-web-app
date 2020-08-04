@@ -1,33 +1,42 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import img from '../../assets/logo/full-logo/Blue-Logomark.png'
+import Logo from '../../assets/logo/full-logo/Blue-Logomark.png'
+import Logo1 from '../../assets/logo/full-logo/1x/Artboard 1.png'
 import './Header.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
     state = {
+        width:0
     }
+
+    componentDidMount() {
+        this.updateWindowWidth();
+        window.addEventListener("resize", this.updateWindowWidth);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowWidth);
+    }
+
+    updateWindowWidth = () => {
+        this.setState({ width: window.innerWidth });
+    };
 
     render() {
         let launch_by = this.state.queryParams && this.state.queryParams.tool_consumer_info_product_family_code
         return (
             <div className="header">
-               <div className="container-fluid ">
-                 <div className="row py-1">
-                      <div className="col-2">
-                        <a className="navbar-brand " href="/">
-                            <img src={img} alt='logo' width="35px" height="35px" />
-                        </a>
-                    
-                        </div>
-                        <div className="col-8">
-                         <p className="navbar-text">You are selecting content for {launch_by}</p>
-                        </div>
-                        <div className="col-2">
-                        </div>     
-                 </div> 
-               </div>  
+
+               <nav className="navbar">
+                <a className="navbar-brand" href="/">
+                  
+                    {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
+                    : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
+                </a>
+                 <p className="navbar-text">You are selecting content for {launch_by}</p>
+                   <div>
+                   </div> 
+                 </nav>
             </div>
         )
     }
