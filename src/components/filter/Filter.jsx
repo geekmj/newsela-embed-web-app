@@ -14,17 +14,44 @@ export class Filter extends Component {
         tempFilters: [],
         collectionSelected: [],
         formCollectionName: 'Form Collection',
-        filterClassName: "filterbutton  dropdown-toggle"
+        filterClassName: "filterbutton  dropdown-toggle",
+        catArray: []
     }
 
     componentDidMount() {
         window.addEventListener("click", event => {
-            if ((this.state.option1 || this.state.filterMenuId) && !this.node.contains(event.target)) {
+            if ((this.state.option1 && !this.node.contains(event.target)) || (this.state.filterMenuId && !this.node.contains(event.target))) {
+                let catArray = []
+
+                this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
+                   return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
+                })
+
+                let currentSelectedFilter = Array.from(new Set(catArray))
+
                 this.setState({
                     option1: false,
-                    filterMenuId: 0
+                    filterMenuId: 0,
+                    currentSelectedFilter: currentSelectedFilter
                 })
             }
+        })
+
+        if (this.props && this.props.moreCurrentFilter) {
+            let currentSelectedFilter = this.state.currentSelectedFilter
+            currentSelectedFilter = Array.from(new Set([...this.props.moreCurrentFilter, ...this.state.currentSelectedFilter]))
+            this.setState({
+                currentSelectedFilter: currentSelectedFilter
+            })
+        }
+
+    }
+
+    componentWillReceiveProps(nextProps, nextState) {
+        let currentSelectedFilter = this.state.currentSelectedFilter
+        currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter, ...this.state.currentSelectedFilter]))
+        this.setState({
+            currentSelectedFilter: currentSelectedFilter
         })
     }
 
@@ -40,10 +67,18 @@ export class Filter extends Component {
     }
 
     closeOption = () => {
+        let catArray = []
+
+        this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
+           return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
+        })
+
+        let currentSelectedFilter = Array.from(new Set(catArray))
+
         this.setState({
             option1: false,
             filterMenuId: 0,
-            // currentSelectedFilter: []
+            currentSelectedFilter: currentSelectedFilter
         })
     }
 
@@ -72,11 +107,16 @@ export class Filter extends Component {
             this.props.callFilter(filterObject);
             this.setState({ filterMenuId: 0, option1: false });
         }
-        if (searchType === 'collection_id') {
+        if (searchType ==='collection_id') {
             this.renderCollectionDisplayName()
-
         }
-        this.setState({ filterMenuId: 0, option1: false });
+        let catArray = []
+
+        this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
+           return catArray.push(item.filterCategory)
+        })
+
+        this.setState({ filterMenuId: 0, option1: false, catArray: catArray });
     }
 
     clearAll = () => {
@@ -85,7 +125,8 @@ export class Filter extends Component {
             currentSelectedFilter: [],
             collectionSelected: [],
             formCollectionName: 'Form Collection',
-            filterClassName: "filterbutton  dropdown-toggle"
+            filterClassName: "filterbutton  dropdown-toggle",
+            catArray: []
         })
 
 
@@ -164,10 +205,18 @@ export class Filter extends Component {
 
                 let tempFilters = filterList && filterList.length > 0 && filterList[0].filters
                 tempFilters = tempFilters && tempFilters.length > 0 && tempFilters.filter((teval, ind) => {
-                    return teval.value === value
+                    return teval.value ===value
                 })
 
-                return tempFilters && tempFilters.length > 0 && tempFilters[0].display_name
+                let returnName
+                if (category === "grade_levels") {
+                    if (tempFilters && tempFilters.length > 0) {
+                        returnName = 'Grade ' + tempFilters[0].display_name
+                    }
+                } else {
+                    returnName = tempFilters && tempFilters.length > 0 && tempFilters[0].display_name
+                }
+                return returnName
             } else {
                 return `${displayName} (${selectedFilter[0].filterItems.length})`
             }
@@ -198,6 +247,23 @@ export class Filter extends Component {
             formCollectionName: collectionDisplayName,
             filterClassName: filterClassChange
         })
+    }
+
+    filterContent = (type) => {
+
+        let textLevelContent = ""
+        switch (type) {
+            case "grade_levels":
+                textLevelContent = "Find articles that include a version written at a specific reading level."
+                break;
+            case "content_maturities":
+                textLevelContent = "Find articles Newsela recommends for each age group, based on the subject matter and background knowledge."
+                break;
+            default:
+                break;
+        }
+        return textLevelContent;
+
     }
 
     render() {
@@ -245,11 +311,11 @@ export class Filter extends Component {
                 {filterList.slice(0, 2).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
-                        <button className="filterbutton dropdown-toggle" onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
+                        <button className={this.state.catArray.indexOf(filterItem.slug) > -1 ? "filterSelect  dropdown-toggle" : "filterbutton  dropdown-toggle"} onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
                         {(this.state.filterMenuId === filterItem.display_order) ?
                             (<div>
                                 <form className="dropdownvalue" name={filterItem.slug} onSubmit={(event) => this.handleArticleSearch(event, filterItem.slug)}>
-                                    <p>Find content from your {filterItem.display_name}.</p>
+                                    <p>{this.filterContent(filterItem.slug)}</p>
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
                                             <label >
@@ -260,6 +326,7 @@ export class Filter extends Component {
                                                     onChange={() => this.onChange(Item.value)}
                                                     checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
                                                 />}
+                                                {filterItem.slug === "grade_levels" ? "Grade " : null}
                                                 {Item.display_name} ({Item.count})
                                             </label>
                                         ))
@@ -285,9 +352,7 @@ export class Filter extends Component {
                 {
                     this.props.selectedFilter.length > 0 ?
                         <div className="btn-1">
-
                             <button className="clearbutton" onClick={() => this.clearAll()}>Clear</button>
-                        
                         </div> : ""
                 }
 

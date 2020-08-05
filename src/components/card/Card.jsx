@@ -71,7 +71,7 @@ class Card extends Component {
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
         path +
-        "?mode=VIEW&from=LTI_INTEGRATION"
+        "?preview_for=<tool_consumer_info_product_family_code>"
     );
   };
 

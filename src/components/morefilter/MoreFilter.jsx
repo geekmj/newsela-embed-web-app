@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { set } from 'lodash';
+import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./MoreFilter.css"
@@ -8,33 +8,85 @@ class MoreFilter extends Component {
    constructor(props) {
       super(props)
       this.state = {
-         filters: []
+         filters: [],
+         currentSelectedFilter: []
       }
    }
 
 
-   handleArticleSearch(event){
+   handleArticleSearch(event) {
       event.preventDefault();
       const form = event.target;
       const data = new FormData(form);
       let filterObject = {};
       let filterItem = [];
-   
-      for(let name of data.keys()) 
-      {
-          var getItemName = name.split("_");
-          filterItem.push(data.get(name));
-          console.log("####### -----> ",getItemName[0], data.get(name));
+
+      for (let name of data.keys()) {
+         var getItemName = name.split("_");
+         filterItem.push(data.get(name));
+         console.log("####### -----> ", getItemName[0], data.get(name));
       }
-     if(filterItem.length > 0)
+      if (filterItem.length > 0) 
       {
-          console.log(JSON.stringify(filterItem));
-          set(filterObject, 'filterCategory', getItemName[0]);
-          set(filterObject, 'filterItems', filterItem);
-          this.props.callFilter(filterObject);
-          this.props.cancel();
+         console.log(JSON.stringify(filterItem));
+         set(filterObject, 'filterCategory', getItemName[0]);
+         set(filterObject, 'filterItems', filterItem);
+         this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
+         this.props.callFilter(filterObject);
+         this.props.cancel();
       }
-   
+
+   }
+
+
+   isFilterItemSelected = (category, item) => {
+      const getFilterSelected = this.props.selectedFilter;
+      const isFilterCategoryExist = findIndex(getFilterSelected,
+         (filter) => {
+            return (isEqual(
+               get(filter, 'filterCategory', null),
+               category
+            ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
+         });
+      return (isFilterCategoryExist > 0 || this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
+   }
+
+   onChange = (value, type = '', title = '') => {
+
+      let currentSelectedFilter = cloneDeep(this.state.currentSelectedFilter)
+      if (currentSelectedFilter.length > 0) {
+
+         let tempIndex = currentSelectedFilter.indexOf(value)
+         if (tempIndex > -1) {
+            currentSelectedFilter.splice(tempIndex, 1)
+         }
+
+         if (tempIndex <= -1) {
+            currentSelectedFilter.push(value)
+         }
+      } else {
+         currentSelectedFilter.push(value)
+      }
+      this.setState({
+         currentSelectedFilter: currentSelectedFilter
+      })
+   }
+
+   filterContent = (type) => {
+
+      let textLevelContent = ""
+      switch (type) {
+         case "grade_levels":
+            textLevelContent = "Find articles that include a version written at a specific reading level."
+            break;
+         case "content_maturities":
+            textLevelContent = "Find articles Newsela recommends for each age group, based on the subject matter and background knowledge."
+            break;
+         default:
+            break;
+      }
+      return textLevelContent;
+
    }
 
    render() {
@@ -47,40 +99,43 @@ class MoreFilter extends Component {
             <div className="container-fluid my-4 px-4">
                <div>
                   <form onSubmit={(event) => this.handleArticleSearch(event)}>
-                  <div className="button-group1">
-                     <button className="cancel" onClick={props.cancel}>Cancel</button>
-                     <button className="apply">Apply</button>
-                  </div>
-                  <div className="row">
+                     <div className="button-group1">
+                        <button className="cancel" onClick={props.cancel}>Cancel</button>
+                        <button className="apply">Apply</button>
+                     </div>
+                     <div className="row">
 
-                     {filterList.map((filterItem, index) => (
+                        {filterList.map((filterItem, index) => (
 
-                        <div className="col-md-6">
-                           <h6 className="pt-2">{filterItem.display_name}</h6>
-                           <div className="more-filer-list">
-                              <p className="px-3">Find content from your {filterItem.display_name}.</p>
-                              {
-                                 filterItem.filters.map((Item, keyItem) => (
-                                    <label>
-                                       {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span>: <input type="checkbox"
-                                          name={`${filterItem.slug}_${keyItem}`}
-                                          value={`${filterItem.slug}_${Item.value}`}
-                                          disabled={!Item.count}
-                                       />}
-                                       {Item.display_name} ({Item.count})
-                              </label>
-                                 ))
-                              }
+                           <div className="col-md-6">
+                              <h6 className="pt-2">{filterItem.display_name}</h6>
+                              <div className="more-filer-list">
+                                 <p className="px-3">{this.filterContent(filterItem.slug)}</p>
+                                 {
+                                    filterItem.filters.map((Item, keyItem) => (
+                                       <label>
+                                          {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
+                                             name={`${filterItem.slug}_${keyItem}`}
+                                             value={`${filterItem.slug}_${Item.value}`}
+                                             disabled={!Item.count}
+                                             onChange={() => this.onChange(Item.value)}
+                                             checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
+                                          />}
+                                          {filterItem.slug === "grade_levels" ? "Grade " : null}
+                                          {Item.display_name} ({Item.count})
+                                       </label>
+                                    ))
+                                 }
 
+                              </div>
                            </div>
-                        </div>
-                     ))}
-                  </div>
+                        ))}
+                     </div>
 
-                  <div className="button-group1">
-                     <button className="cancel" onClick={props.cancel}>Cancel</button>
-                     <button className="apply" type="submit">Apply</button>
-                  </div>
+                     <div className="button-group1">
+                        <button className="cancel" onClick={props.cancel}>Cancel</button>
+                        <button className="apply" type="submit">Apply</button>
+                     </div>
                   </form>
                </div>
 
@@ -92,3 +147,4 @@ class MoreFilter extends Component {
 }
 
 export default MoreFilter
+
