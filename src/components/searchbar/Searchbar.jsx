@@ -29,7 +29,7 @@ class Searchbar extends Component {
         this.setState({
             searchKey: e.target.value,
         })
-        if(e.charCode == 13){ 
+        if(e.charCode === 13){ 
             this.searchWord()
         }
          this.props.updateValue('searchKey',e.target.value )
