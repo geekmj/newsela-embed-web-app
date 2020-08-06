@@ -79,6 +79,9 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run:
+          name: Install Curl.
+          command: apk add curl
+      - run:
           name: Notify people a release has started.
           command: |
             curl \
