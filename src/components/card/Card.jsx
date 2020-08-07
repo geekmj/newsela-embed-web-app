@@ -68,10 +68,10 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
+    let queryparam =this.props.queryParms && this.props.queryParms.tool_consumer_info_product_family_code
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
-        path +
-        "?preview_for=<tool_consumer_info_product_family_code>"
+        path + "?preview_for="+ (queryparam)
     );
   };
 

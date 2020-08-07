@@ -23,7 +23,7 @@ class Header extends Component {
     };
 
     render() {
-        let launch_by = this.state.queryParams && this.state.queryParams.tool_consumer_info_product_family_code
+        let launch_by = this.props.queryParams && this.props.queryParams.tool_consumer_info_product_family_code
         return (
             <div className="header">
 
@@ -44,7 +44,7 @@ class Header extends Component {
 }
 function mapStateToProps(state) {
     return {
-        queryparams: state.rootReducer.mainReducer.queryParams
+        queryParams: state.rootReducer.mainReducer.queryParams
     }
 }
 

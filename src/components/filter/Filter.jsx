@@ -24,7 +24,7 @@ export class Filter extends Component {
                 let catArray = []
 
                 this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
-                   return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
+                    return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
                 })
 
                 let currentSelectedFilter = Array.from(new Set(catArray))
@@ -70,7 +70,7 @@ export class Filter extends Component {
         let catArray = []
 
         this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
-           return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
+            return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
         })
 
         let currentSelectedFilter = Array.from(new Set(catArray))
@@ -101,19 +101,18 @@ export class Filter extends Component {
         for (let name of data.keys()) {
             filterItem.push(data.get(name));
         }
-        if (filterItem.length > 0) {
             set(filterObject, 'filterCategory', searchType);
             set(filterObject, 'filterItems', filterItem);
             this.props.callFilter(filterObject);
             this.setState({ filterMenuId: 0, option1: false });
-        }
-        if (searchType ==='collection_id') {
+      
+        if (searchType === 'collection_id') {
             this.renderCollectionDisplayName()
         }
         let catArray = []
 
         this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
-           return catArray.push(item.filterCategory)
+            return catArray.push(item.filterCategory)
         })
 
         this.setState({ filterMenuId: 0, option1: false, catArray: catArray });
@@ -141,7 +140,7 @@ export class Filter extends Component {
                     category
                 ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
             });
-        return (isFilterCategoryExist > 0 || this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
+        return (this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
     }
 
     onChange = (value, type = '', title = '') => {
@@ -205,7 +204,7 @@ export class Filter extends Component {
 
                 let tempFilters = filterList && filterList.length > 0 && filterList[0].filters
                 tempFilters = tempFilters && tempFilters.length > 0 && tempFilters.filter((teval, ind) => {
-                    return teval.value ===value
+                    return teval.value === value
                 })
 
                 let returnName
@@ -250,7 +249,7 @@ export class Filter extends Component {
     }
 
     filterContent = (type) => {
-
+        
         let textLevelContent = ""
         switch (type) {
             case "grade_levels":
