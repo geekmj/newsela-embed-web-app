@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Logo from '../../assets/logo/full-logo/Blue-Logomark.png'
-import Logo1 from '../../assets/logo/full-logo/1x/Artboard 1.png'
+import Logo1 from '../../assets/logo/full-logo/1x/White-Full-Logo.png'
 import './Header.css'
 
 class Header extends Component {
@@ -33,7 +33,7 @@ class Header extends Component {
                     {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
                     : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
                 </a>
-                 <p className="navbar-text">You are selecting content for {launch_by}</p>
+                <p className="navbar-text">Search and Embed content for {launch_by}</p>
                    <div>
                    </div> 
                  </nav>

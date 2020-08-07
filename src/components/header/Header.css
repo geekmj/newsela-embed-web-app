@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Circular';
+    src: local('Circular'), url(../../assets/fonts/lineto-circular-book.ttf) format('truetype');
+}
+
 .header{
     background-color: #323332;
     color:#fff;
@@ -6,8 +11,9 @@
     padding:0;
     margin:0;
     text-align: center;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    font-family: 'Circular';
 }
 .navbar{
     flex-wrap: nowrap;

@@ -5,25 +5,10 @@ class Searchbar extends Component {
         super(props)
 
         this.state = {
-            searchKey: '',
-            width: 0
+            searchKey: ''
         }
 
     }
-
-    componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener("resize", this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions = () => {
-        this.setState({ width: window.innerWidth });
-    };
-
 
     handleOnInputChange = (e) => {
         this.setState({
@@ -52,7 +37,7 @@ class Searchbar extends Component {
             <div className="container">
                 <div className="search">
                     <div className="searchbarsection">
-                        <input type="text"  maxlength="200" value={this.state.searchKey} placeholder= {`${this.state.width<479 ? 'Enter keyword' : 'What do you want to search?'}`}
+                        <input type="text"  maxlength="200" value={this.state.searchKey} placeholder="What do you want to teach?"
                          onKeyPress={(e) => this.handleOnInputChange(e)} onChange={(e) => this.handleOnInputChange(e)} />
                         <button className="searchbutton" onClick={() => this.searchWord()}>Search</button>
                     </div>

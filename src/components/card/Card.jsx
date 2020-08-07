@@ -159,15 +159,18 @@ class Card extends Component {
                         post["object"]["translations"].length > 0 &&
                         post["object"]["translations"][0].display_language ===
                           "Spanish" ? (
-                          <img
-                            src={Spanish}
-                            width="15px"
-                            height="15px"
-                            alt="spanish-icon"
-                          />
-                        ) : (
-                          ""
-                        )}
+                          <div className="tool">  
+                            <img
+                              src={Spanish}
+                              width="15px"
+                              height="15px"
+                              alt="spanish-icon"
+                            />
+                            <span className="tooltiptext"> Also available in Spanish</span>
+                          </div> 
+                          ) : (
+                            ""
+                          )}
                         {/* <img src={Quizicon} width="20px" height="17px" alt="quizicon" /> */}
                       </div>
                       <div>
