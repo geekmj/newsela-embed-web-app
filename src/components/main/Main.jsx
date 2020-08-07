@@ -71,15 +71,18 @@ class Main extends Component {
 
     if (isFilterCategoryExist >= 0) {
       getSelectedFilter[isFilterCategoryExist] = data;
-      if (data.filterItems.length == 0) {
-        let tempIndex
+
+      if (data.filterItems.length === 0) {
+        let tempIndex;
         getSelectedFilter.filter((value, index) => {
-          if (value.filterCategory == data.filterCategory) {
+          if (value.filterCategory === data.filterCategory) {
             tempIndex = index
             return true
+          } else {
+            return false
           }
         })
-
+        
         getSelectedFilter.splice(tempIndex, 1)
       }
      
