@@ -142,7 +142,9 @@ export class Filter extends Component {
             });
 
         return (isFilterCategoryExist > 0 ||this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
-
+        
+    } 
+    
     onChange = (value, type = '', title = '') => {
 
         let currentSelectedFilter = cloneDeep(this.state.currentSelectedFilter), tempIndex
