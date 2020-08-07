@@ -50,7 +50,7 @@ jobs:
             - ~/node_modules
       - run:
           name: Build a deployable application.
-          command: yarn build
+          command: yarn build:qc
       - persist_to_workspace:
           root: ~/repo
           paths:
