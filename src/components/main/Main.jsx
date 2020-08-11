@@ -25,7 +25,9 @@ class Main extends PureComponent {
     moreFilter: false,
     showMoreLoading: false,
     collectionData: [],
-    moreCurrentFilter: []
+    moreCurrentFilter: [],
+    pageSize:12,
+    lastPage :1
   };
 
   componentDidMount() {
@@ -72,7 +74,6 @@ class Main extends PureComponent {
 
     if (isFilterCategoryExist >= 0) {
       getSelectedFilter[isFilterCategoryExist] = data;
-
       if (data.filterItems.length === 0) {
         let tempIndex;
         getSelectedFilter.filter((value, index) => {
@@ -83,7 +84,7 @@ class Main extends PureComponent {
             return false
           }
         })
-        
+  
         getSelectedFilter.splice(tempIndex, 1)
       }
      
@@ -134,8 +135,8 @@ class Main extends PureComponent {
         });
       }
 
-      console.log("Filter Request ", requestParam)  
-      searchApi(requestParam, currentPage).then((response) => {
+
+      searchApi(requestParam, currentPage,this.state.pageSize).then((response) => {
         const filter = response.data.aggregations.facets;
         let filterRender = isFilterExist ? this.state.filter : filter.sort(this.sortByDisplayOrder);
         filterRender.forEach((item, index) => {
@@ -149,12 +150,15 @@ class Main extends PureComponent {
         } else {
           updatedJson = response.data.results;
         }
+        let lastPage = Math.ceil(response.data.total_results/this.state.pageSize);
 
         this.setState({
           jsonData: updatedJson,
           filter: filterRender,
           currentPage: currentPage,
+          lastPage:lastPage
         });
+
         if (type === 'loadMore') {
           this.setState({
             showMoreLoading: false
@@ -239,7 +243,7 @@ class Main extends PureComponent {
                     jsonData={this.state.jsonData}
                     changeView={this.state.changeView}
                   />
-                  {this.state.jsonData && this.state.jsonData.length === 0 ? "" : (<div className="load-more-bgcolor">{!this.state.showMoreLoading ? <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button> : ""}</div>)}
+                  {this.state.jsonData && this.state.jsonData.length === 0 ? "" : (<div className="load-more-bgcolor">{!this.state.showMoreLoading && this.state.lastPage !== this.state.currentPage ? <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button> : ""}</div>)}
 
                   {this.state.isLoading ? <Loader /> : ""}
                   {this.state.showMoreLoading ? <Loader type="showMore" /> : ""}

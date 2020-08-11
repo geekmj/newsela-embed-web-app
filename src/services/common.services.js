@@ -1,8 +1,8 @@
 import apiCaller from './apiCaller';
 
-export const searchApi = (searchKeyword, pageNo) => {
+export const searchApi = (searchKeyword, pageNo,pageSize) => {
     const reqObj = {};
-    reqObj.url = `${process.env.REACT_APP_SEARCH_API_URL}?facets=true&format=full&objects=header&page=${pageNo}&page_size=12${searchKeyword}`;
+    reqObj.url = `${process.env.REACT_APP_SEARCH_API_URL}?facets=true&format=full&objects=header&page=${pageNo}&page_size=${pageSize}${searchKeyword}`;
     reqObj.method = 'get';
     return apiCaller(reqObj);
 }
