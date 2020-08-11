@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Filter.css';
 
-export class Filter extends Component {
+export class Filter extends PureComponent {
     state = {
         option1: false,
         filterMenuId: 0,
@@ -331,7 +331,7 @@ export class Filter extends Component {
                                                     value={Item.value}
                                                     disabled={!Item.count}
                                                     onChange={() => this.onChange(Item.value)}
-                                                    checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
+                                                    checked={(this.props.selectedFilter.length > 0) ? this.isFilterItemSelected(filterItem.slug, Item.value) : false}
                                                 />}
                                                 {filterItem.slug === "grade_levels" ? "Grade " : null}
                                                 {Item.display_name} ({Item.count})

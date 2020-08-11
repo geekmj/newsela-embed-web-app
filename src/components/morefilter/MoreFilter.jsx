@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./MoreFilter.css"
 
-class MoreFilter extends Component {
+class MoreFilter extends PureComponent {
    constructor(props) {
       super(props)
       this.state = {

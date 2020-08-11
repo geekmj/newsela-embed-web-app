@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
 import { parseQuery } from '../../utils/commonFunctions';
 import { searchApi, filterCollectionApi } from '../../services/common.services';
@@ -13,7 +13,7 @@ import MoreFilter from '../morefilter';
 import { findIndex, get, isEqual, isArray } from 'lodash';
 
 
-class Main extends Component {
+class Main extends PureComponent {
   state = {
     jsonData: [],
     filter: [],
@@ -56,8 +56,10 @@ class Main extends Component {
   resetFilter = () => {
     this.setState({
       selectedFilterOption: [],
+      selectedFilter: [],
       collectionData: [],
-      moreCurrentFilter: []
+      moreCurrentFilter: [],
+      moreFilter: false
     });
     this.searchAndSave();
     this.getCollectionData();
