@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
 import { parseQuery } from '../../utils/commonFunctions';
 import { searchApi, filterCollectionApi } from '../../services/common.services';
@@ -10,10 +10,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import Filter from '../filter';
 import MoreFilter from '../morefilter';
-import { findIndex, get, isEqual } from 'lodash';
+import { findIndex, get, isEqual, isArray } from 'lodash';
 
 
-class Main extends Component {
+class Main extends PureComponent {
   state = {
     jsonData: [],
     filter: [],
@@ -57,11 +57,12 @@ class Main extends Component {
       collectionData: [],
       moreCurrentFilter: []
     });
+    this.render();
     this.searchAndSave();
     this.getCollectionData();
+    
   };
-  searchByFilter = (data) => {
-    let getSelectedFilter = this.state.selectedFilterOption;
+  setFilterData = (data, getSelectedFilter) => {
     const isFilterCategoryExist = findIndex(getSelectedFilter, (filter) => {
       return isEqual(
         get(filter, 'filterCategory', null),
@@ -89,6 +90,19 @@ class Main extends Component {
     } else {
       getSelectedFilter.push(data);
     }
+    return getSelectedFilter;
+  }
+
+  searchByFilter = (data) => {
+    let getSelectedFilter = this.state.selectedFilterOption;
+    if(isArray(data)){
+      data.forEach((item, index) => {
+        getSelectedFilter = this.setFilterData(item, getSelectedFilter);
+      })
+    }else{
+      getSelectedFilter = this.setFilterData(data, getSelectedFilter);
+    }
+    //console.log("Data ---> ",getSelectedFilter);
     this.setState({ selectedFilterOption: getSelectedFilter });
     this.searchAndSave('filterSearch');
   };
@@ -120,7 +134,7 @@ class Main extends Component {
         });
       }
 
-
+      console.log("Filter Request ", requestParam)  
       searchApi(requestParam, currentPage).then((response) => {
         const filter = response.data.aggregations.facets;
         let filterRender = isFilterExist ? this.state.filter : filter.sort(this.sortByDisplayOrder);

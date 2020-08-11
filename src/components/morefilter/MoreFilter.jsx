@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent  } from 'react'
 import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import "./MoreFilter.css"
 
-class MoreFilter extends Component {
+class MoreFilter extends PureComponent  {
    constructor(props) {
       super(props)
       this.state = {
@@ -20,24 +20,35 @@ class MoreFilter extends Component {
       const data = new FormData(form);
       let filterObject = {};
       let filterItem = [];
-
+      let filterList = [];
+      let slugName = "";
       for (let name of data.keys()) {
-         var getItemName = name.split("_");
-         filterItem.push(data.get(name));
-         console.log("####### -----> ", getItemName[0], data.get(name));
-      }
-      if (filterItem.length > 0) 
-      {
-         console.log(JSON.stringify(filterItem));
-         set(filterObject, 'filterCategory', getItemName[0]);
-         set(filterObject, 'filterItems', filterItem);
-         this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
-         this.props.callFilter(filterObject);
-         this.props.cancel();
+         const [FilterSlug, FilterValue] = data.get(name).split("#");
+         
+         if(slugName === ""){
+            slugName = FilterSlug
+            filterItem.push(FilterValue);
+         }else if(slugName !== FilterSlug){
+            set(filterObject, 'filterCategory', slugName);
+            set(filterObject, 'filterItems', filterItem);
+            slugName = FilterSlug;
+            filterList.push(filterObject);
+            filterObject = {};
+            filterItem = [];
+            filterItem.push(FilterValue);
+         }else{
+            filterItem.push(FilterValue);
+         }
+         slugName =  FilterSlug;
       }
 
+      set(filterObject, 'filterCategory', slugName);
+      set(filterObject, 'filterItems', filterItem);
+      // console.log("######## ----> ", filterObject);
+      filterList.push(filterObject);
+      this.props.callFilter(filterList);
+      this.props.cancel();
    }
-
 
    isFilterItemSelected = (category, item) => {
       const getFilterSelected = this.props.selectedFilter;
@@ -116,7 +127,7 @@ class MoreFilter extends Component {
                                        <label>
                                           {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
                                              name={`${filterItem.slug}_${keyItem}`}
-                                             value={`${filterItem.slug}_${Item.value}`}
+                                             value={`${filterItem.slug}#${Item.value}`}
                                              disabled={!Item.count}
                                              onChange={() => this.onChange(Item.value)}
                                              checked={this.isFilterItemSelected(filterItem.slug, Item.value)}

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent  } from 'react';
 import { set, indexOf, get, isEqual, findIndex, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Filter.css';
 
-export class Filter extends Component {
+export class Filter extends PureComponent  {
     state = {
         option1: false,
         filterMenuId: 0,
@@ -17,6 +17,12 @@ export class Filter extends Component {
         filterClassName: "filterbutton  dropdown-toggle",
         catArray: []
     }
+    componentWillMount() {
+        console.log('Filter Component WILL MOUNT!')
+     }
+     componentWillUpdate(nextProps, nextState) {
+        console.log('Filter Component WILL UPDATE!');
+     }
 
     componentDidMount() {
         window.addEventListener("click", event => {
@@ -46,12 +52,12 @@ export class Filter extends Component {
         }
 
     }
-
+    
     componentWillReceiveProps(nextProps, nextState) {
         let currentSelectedFilter = this.state.currentSelectedFilter
         currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter, ...this.state.currentSelectedFilter]))
         this.setState({
-            currentSelectedFilter: currentSelectedFilter
+           currentSelectedFilter: currentSelectedFilter
         })
     }
 
@@ -119,17 +125,20 @@ export class Filter extends Component {
     }
 
     clearAll = () => {
-        this.props.resetFilter()
         this.setState({
+            option1: false,
+            filterMenuId: 0,
+            collectionData: [],
+            checked: false,
             currentSelectedFilter: [],
+            tempFilters: [],
             collectionSelected: [],
             formCollectionName: 'Form Collection',
             filterClassName: "filterbutton  dropdown-toggle",
             catArray: []
         })
-
-
-
+        this.props.resetFilter()
+        this.render();
     }
     isFilterItemSelected = (category, item) => {
         const getFilterSelected = this.props.selectedFilter;
