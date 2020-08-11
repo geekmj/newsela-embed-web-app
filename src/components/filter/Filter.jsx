@@ -43,6 +43,8 @@ export class Filter extends Component {
             this.setState({
                 currentSelectedFilter: currentSelectedFilter
             })
+
+            
         }
 
     }
@@ -52,6 +54,13 @@ export class Filter extends Component {
         currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter, ...this.state.currentSelectedFilter]))
         this.setState({
             currentSelectedFilter: currentSelectedFilter
+        })
+        let catArray = [];
+        this.props.selectedFilter && this.props.selectedFilter.map((value,i) => {
+            catArray.push(value.filterCategory)
+        })
+        this.setState({
+            catArray: catArray
         })
     }
 
@@ -305,7 +314,6 @@ export class Filter extends Component {
                     </div> : null
                     }
                 </div>
-
 
                 {filterList.slice(0, 2).map((filterItem, index) => (
 

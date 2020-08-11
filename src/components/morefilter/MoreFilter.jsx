@@ -13,6 +13,18 @@ class MoreFilter extends Component {
       }
    }
 
+   componentDidMount() {
+      let selectedFilter = this.props.selectedFilter;
+      let currentSelectedFilter = [];
+
+      selectedFilter && selectedFilter.length > 0 && selectedFilter.map((value, i) => {
+         currentSelectedFilter.push(...value.filterItems)
+      })
+
+      this.setState({
+         currentSelectedFilter: currentSelectedFilter
+      })
+   }
 
    handleArticleSearch(event) {
       event.preventDefault();
@@ -24,11 +36,11 @@ class MoreFilter extends Component {
       let slugName = "";
       for (let name of data.keys()) {
          const [FilterSlug, FilterValue] = data.get(name).split("#");
-         
-         if(slugName === ""){
+
+         if (slugName === "") {
             slugName = FilterSlug
             filterItem.push(FilterValue);
-         }else if(slugName !== FilterSlug){
+         } else if (slugName !== FilterSlug) {
             set(filterObject, 'filterCategory', slugName);
             set(filterObject, 'filterItems', filterItem);
             slugName = FilterSlug;
@@ -36,17 +48,18 @@ class MoreFilter extends Component {
             filterObject = {};
             filterItem = [];
             filterItem.push(FilterValue);
-         }else{
+         } else {
             filterItem.push(FilterValue);
          }
-         slugName =  FilterSlug;
+         slugName = FilterSlug;
       }
 
       set(filterObject, 'filterCategory', slugName);
       set(filterObject, 'filterItems', filterItem);
-      // console.log("######## ----> ", filterObject);
+      //  console.log("######## ----> ", slugName);
       filterList.push(filterObject);
       this.props.callFilter(filterList);
+      this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
       this.props.cancel();
    }
 
@@ -127,13 +140,14 @@ class MoreFilter extends Component {
                                  {
                                     filterItem.filters.map((Item, keyItem) => (
                                        <label>
-                                          {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
-                                             name={`${filterItem.slug}_${keyItem}`}
-                                             value={`${filterItem.slug}_${Item.value}`}
+                                          {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} />
+                                          </span> : <input type="checkbox"
+                                             name={`${filterItem.slug}#${keyItem}`}
+                                             value={`${filterItem.slug}#${Item.value}`}
                                              disabled={!Item.count}
                                              onChange={() => this.onChange(Item.value)}
                                              checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
-                                          />}
+                                             />}
                                           {filterItem.slug === "grade_levels" ? "Grade " : null}
                                           {Item.display_name} ({Item.count})
                                        </label>
