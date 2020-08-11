@@ -63,8 +63,7 @@ class Main extends Component {
     this.getCollectionData();
   };
 
-  searchByFilter = (data) => {
-    let getSelectedFilter = this.state.selectedFilterOption;
+  setFilterData = (data, getSelectedFilter) => {
     const isFilterCategoryExist = findIndex(getSelectedFilter, (filter) => {
       return isEqual(
         get(filter, 'filterCategory', null),
@@ -91,6 +90,19 @@ class Main extends Component {
     } else {
       getSelectedFilter.push(data);
     }
+    return getSelectedFilter;
+  }
+
+  searchByFilter = (data) => {
+    let getSelectedFilter = this.state.selectedFilterOption;
+    if(isArray(data)){
+      data.forEach((item, index) => {
+        getSelectedFilter = this.setFilterData(item, getSelectedFilter);
+      })
+    }else{
+      getSelectedFilter = this.setFilterData(data, getSelectedFilter);
+    }
+    //console.log("Data ---> ",getSelectedFilter);
     this.setState({ selectedFilterOption: getSelectedFilter });
     this.searchAndSave('filterSearch');
   };
