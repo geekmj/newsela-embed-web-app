@@ -104,6 +104,7 @@ class MoreFilter extends Component {
    render() {
       let props = this.props
       const filterList = props.filterList;
+      const collectionData = this.props.collectionData;
 
       return (
          <div className="filter-wrapper" >
@@ -116,9 +117,9 @@ class MoreFilter extends Component {
                         <button className="apply">Apply</button>
                      </div>
                      <div className="row">
-
+                     
                         {filterList.map((filterItem, index) => (
-
+                              
                            <div className="col-md-6">
                               <h6 className="pt-2">{filterItem.display_name}</h6>
                               <div className="more-filer-list">
@@ -142,6 +143,32 @@ class MoreFilter extends Component {
                               </div>
                            </div>
                         ))}
+
+                        <div className="col-md-6">
+                           <div>
+                               <h6 className="pt-2">From Collections</h6> 
+                                <div className="more-filer-list">
+                                    <p className="px-3">Find content from your Collections.</p>    
+                               {
+                               collectionData && collectionData.length > 0 && collectionData.map((item, index) => {
+                                  return (
+                                        <div> 
+                                      <label>
+                                          <input type="checkbox"
+                                              name={item.title}
+                                              value={item.id}
+                                              onChange={() => this.onChange(item.title, 'collection')}
+                                              checked={this.isFilterItemSelected(item.slug, item.title)}
+                                          />
+                                          {item.title}
+                                      </label>
+                                      </div>  
+                                    )
+                                })
+                               }
+                             </div>     
+                          </div>
+                      </div>
                      </div>
 
                      <div className="button-group1">

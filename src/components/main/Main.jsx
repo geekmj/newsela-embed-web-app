@@ -234,6 +234,7 @@ class Main extends Component {
                   filterList={this.state.filter}
                   selectedFilter={this.state.selectedFilterOption}
                   setMoreCurrentFilter={this.setMoreCurrentFilter}
+                  collectionData={this.state.collectionData}
                 />)
                 :
                 (<div>
