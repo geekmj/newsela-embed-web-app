@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import Filter from '../filter';
 import MoreFilter from '../morefilter';
-import { findIndex, get, isEqual } from 'lodash';
+import { findIndex, get, isEqual, isArray } from 'lodash';
 
 
 class Main extends Component {
