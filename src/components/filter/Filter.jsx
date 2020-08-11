@@ -140,11 +140,9 @@ export class Filter extends Component {
                     category
                 ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
             });
-
         return (isFilterCategoryExist > 0 ||this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
-        
-    } 
-    
+    }
+
     onChange = (value, type = '', title = '') => {
 
         let currentSelectedFilter = cloneDeep(this.state.currentSelectedFilter), tempIndex
@@ -251,7 +249,7 @@ export class Filter extends Component {
     }
 
     filterContent = (type) => {
-        
+
         let textLevelContent = ""
         switch (type) {
             case "grade_levels":

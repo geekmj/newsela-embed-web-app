@@ -25,7 +25,9 @@ class Main extends Component {
     moreFilter: false,
     showMoreLoading: false,
     collectionData: [],
-    moreCurrentFilter: []
+    moreCurrentFilter: [],
+    pageSize:12,
+    lastPage :1
   };
 
   componentDidMount() {
@@ -60,6 +62,7 @@ class Main extends Component {
     this.searchAndSave();
     this.getCollectionData();
   };
+
   searchByFilter = (data) => {
     let getSelectedFilter = this.state.selectedFilterOption;
     const isFilterCategoryExist = findIndex(getSelectedFilter, (filter) => {
@@ -71,7 +74,6 @@ class Main extends Component {
 
     if (isFilterCategoryExist >= 0) {
       getSelectedFilter[isFilterCategoryExist] = data;
-
       if (data.filterItems.length === 0) {
         let tempIndex;
         getSelectedFilter.filter((value, index) => {
@@ -82,7 +84,7 @@ class Main extends Component {
             return false
           }
         })
-        
+  
         getSelectedFilter.splice(tempIndex, 1)
       }
      
@@ -121,7 +123,7 @@ class Main extends Component {
       }
 
 
-      searchApi(requestParam, currentPage).then((response) => {
+      searchApi(requestParam, currentPage,this.state.pageSize).then((response) => {
         const filter = response.data.aggregations.facets;
         let filterRender = isFilterExist ? this.state.filter : filter.sort(this.sortByDisplayOrder);
         filterRender.forEach((item, index) => {
@@ -135,12 +137,15 @@ class Main extends Component {
         } else {
           updatedJson = response.data.results;
         }
+        let lastPage = Math.ceil(response.data.total_results/this.state.pageSize);
 
         this.setState({
           jsonData: updatedJson,
           filter: filterRender,
           currentPage: currentPage,
+          lastPage:lastPage
         });
+
         if (type === 'loadMore') {
           this.setState({
             showMoreLoading: false
@@ -225,7 +230,7 @@ class Main extends Component {
                     jsonData={this.state.jsonData}
                     changeView={this.state.changeView}
                   />
-                  {this.state.jsonData && this.state.jsonData.length === 0 ? "" : (<div className="load-more-bgcolor">{!this.state.showMoreLoading ? <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button> : ""}</div>)}
+                  {this.state.jsonData && this.state.jsonData.length === 0 ? "" : (<div className="load-more-bgcolor">{!this.state.showMoreLoading && this.state.lastPage !== this.state.currentPage ? <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button> : ""}</div>)}
 
                   {this.state.isLoading ? <Loader /> : ""}
                   {this.state.showMoreLoading ? <Loader type="showMore" /> : ""}
