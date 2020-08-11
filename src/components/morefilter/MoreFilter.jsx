@@ -44,9 +44,9 @@ class MoreFilter extends PureComponent  {
 
       set(filterObject, 'filterCategory', slugName);
       set(filterObject, 'filterItems', filterItem);
-      // console.log("######## ----> ", filterObject);
       filterList.push(filterObject);
       this.props.callFilter(filterList);
+      this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
       this.props.cancel();
    }
 

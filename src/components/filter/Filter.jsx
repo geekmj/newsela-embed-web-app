@@ -137,7 +137,7 @@ export class Filter extends PureComponent  {
             filterClassName: "filterbutton  dropdown-toggle",
             catArray: []
         })
-        this.props.resetFilter()
+        this.props.resetFilter();
         this.render();
     }
     isFilterItemSelected = (category, item) => {
