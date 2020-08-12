@@ -234,6 +234,7 @@ class Main extends PureComponent {
                   cancel={this.showMoreFilter}
                   callFilter={this.searchByFilter}
                   filterList={this.state.filter}
+                  resetFilter={this.resetFilter}
                   selectedFilter={this.state.selectedFilterOption}
                   setMoreCurrentFilter={this.setMoreCurrentFilter}
                   collectionData={this.state.collectionData}

@@ -53,14 +53,17 @@ class MoreFilter extends PureComponent {
          }
          slugName = FilterSlug;
       }
-
+     if(slugName !== ""){
       set(filterObject, 'filterCategory', slugName);
       set(filterObject, 'filterItems', filterItem);
-      //  console.log("######## ----> ", slugName);
       filterList.push(filterObject);
       this.props.callFilter(filterList);
       this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
       this.props.cancel();
+     }else {
+        this.props.resetFilter();
+        this.props.cancel();
+     }
    }
 
 

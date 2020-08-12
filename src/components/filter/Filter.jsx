@@ -93,8 +93,8 @@ export class Filter extends PureComponent {
 
 
     filterSearch = (filterCategory) => {
-        let getFilterData = document.getElementByName(filterCategory + "[]").value;
-        alert(getFilterData);
+        //let getFilterData = document.getElementByName(filterCategory + "[]").value;
+        //alert(getFilterData);
         this.props.callFilter(filterCategory);
         this.setState({ filterMenuId: 0 });
     }
@@ -150,6 +150,20 @@ export class Filter extends PureComponent {
                 ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
             });
         return (isFilterCategoryExist > 0 ||this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
+    }
+
+    isMoreFilterItemExist = () => {
+        const getFilterSelected = this.props.selectedFilter;
+        let className = 'filterbutton dropdown-toggle'
+        if(getFilterSelected.length > 0){
+            getFilterSelected.forEach((item,index) => {
+                const filterCategory = get(item, 'filterCategory', null);
+                if(filterCategory != 'grade_levels' && filterCategory != 'content_maturities'){
+                    className = 'filterSelect  dropdown-toggle';
+                }
+            })
+        }
+        return className;
     }
 
     onChange = (value, type = '', title = '') => {
@@ -357,7 +371,7 @@ export class Filter extends PureComponent {
 
 
                 <div className="btn-1">
-                    <button className="filterbutton show dropdown-toggle" onClick={this.props.showMoreFilter}>More Filters</button>
+                    <button className={this.isMoreFilterItemExist()} onClick={this.props.showMoreFilter}>More Filters</button>
                     {/* hide button in desktop */}
                     <button className="filterbutton hidebtn  dropdown-toggle" onClick={this.props.showMoreFilter}>All Filters</button>
                 </div>
