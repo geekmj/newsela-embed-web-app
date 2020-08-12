@@ -24,7 +24,7 @@ export class Filter extends PureComponent {
                 let catArray = []
 
                 this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
-                    return catArray.push(...item.filterItems, ...this.state.currentSelectedFilter)
+                    return catArray.push(...item.filterItems, this.state.currentSelectedFilter)
                 })
 
                 let currentSelectedFilter = Array.from(new Set(catArray))
@@ -57,7 +57,9 @@ export class Filter extends PureComponent {
         })
         let catArray = [];
         this.props.selectedFilter && this.props.selectedFilter.map((value,i) => {
+            return(
             catArray.push(value.filterCategory)
+            )
         })
         this.setState({
             catArray: catArray

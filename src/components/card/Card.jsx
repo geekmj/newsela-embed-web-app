@@ -10,7 +10,6 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPerPage: 4,
       search: "",
       selectedContent: [],
     };
@@ -171,7 +170,6 @@ class Card extends Component {
                           ) : (
                             ""
                           )}
-                        {/* <img src={Quizicon} width="20px" height="17px" alt="quizicon" /> */}
                       </div>
                       <div>
                         <DropDown

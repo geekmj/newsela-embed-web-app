@@ -18,7 +18,9 @@ class MoreFilter extends PureComponent {
       let currentSelectedFilter = [];
 
       selectedFilter && selectedFilter.length > 0 && selectedFilter.map((value, i) => {
-         currentSelectedFilter.push(...value.filterItems)
+            return(
+           currentSelectedFilter.push(...value.filterItems)
+            )
       })
 
       this.setState({
