@@ -52,7 +52,9 @@
 .cardbody{
     padding-left: 15px;
 }
-            
+.card-body {
+    height:147px;
+}           
 .list-footer{
     display: flex;
     justify-content: space-between;
