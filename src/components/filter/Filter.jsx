@@ -326,13 +326,18 @@ export class Filter extends PureComponent {
                                     {
                                         filterItem.filters.map((Item, keyItem) => (
                                             <label >
-                                                {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : <input type="checkbox"
+                                                {Item.count === 0 ? <span className="cross-icon"><FontAwesomeIcon icon={faTimes} /></span> : (this.props.selectedFilter.length > 0) ? (<input type="checkbox"
                                                     name={`${filterItem.slug}_${keyItem}`}
                                                     value={Item.value}
                                                     disabled={!Item.count}
                                                     onChange={() => this.onChange(Item.value)}
-                                                    checked={(this.props.selectedFilter.length > 0) ? this.isFilterItemSelected(filterItem.slug, Item.value) : false}
-                                                />}
+                                                    checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
+                                                />) : (<input type="checkbox"
+                                                name={`${filterItem.slug}_${keyItem}`}
+                                                value={Item.value}
+                                                disabled={!Item.count}
+                                                onChange={() => this.onChange(Item.value)}
+                                            />)}
                                                 {filterItem.slug === "grade_levels" ? "Grade " : null}
                                                 {Item.display_name} ({Item.count})
                                             </label>
