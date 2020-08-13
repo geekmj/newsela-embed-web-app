@@ -160,7 +160,7 @@ export class Filter extends PureComponent {
         if(getFilterSelected.length > 0){
             getFilterSelected.forEach((item,index) => {
                 const filterCategory = get(item, 'filterCategory', null);
-                if(filterCategory != 'grade_levels' && filterCategory != 'content_maturities'){
+                if(filterCategory !== 'grade_levels' && filterCategory !== 'content_maturities'){
                     className = 'filterSelect  dropdown-toggle';
                 }
             })

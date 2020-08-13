@@ -37,7 +37,7 @@ class Searchbar extends Component {
             <div className="container">
                 <div className="search">
                     <div className="searchbarsection">
-                        <input type="text"  maxlength="200" value={this.state.searchKey} placeholder="What do you want to teach?"
+                        <input type="text" id= "search" maxLength="200" value={this.state.searchKey} placeholder="What do you want to teach?"
                          onKeyPress={(e) => this.handleOnInputChange(e)} onChange={(e) => this.handleOnInputChange(e)} />
                         <button className="searchbutton" onClick={() => this.searchWord()}>Search</button>
                     </div>
