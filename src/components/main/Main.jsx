@@ -133,7 +133,8 @@ class Main extends PureComponent {
         //requestParam = "";
         getSelectedFilter.forEach((filter) => {
           const filterItems = filter.filterItems.join(",");
-          requestParam += `&${filter.filterCategory}=${filterItems}`;
+          const filterCategory = (filter.filterCategory === 'language') ? 'languages' : filter.filterCategory;
+          requestParam += `&${filterCategory}=${filterItems}`;
         });
       }
 

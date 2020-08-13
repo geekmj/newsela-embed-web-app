@@ -370,7 +370,7 @@ export class Filter extends PureComponent {
                                                     value={Item.value}
                                                     disabled={!Item.count}
                                                     onChange={() => this.onChange(Item.value)}
-                                                    checked={this.isFilterItemSelected(filterItem.slug, Item.value)}
+                                                    defaultChecked={this.isFilterItemSelected(filterItem.slug, Item.value)}
                                                 />) : (<input type="checkbox"
                                                 name={`${filterItem.slug}_${keyItem}`}
                                                 value={Item.value}
