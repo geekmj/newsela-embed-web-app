@@ -1,7 +1,6 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Searchbar from './../../components/searchbar';
-// jest.mock("./../../components/searchbar/Searchbar.css")
 describe("Searchbar component", () => {
     let wrapper;
     let prop = {
@@ -35,6 +34,20 @@ describe("Searchbar component", () => {
         wrapper.instance().handleOnInputChange(event);
         expect(wrapper.instance().state.searchKey).toEqual('testJob');
     });
+      
+    it("testcase for handleOnInputChange (else case for charCode)", () => {
+        let event = {
+            charCode: 10,
+            target: {
+                value: "testJob",
+                id: "search"
+            }
+        }
+        wrapper.find('#search').simulate('change', event);
+        wrapper.instance().handleOnInputChange(event);
+        expect(wrapper.instance().state.searchKey).toEqual('testJob');
+    });
+
     it("testcase for filterbasedonsearchkey", () => {
         let searchKey = ""
         wrapper.instance().filterBasedOnSearchKey(searchKey);

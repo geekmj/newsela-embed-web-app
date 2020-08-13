@@ -27,7 +27,8 @@ class Main extends PureComponent {
     collectionData: [],
     moreCurrentFilter: [],
     pageSize:12,
-    lastPage :1
+    lastPage :1,
+    isMoreFilter:''
   };
 
   componentDidMount() {
@@ -95,7 +96,7 @@ class Main extends PureComponent {
     return getSelectedFilter;
   }
 
-  searchByFilter = (data) => {
+  searchByFilter = (data, type = '') => {
     let getSelectedFilter = this.state.selectedFilterOption;
     if(isArray(data)){
       data.forEach((item, index) => {
@@ -105,7 +106,7 @@ class Main extends PureComponent {
       getSelectedFilter = this.setFilterData(data, getSelectedFilter);
     }
     //console.log("Data ---> ",getSelectedFilter);
-    this.setState({ selectedFilterOption: getSelectedFilter });
+    this.setState({ selectedFilterOption: getSelectedFilter, isMoreFilter: type });
     this.searchAndSave('filterSearch');
   };
 
@@ -226,6 +227,7 @@ class Main extends PureComponent {
               collectionData={this.state.collectionData}
               resetFilter={this.resetFilter}
               moreCurrentFilter={this.state.moreCurrentFilter}
+              isMoreFilter={this.state.isMoreFilter}
             />
 
             {

@@ -36,6 +36,13 @@ class MoreFilter extends PureComponent {
       let filterItem = [];
       let filterList = [];
       let slugName = "";
+
+      let catArray = []
+
+        this.props.selectedFilter && this.props.selectedFilter.length > 0 && this.props.selectedFilter.map((item, index) => {
+            return catArray.push(item.filterCategory)
+        })
+        
       for (let name of data.keys()) {
          const [FilterSlug, FilterValue] = data.get(name).split("#");
 
@@ -59,10 +66,29 @@ class MoreFilter extends PureComponent {
       set(filterObject, 'filterCategory', slugName);
       set(filterObject, 'filterItems', filterItem);
       filterList.push(filterObject);
-      this.props.callFilter(filterList);
+
+      let results = filterList.map(({ filterCategory }) => filterCategory)
+      console.log('>>>> cAT', catArray, 'asdf', results)
+      let tempArr = []
+      for(let i=0; i< catArray.length; i++){
+         let isExist = results.indexOf(catArray[i])
+         if(isExist < 0){
+            tempArr.push(catArray[i])
+         }
+      }
+
+      for(let j=0;j<tempArr.length; j++){
+         let tempObj ={}
+         tempObj['filterCategory'] = tempArr[j]
+         tempObj['filterItems'] = []
+         filterList.push(tempObj)
+      }      
+
+      this.props.callFilter(filterList, 'moreFilters');
       this.props.setMoreCurrentFilter(this.state.currentSelectedFilter)
       this.props.cancel();
-     }else {
+     }
+     else {
         this.props.resetFilter();
         this.props.cancel();
      }

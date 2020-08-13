@@ -16,7 +16,9 @@ export class Filter extends PureComponent {
         formCollectionName: 'Form Collection',
         filterClassName: "filterbutton  dropdown-toggle",
         catArray: [],
+        isMoreFilter:'',
         width:0
+
     }
 
     componentDidMount() {
@@ -50,6 +52,10 @@ export class Filter extends PureComponent {
         this.updateWindowWidth();
         window.addEventListener("resize", this.updateWindowWidth);
 
+        this.setState({
+            isMoreFilter : this.props.isMoreFilter
+        })
+
     }
     updateWindowWidth = () => {
         this.setState({ width: window.innerWidth });
@@ -60,7 +66,12 @@ export class Filter extends PureComponent {
 
     componentWillReceiveProps(nextProps, nextState) {
         let currentSelectedFilter = this.state.currentSelectedFilter
-        currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter, ...this.state.currentSelectedFilter]))
+        if(this.props.isMoreFilter === 'moreFilters'){
+            currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter]))
+        }else{
+            currentSelectedFilter = Array.from(new Set([...nextProps.moreCurrentFilter, ...this.state.currentSelectedFilter]))
+        }
+
         this.setState({
             currentSelectedFilter: currentSelectedFilter
         })
@@ -123,6 +134,9 @@ export class Filter extends PureComponent {
         }
             set(filterObject, 'filterCategory', searchType);
             set(filterObject, 'filterItems', filterItem);
+
+            
+
             this.props.callFilter(filterObject);
             this.setState({ filterMenuId: 0, option1: false });
       
