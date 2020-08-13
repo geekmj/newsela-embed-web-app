@@ -15,7 +15,8 @@ export class Filter extends PureComponent {
         collectionSelected: [],
         formCollectionName: 'Form Collection',
         filterClassName: "filterbutton  dropdown-toggle",
-        catArray: []
+        catArray: [],
+        width:0
     }
 
     componentDidMount() {
@@ -46,7 +47,15 @@ export class Filter extends PureComponent {
 
             
         }
+        this.updateWindowWidth();
+        window.addEventListener("resize", this.updateWindowWidth);
 
+    }
+    updateWindowWidth = () => {
+        this.setState({ width: window.innerWidth });
+    };
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateWindowWidth);
     }
 
     componentWillReceiveProps(nextProps, nextState) {
@@ -373,9 +382,7 @@ export class Filter extends PureComponent {
 
 
                 <div className="btn-1">
-                    <button className={this.isMoreFilterItemExist()} onClick={this.props.showMoreFilter}>More Filters</button>
-                    {/* hide button in desktop */}
-                    <button className="filterbutton hidebtn  dropdown-toggle" onClick={this.props.showMoreFilter}>All Filters</button>
+                    <button className={this.isMoreFilterItemExist()} onClick={this.props.showMoreFilter}> {this.state.width < 640 ? "All Filters": "More Filters"}</button>
                 </div>
                 {
                     this.props.selectedFilter.length > 0 ?

@@ -208,9 +208,6 @@ label:hover{
     font-weight:400;
     font-size:14px;
 }
- .hidebtn{
-    display: none;
-}
 .cross-icon{
     font-size: 15px;
     background-color: #BCBCBE;
@@ -223,12 +220,6 @@ label:hover{
 @media screen and (max-width:640px){
     .hidden{
       display: none;
-    }
-    .hidebtn{
-        display: block;
-    }
-    .show{
-        display: none;
     }
   }
 
