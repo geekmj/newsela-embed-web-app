@@ -10,7 +10,6 @@
 .container .searchbarsection input {
     width: calc(100% - 135px);
     height: 56px;
-    line-height: 80px;
     padding: 0 4px;
     font-size: 2.369rem;
     font-family: "Circular-bold",Helvetica,Arial,sans-serif;
