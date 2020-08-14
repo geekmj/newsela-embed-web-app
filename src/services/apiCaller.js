@@ -36,7 +36,7 @@ const apiCaller = ({
     options.data = data;
   }
 
-  axios.defaults.withCredentials = true;
+  //axios.defaults.withCredentials = true;
   return axios(options).catch(function (error) {
     if (error.response) {
       throw new Error(error);
