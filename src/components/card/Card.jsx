@@ -157,7 +157,7 @@ class Card extends Component {
                         post["object"]["translations"] &&
                         post["object"]["translations"].length > 0 &&
                         post["object"]["translations"][0].display_language ===
-                          "Spanish" ? (
+                          "Spanish" || post["object"].language=== "es" ? (
                           <div className="tool">  
                             <img
                               src={Spanish}
