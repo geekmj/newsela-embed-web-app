@@ -87,7 +87,7 @@
     .container .searchbarsection input {
       font-size: 15px;
       width: calc(100% - 95px);
-      height: 48px;
+      height: 42px;
     }
     .searchbutton{
      width: 76px;
@@ -96,4 +96,7 @@
      line-height: 0;
      vertical-align: middle;
     }
+    .searchbarsection{
+      padding: 0 8px;
     }
+  }
