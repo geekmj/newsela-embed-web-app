@@ -62,7 +62,7 @@ class Main extends PureComponent {
       moreCurrentFilter: [],
       moreFilter: false
     });
-    this.searchAndSave();
+    this.searchAndSave('reset');
     this.getCollectionData();
   };
 
@@ -129,7 +129,7 @@ class Main extends PureComponent {
         currentPage = this.state.currentPage + 1;
       }
 
-      if (getSelectedFilter.length > 0) {
+      if (getSelectedFilter.length > 0 && type!=='reset') {
         //requestParam = "";
         getSelectedFilter.forEach((filter) => {
           const filterItems = filter.filterItems.join(",");
