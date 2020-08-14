@@ -169,12 +169,12 @@ export class Filter extends PureComponent {
         const getFilterSelected = this.props.selectedFilter;
         const isFilterCategoryExist = findIndex(getFilterSelected,
             (filter) => {
-                return (isEqual(
-                    get(filter, 'filterCategory', null),
-                    category
-                ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
+               return (isEqual(
+                  get(filter, 'filterCategory', null),
+                  category
+               ) && (indexOf(get(filter, 'filterItems', []), item) >= 0));
             });
-        return (isFilterCategoryExist > 0 ||this.state.currentSelectedFilter.indexOf(item) > -1) ? true : false;
+         return (isFilterCategoryExist > -1) ? true : false;
     }
 
     isMoreFilterItemExist = () => {
