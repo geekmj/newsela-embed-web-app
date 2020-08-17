@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Filter.css';
 
-export class Filter extends PureComponent {
+ class Filter extends PureComponent {
     state = {
         option1: false,
         filterMenuId: 0,
@@ -113,15 +113,6 @@ export class Filter extends PureComponent {
         })
     }
 
-
-    filterSearch = (filterCategory) => {
-        //let getFilterData = document.getElementByName(filterCategory + "[]").value;
-        //alert(getFilterData);
-        this.props.callFilter(filterCategory);
-        this.setState({ filterMenuId: 0 });
-    }
-
-
     handleArticleSearch = (event, searchType) => {
         event.preventDefault();
         const form = event.target;
@@ -180,7 +171,7 @@ export class Filter extends PureComponent {
     isMoreFilterItemExist = () => {
         const getFilterSelected = this.props.selectedFilter;
         let className = 'filterbutton dropdown-toggle'
-        if(getFilterSelected.length > 0){
+        if(getFilterSelected && getFilterSelected.length > 0){
             getFilterSelected.forEach((item,index) => {
                 const filterCategory = get(item, 'filterCategory', null);
                 if(filterCategory !== 'grade_levels' && filterCategory !== 'content_maturities'){
@@ -354,7 +345,7 @@ export class Filter extends PureComponent {
                     }
                 </div>
 
-                {filterList.slice(0, 2).map((filterItem, index) => (
+                {filterList && filterList.length>0 && filterList.slice(0, 2).map((filterItem, index) => (
 
                     <div className="btn-1 hidden">
                         <button className={this.state.catArray.indexOf(filterItem.slug) > -1 ? "filterSelect  dropdown-toggle" : "filterbutton  dropdown-toggle"} onClick={() => this.handleFilterMenu(filterItem.display_order)}>{this.renderDisplayName(filterItem.display_name, filterItem.slug)}</button>
@@ -399,7 +390,7 @@ export class Filter extends PureComponent {
                     <button className={this.isMoreFilterItemExist()} onClick={this.props.showMoreFilter}> {this.state.width < 640 ? "All Filters": "More Filters"}</button>
                 </div>
                 {
-                    this.props.selectedFilter.length > 0 ?
+                    this.props.selectedFilter && this.props.selectedFilter.length > 0 ?
                         <div className="btn-1">
                             <button className="clearbutton" onClick={() => this.clearAll()}>Clear</button>
                         </div> : ""

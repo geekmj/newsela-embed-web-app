@@ -21,7 +21,7 @@ class Card extends Component {
     let resonseJsonContentItems = document.getElementById("content_items");
     let responseJsonContentId = document.getElementById("request_id");
 
-    resonseJsonContentItems.value = JSON.stringify(preparedJson);
+    resonseJsonContentItems.value =JSON.parse( JSON.stringify(preparedJson));
     responseJsonContentId.value =
       this.props.queryParms && this.props.queryParms.request_id
         ? this.props.queryParms.request_id
@@ -35,15 +35,10 @@ class Card extends Component {
 
     let slug = selectedData.object.slug;
     let contentId = selectedData.content_id;
-    let contentItemUrl =
-      "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
+    let contentItemUrl ="/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
 
     set(jsonData, "['@graph'][0].title", selectedData.title);
-    set(
-      jsonData,
-      "['@graph'][0].url",
-      process.env.REACT_APP_NEWSELA_URL + selectedData.url
-    );
+    set(jsonData,"['@graph'][0].url",process.env.REACT_APP_NEWSELA_URL + selectedData.url);
 
     switch (selectedType) {
       case "LtiLinkItem":
@@ -56,10 +51,16 @@ class Card extends Component {
       case "mediumThumbnail":
         set(jsonData, "['@graph'][0].thumbnail['@id']", selectedData.image);
         break;
-      default:
+      case "largeThumbnail":
         set(jsonData, "['@graph'][0].thumbnail['@id']", selectedData.image);
         break;
+      default:
+        break;
     }
+     this.handleHiddenForm(jsonData)
+
+    console.log('SELECTED CARD DATA---->>>>>',selectedData)
+    console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
   };
 
   selectedType = (value, itemData) => {
@@ -67,10 +68,10 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
-    let queryparam =this.props.queryParms && this.props.queryParms.tool_consumer_info_product_family_code
+    let queryparam = this.props.queryParms && this.props.queryParms.tool_consumer_info_product_family_code
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
-        path + "?preview_for="+ (queryparam)
+      path + "?preview_for=" + (queryparam)
     );
   };
 
@@ -114,7 +115,7 @@ class Card extends Component {
                 <div
                   className={`mb-4 pr-0 ${
                     changeView ? "col-md-6" : "col-md-3"
-                  }`}
+                    }`}
                   key={post.id}
                 >
                   <div className={`card h-100 ${changeView ? "p-3" : ""}`}>
@@ -129,7 +130,7 @@ class Card extends Component {
                       <div
                         className={`${
                           changeView ? "col-md-8" : "card-body pt-3"
-                        }`}
+                          }`}
                       >
                         <h6 className="card-title text-uppercase mb-3">
                           {post.display_category}
@@ -137,7 +138,7 @@ class Card extends Component {
                         <p
                           className={`${
                             changeView ? "list-text" : "card-text"
-                          }`}
+                            }`}
                         >
                           {post.title}
                         </p>
@@ -146,27 +147,27 @@ class Card extends Component {
                     <div
                       className={`${
                         changeView ? "list-footer" : "card-footer"
-                      }`}
+                        }`}
                     >
-                      <div
+                      <div id
                         className={`${changeView ? "list-icon" : ""}`}
                         onClick={() => this.openArticle(post.url)}
                       >
-                        {post &&
-                        Object.keys(post["object"]).length > 0 &&
-                        post["object"]["translations"] &&
-                        post["object"]["translations"].length > 0 &&
-                        post["object"]["translations"][0].display_language ===
-                          "Spanish" || post["object"].language=== "es" ? (
-                          <div className="tool">  
-                            <img
-                              src={Spanish}
-                              width="15px"
-                              height="15px"
-                              alt="spanish-icon"
-                            />
-                            <span className="tooltiptext"> Also available in Spanish</span>
-                          </div> 
+                        {(post &&
+                          Object.keys(post["object"]).length > 0 &&
+                          post["object"]["translations"] &&
+                          post["object"]["translations"].length > 0 &&
+                          post["object"]["translations"][0].display_language ===
+                          "Spanish") || (post["object"].language === "es") ? (
+                            <div className="tool">
+                              <img
+                                src={Spanish}
+                                width="15px"
+                                height="15px"
+                                alt="spanish-icon"
+                              />
+                              <span className="tooltiptext"> Also available in Spanish</span>
+                            </div>
                           ) : (
                             ""
                           )}
@@ -185,8 +186,8 @@ class Card extends Component {
         ) : this.props.isLoading ? (
           ""
         ) : (
-          <ErrorFallback message="No Results Found!" />
-        )}
+              <ErrorFallback message="No Results Found!" />
+            )}
       </div>
     );
   }

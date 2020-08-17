@@ -6,6 +6,16 @@ class DropDown extends Component {
     state = {
         option: false
     }
+    
+    componentDidMount (){
+        window.addEventListener("click", event=>{
+            if(this.state.option && !this.node.contains(event.target)){
+                this.setState({
+                 option:false
+                })
+            }
+        })
+    }
 
     handleChange = (e) => {
        let value= e.target.getAttribute("selectedvalue")
@@ -22,21 +32,11 @@ class DropDown extends Component {
             option:!this.state.option
         })
     }
-
-    componentDidMount (){
-        window.addEventListener("click", event=>{
-            if(this.state.option && !this.node.contains(event.target)){
-                this.setState({
-                 option:false
-                })
-            }
-        })
-    }
    
     render() {
         return (
             <div className="dropdown" ref={n =>(this.node = n)}>
-                <button className="sendbutton dropdown-toggle" type="button" onClick={()=>this.handleClick()}>
+                <button className="sendbutton dropdown-toggle" type="button" id ="button" onClick={()=>this.handleClick()}>
                     Embed
                 </button>{
                     this.state.option?

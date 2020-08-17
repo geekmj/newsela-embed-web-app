@@ -34,7 +34,6 @@ describe("Searchbar component", () => {
         wrapper.instance().handleOnInputChange(event);
         expect(wrapper.instance().state.searchKey).toEqual('testJob');
     });
-      
     it("testcase for handleOnInputChange (else case for charCode)", () => {
         let event = {
             charCode: 10,
@@ -47,7 +46,6 @@ describe("Searchbar component", () => {
         wrapper.instance().handleOnInputChange(event);
         expect(wrapper.instance().state.searchKey).toEqual('testJob');
     });
-
     it("testcase for filterbasedonsearchkey", () => {
         let searchKey = ""
         wrapper.instance().filterBasedOnSearchKey(searchKey);
