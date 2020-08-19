@@ -130,17 +130,4 @@ describe('Testcase for Filter Component', () => {
         expect(wrapper.instance().state.option1).toBe(false);
         expect(wrapper.instance().state.filterMenuId).toBe(0)
     });
-    it("testcase for handleArticleSearch", () => {
-        let event = {
-            target: {},
-            preventDefault:jest.fn()
-        }
-        let searchType = "collection_id"
-        function FormDataMock() {
-            this.append = jest.fn();
-          }
-        global.FormData = FormDataMock
-        wrapper.instance().handleArticleSearch(event, searchType);
-
-    })
 });

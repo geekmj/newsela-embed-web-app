@@ -110,30 +110,6 @@ describe("Card component", () => {
         let instance = wrapper.instance();
         expect(instance).toBeDefined();
     })
-    it("testCase for selectedType (LtiLinkItem)", () => {
-        wrapper.instance().selectedType("LtiLinkItem", data);
-        document.getElementById = jest.fn().mockReturnValueOnce(preparedJSON);
-        JSON.parse = jest.fn().mockImplementationOnce(() => {
-            return preparedJSON
-          });
-          wrapper.instance().handleHiddenForm(preparedJSON)
-
-    });
-
-    it("testCase for selectedType (smallThumbnail)", () => {
-        wrapper.instance().selectedType("smallThumbnail", data);
-        wrapper.instance().handleHiddenForm(preparedJSON)
-    });
-
-    it("testCase for selectedType (mediumThumbnail)", () => {
-        wrapper.instance().selectedType("mediumThumbnail", data);
-        wrapper.instance().handleHiddenForm(preparedJSON)
-    })
-    
-    it("testCase for selectedType (largeThumbnail)", () => {
-        wrapper.instance().selectedType("largeThumbnail", data);
-        wrapper.instance().handleHiddenForm(preparedJSON)
-    })
     it("testcase for openArticle",()=>{
         let path ="/read/kitchen-sink"
         wrapper.instance().openArticle(path);
