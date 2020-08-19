@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import Logo from '../../assets/logo/full-logo/Blue-Logomark.png'
+import Logo from '../../assets/logo/full-logo/White-Logomark.png'
 import Logo1 from '../../assets/logo/full-logo/1x/White-Full-Logo.png'
 import './Header.css'
 
