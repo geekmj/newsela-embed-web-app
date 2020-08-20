@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { Component } from "react";
 import DropDown from "../dropdown";
 import { set } from "lodash";
@@ -61,6 +62,20 @@ class Card extends Component {
         set(jsonData, "['@graph'][0].thumbnail['@id']", selectedData.image);
         break;
     }
+     //this.handleHiddenForm(jsonData)
+     const extensionId = 'kmacfaimkbfgdhdkfbpgndmbolnlhnnm';
+     var port = chrome.runtime.connect(extensionId, {name: "knockknock"});
+     port.postMessage({joke: "Knock knock"});
+     port.onMessage.addListener(function(msg) {
+       if (msg.question == "Who's there?")
+         port.postMessage({answer: "Madame"});
+       else if (msg.question == "Madame who?")
+         port.postMessage({answer: "Madame... Bovary"});
+     });
+
+    console.log("New Evert End")
+    //console.log('SELECTED CARD DATA---->>>>>',selectedData)
+    //console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
   };
 
   selectedType = (value, itemData) => {

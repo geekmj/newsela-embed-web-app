@@ -36,9 +36,12 @@ class DropDown extends Component {
     render() {
         return (
             <div className="dropdown" ref={n =>(this.node = n)}>
-                <button className="sendbutton dropdown-toggle" type="button" onClick={()=>this.handleClick()}>
-                    Embed
-                </button>{
+                <a className="dropdown-item" selectedvalue="LtiLinkItem" value ="Send Link" onClick= {(e)=>this.handleChange(e)}>Add Link</a>
+
+                {/* <button className="sendbutton dropdown-toggle" type="button" id ="button" onClick={()=>this.handleClick()}>
+                    Link
+                </button> */}
+                {/* {
                     this.state.option?
                         <div className="send-dropdown" onClick= {(e)=>this.handleChange(e)}>
                             <a className="dropdown-item" selectedvalue="LtiLinkItem" value ="Send Link">Link</a>
@@ -46,7 +49,7 @@ class DropDown extends Component {
                             <a className="dropdown-item" selectedvalue= "mediumThumbnail" value ="Embed Medium">Medium </a>
                             <a className="dropdown-item" selectedvalue ="largeThumbnail" value ="Embed Large">Large </a>
                         </div> : ""
-                }
+                } */}
 
             </div>
         )
