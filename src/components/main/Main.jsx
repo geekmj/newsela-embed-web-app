@@ -39,6 +39,7 @@ class Main extends PureComponent {
       this.setState({
         queryParam: getQueryParam
       });
+      
     }
     this.props.saveQueryParamsOnLaunch(getQueryParam);
     this.searchAndSave();
