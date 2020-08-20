@@ -28,11 +28,19 @@ class Main extends PureComponent {
     moreCurrentFilter: [],
     pageSize:12,
     lastPage :1,
-    isMoreFilter:''
+    isMoreFilter:'',
+    queryParam: {}
   };
 
   componentDidMount() {
-    this.props.saveQueryParamsOnLaunch(parseQuery(this.props.location.search));
+    const getQueryParam = parseQuery(this.props.location.search);
+    if(getQueryParam!==null){
+      window.localStorage.setItem('queryParam', JSON.stringify(getQueryParam));
+      this.setState({
+        queryParam: getQueryParam
+      });
+    }
+    this.props.saveQueryParamsOnLaunch(parseQuery(getQueryParam));
     this.searchAndSave();
     this.getCollectionData();
   }
