@@ -21,10 +21,10 @@ class Card extends Component {
     let resonseJsonContentItems = document.getElementById("content_items");
     let responseJsonContentId = document.getElementById("request_id");
 
-    resonseJsonContentItems.value =JSON.parse( JSON.stringify(preparedJson));
+    resonseJsonContentItems.value =JSON.stringify(preparedJson);
     responseJsonContentId.value =
-      this.props.queryParms && this.props.queryParms.request_id
-        ? this.props.queryParms.request_id
+      this.props.queryParams && this.props.queryParams.request_id
+        ? this.props.queryParams.request_id
         : "NO_REQUEST_ID";
 
     hiddenForm.submit();
@@ -68,7 +68,7 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
-    let queryparam = this.props.queryParms && this.props.queryParms.tool_consumer_info_product_family_code
+    let queryparam = this.props.queryParams && this.props.queryParams.tool_consumer_info_product_family_code
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
       path + "?preview_for=" + (queryparam)

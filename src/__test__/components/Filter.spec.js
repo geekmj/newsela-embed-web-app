@@ -45,6 +45,7 @@ describe('Testcase for Filter Component', () => {
 
         ],
         moreCurrentFilter: ["3.0", "5.0", "Middle School"],
+        resetFilter:jest.fn(),
         isMoreFilter: "Filters",
         selectedFilter: [
             {
@@ -130,4 +131,74 @@ describe('Testcase for Filter Component', () => {
         expect(wrapper.instance().state.option1).toBe(false);
         expect(wrapper.instance().state.filterMenuId).toBe(0)
     });
+    xit("testcase for handleArticleSearch", () => {
+        let event = {
+            target: {},
+            preventDefault:jest.fn()
+        }
+        let searchType = "collection_id"
+        function FormDataMock() {
+            this.append = jest.fn();
+          }
+        global.FormData = FormDataMock
+        wrapper.instance().handleArticleSearch(event, searchType);
+
+    });
+    it("testcase for clearAll",()=>{
+       wrapper.instance().clearAll();
+       expect( wrapper.instance().state.formCollectionName).toBe("Form Collection");
+       expect( wrapper.instance().state.filterClassName).toBe("filterbutton  dropdown-toggle")
+    });
+    it("testcase for isFilterItemSelected ",()=>{
+        let category ="grade_levels"
+        let items =[]
+        wrapper.instance().isFilterItemSelected(category,items) 
+    });
+    it("testcase for isMoreFilterItemExist ",()=>{
+        let filterCategory ="grade_levels"
+        wrapper.instance().isMoreFilterItemExist();
+    });
+    it("testcase for filterContent ",()=>{
+        let type ="grade_levels"
+        wrapper.instance().filterContent(type)
+    });
+    it("testcase for filterContent type(content_maturities)",()=>{
+        let type ="content_maturities"
+        wrapper.instance().filterContent(type);
+
+    });
+    it("testcase for renderCollectionDisplayName ",()=>{
+        let collectionSelected =["Election 2020"];
+        let collectionDisplayName ="Election 2020"
+        wrapper.instance().renderCollectionDisplayName();
+    });
+    it("testcase for renderCollectionDisplayName ",()=>{
+        let collectionSelected =["Election 2020","reading-comprehension"]
+        wrapper.instance().renderCollectionDisplayName();
+    });
+    it("testcase for renderDisplayName ",()=>{
+        wrapper.instance().renderDisplayName ("Suggested for","content_maturities")
+    });
+    it("testcase for renderDisplayName else case ",()=>{
+        wrapper.setProps({
+            selectedFilter: [
+                {
+                    "filterCategory": "grade_levels",
+                    "filterItems": ["3.0"]
+                }
+            ]
+        })
+        wrapper.instance().renderDisplayName ("Suggested for","content_maturities")
+    });
+
+    it("testcase for onChange ",()=>{
+        let value ="3.0"
+        wrapper.instance().onChange (value)
+    });
+    it("testcase for onChange ",()=>{
+        let value ="Election 2020"
+        let type ="collection"
+        let collectionSelected =["Election 2020","reading-comprehension"]
+        wrapper.instance().onChange (value,type)
+    })
 });

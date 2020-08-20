@@ -248,6 +248,7 @@ class Main extends PureComponent {
                     isLoading={this.state.isLoading}
                     jsonData={this.state.jsonData}
                     changeView={this.state.changeView}
+                    queryParams ={this.props.queryParams}
                   />
                   {this.state.jsonData && this.state.jsonData.length === 0 ? "" : (<div className="load-more-bgcolor">{!this.state.showMoreLoading && this.state.lastPage !== this.state.currentPage ? <button className="load-more-button" onClick={() => this.loadMore()}>Show More Results</button> : ""}</div>)}
 
@@ -265,7 +266,8 @@ class Main extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    jsonData: state.rootReducer.mainReducer.resultsData
+    jsonData: state.rootReducer.mainReducer.resultsData,
+    queryParams: state.rootReducer.mainReducer.queryParams
   }
 }
 

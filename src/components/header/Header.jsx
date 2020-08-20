@@ -23,7 +23,7 @@ class Header extends Component {
     };
 
     render() {
-        let launch_by = this.props.queryParams && this.props.queryParams.tool_consumer_info_product_family_code
+        let launch_by = this.props.queryParams && this.props.queryParams.product_family
         return (
             <div className="header">
 

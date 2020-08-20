@@ -68,7 +68,6 @@ class MoreFilter extends PureComponent {
       filterList.push(filterObject);
 
       let results = filterList.map(({ filterCategory }) => filterCategory)
-      console.log('>>>> cAT', catArray, 'asdf', results)
       let tempArr = []
       for(let i=0; i< catArray.length; i++){
          let isExist = results.indexOf(catArray[i])
@@ -163,7 +162,7 @@ class MoreFilter extends PureComponent {
                      </div>
                      <div className="row">
                      
-                        {filterList.map((filterItem, index) => (
+                        {filterList && filterList.length>0 && filterList.map((filterItem, index) => (
                               
                            <div className="col-md-6">
                               <h6 className="pt-2">{filterItem.display_name}</h6>

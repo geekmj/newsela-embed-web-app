@@ -95,7 +95,7 @@ let preparedJSON = {
 
 describe("Card component", () => {
     let wrapper;
-    let prop = {
+    let props = {
         queryParms: {
             request_id: "abc"
         }
@@ -103,24 +103,55 @@ describe("Card component", () => {
 
 
     beforeEach(() => {
-        wrapper = mount(<Card {...prop} />);
+        wrapper = mount(<Card {...props} />);
+        document.body.innerHTML += `
+        <form
+        id="responseForm"
+        action={process.env.REACT_APP_RETURN_URL}
+        method="post"
+      >
+        <input type="hidden" name="content_items" id="content_items" value="" />
+        <input type="hidden" name="request_id" id="request_id" value="" />
+      </form>
+        `
     });
+
     it("render without crashing", () => {
         expect(wrapper).toHaveLength(1);
         let instance = wrapper.instance();
         expect(instance).toBeDefined();
     })
-    it("testcase for openArticle",()=>{
-        let path ="/read/kitchen-sink"
+    it("testcase for openArticle", () => {
+        let path = "/read/kitchen-sink"
         wrapper.instance().openArticle(path);
     })
-    it("testcase for handleChangeViewList",()=>{
+    it("testcase for handleChangeViewList", () => {
         wrapper.instance().handleChangeViewList();
         expect(wrapper.instance().state.changeView).toBe(true)
     })
 
-    it("testcase for handleChangeViewGrid",()=>{
+    it("testcase for handleChangeViewGrid", () => {
         wrapper.instance().handleChangeViewGrid();
         expect(wrapper.instance().state.changeView).toBe(false)
+    });
+    it("testCase for selectedType (LtiLinkItem)", () => {
+        wrapper.instance().selectedType("LtiLinkItem", data);
+        wrapper.instance().handleHiddenForm(preparedJSON)
+    });
+    it("testCase for selectedType (smallThumbnail)", () => {
+        wrapper.instance().selectedType("smallThumbnail", data);
+        wrapper.instance().handleHiddenForm(preparedJSON)
+    });
+
+    it("testCase for selectedType (mediumThumbnail)", () => {
+        wrapper.instance().selectedType("mediumThumbnail", data);
+        wrapper.instance().handleHiddenForm(preparedJSON)
     })
+
+    it("testCase for selectedType (largeThumbnail)", () => {
+        wrapper.instance().selectedType("largeThumbnail", data);
+        wrapper.instance().handleHiddenForm(preparedJSON)
+    })
+
+
 })
