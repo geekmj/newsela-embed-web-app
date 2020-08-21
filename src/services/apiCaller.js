@@ -18,7 +18,6 @@ const apiCaller = ({
   authorized = false,
   headers = {
     "Content-Type": "application/json",
-    Cookie: document.cookie,
   },
 }) => {
   let options = {
