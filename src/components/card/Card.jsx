@@ -24,7 +24,7 @@ class Card extends Component {
     resonseJsonContentItems.value =JSON.stringify(preparedJson);
     responseJsonContentId.value =
       this.props.queryParams && this.props.queryParams.request_id
-        ? this.props.queryParams.request_id
+        ? encodeURIComponent(this.props.queryParams.request_id)
         : "NO_REQUEST_ID";
 
     hiddenForm.submit();
