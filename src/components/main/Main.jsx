@@ -40,6 +40,8 @@ class Main extends PureComponent {
         queryParam: getQueryParam
       });
       
+    }else{
+      getQueryParam = JSON.parse(window.localStorage.getItem('queryParam'));
     }
     this.props.saveQueryParamsOnLaunch(getQueryParam);
     this.searchAndSave();
