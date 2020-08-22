@@ -28,7 +28,7 @@ class Header extends Component {
             <div className="header">
 
                <nav className="navbar">
-                <a className="navbar-brand" href="/">
+                <a className="navbar-brand" href="javascript:void(0);">
                   
                     {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
                     : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
