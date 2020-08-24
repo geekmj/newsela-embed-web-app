@@ -1,11 +1,13 @@
 @font-face {
-    font-family: 'Circular-bold';
-    src: local('Circular-bold'), url(../../assets/fonts/lineto-circular-bold.ttf) format('truetype');
-}
-@font-face {
+    font-family: 'Circular';
+    src: local('Circular'), url(../../assets/fonts/lineto-circular-bold.ttf) format('truetype');
+    font-weight: bold
+  }
+  @font-face {
     font-family: 'Circular';
     src: local('Circular'), url(../../assets/fonts/lineto-circular-book.ttf) format('truetype');
-}
+    font-weight: 500
+  }
 .card{
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2) !important;
     background-color: #ffffff;
@@ -76,7 +78,7 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    font-family: Circular;
+    font-family: 'Circular';
 }
             
 .card-text:hover{
@@ -86,7 +88,7 @@
     font-size: 0.75rem;
     color: rgb(51, 51, 51);
     font-weight: bold;
-    font-family: "Circular-bold",Helvetica,Arial,sans-serif;
+    font-family: "Circular",Helvetica,Arial,sans-serif;
 }
             
 .list-text{
@@ -99,7 +101,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     margin-top: -10px;
-    font-family: Circular;
+    font-family: 'Circular';
 }
 .list-text:hover{
     text-decoration: underline;
@@ -123,7 +125,8 @@
     z-index: 1;
     left:-34px;
     top:32px;
-    font-family: Circular;
+    font-weight: 500;
+    font-family: 'Circular';
 }
 .tool:hover .tooltiptext {
     visibility: visible;
