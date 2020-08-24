@@ -35,7 +35,7 @@ class Card extends Component {
 
     let slug = selectedData.object.slug;
     let contentId = selectedData.content_id;
-    let contentItemUrl ="/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
+    let contentItemUrl = process.env.REACT_APP_NEWSELA_URL+"/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
 
     set(jsonData, "['@graph'][0].title", selectedData.title);
     set(jsonData,"['@graph'][0].url",process.env.REACT_APP_NEWSELA_URL + selectedData.url);
@@ -68,7 +68,7 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
-    let queryparam = this.props.queryParams && this.props.queryParams.tool_consumer_info_product_family_code
+    let queryparam = this.props.queryParams && this.props.queryParams.product_family
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
       path + "?preview_for=" + (queryparam)
