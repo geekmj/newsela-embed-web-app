@@ -33,7 +33,7 @@ class Main extends PureComponent {
   };
 
   componentDidMount() {
-    const getQueryParam = parseQuery(this.props.location.search);
+    let getQueryParam = parseQuery(this.props.location.search);
     if(getQueryParam!==null){
       window.localStorage.setItem('queryParam', JSON.stringify(getQueryParam));
       this.setState({
