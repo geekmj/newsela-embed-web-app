@@ -1,10 +1,12 @@
 @font-face {
-  font-family: 'Circular-bold';
-  src: local('Circular-bold'), url(../../assets/fonts/lineto-circular-bold.ttf) format('truetype');
+  font-family: 'Circular';
+  src: local('Circular'), url(../../assets/fonts/lineto-circular-bold.ttf) format('truetype');
+  font-weight: bold
 }
 @font-face {
   font-family: 'Circular';
   src: local('Circular'), url(../../assets/fonts/lineto-circular-book.ttf) format('truetype');
+  font-weight: 500
 }
 .send-dropdown{
     background-color: #fff;
@@ -43,7 +45,7 @@
     border: 0;
     float:right;
     /* margin-top:-10px; */
-    font-family: "Circular-bold",Helvetica,Arial,sans-serif;
+    font-family: "Circular",Helvetica,Arial,sans-serif;
     }
     .sendbutton:focus{
     outline: none;

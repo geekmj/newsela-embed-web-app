@@ -1,7 +1,12 @@
-
 @font-face {
   font-family: 'Circular';
-  src: local('Circular'), url(../fonts/lineto-circular-book.ttf) format('truetype');
+  src: local('Circular'), url(../../assets/fonts/lineto-circular-bold.ttf) format('truetype');
+  font-weight: bold
+}
+@font-face {
+  font-family: 'Circular';
+  src: local('Circular'), url(../../assets/fonts/lineto-circular-book.ttf) format('truetype');
+  font-weight: 500
 }
 .page-footer{
   /* background-color:#555; */
@@ -22,7 +27,7 @@
   background-color: #106FF3 !important;
   float: right;
   margin-left: 6px;
-  font-family: Circular,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-family: 'Circular',"Segoe UI",Helvetica,Arial,sans-serif;
   justify-content: center;
   align-items: center;
   font-weight: bold;
