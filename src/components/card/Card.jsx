@@ -68,7 +68,7 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
-    let queryparam = this.props.queryParams.product_family;
+    let queryparam = this.props.queryParams && this.props.queryParams.product_family;
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
       path + "?preview_for=" + (queryparam)
