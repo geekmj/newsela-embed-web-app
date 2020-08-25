@@ -57,10 +57,10 @@ class Card extends Component {
       default:
         break;
     }
-     this.handleHiddenForm(jsonData)
+     //this.handleHiddenForm(jsonData)
 
-    console.log('SELECTED CARD DATA---->>>>>',selectedData)
-    console.log('Prepared Respose JSON -------->>>>>>>',jsonData)
+    console.log('SELECTED CARD DATA---->>>>>', JSON.stringify(selectedData))
+    console.log('Prepared Respose JSON -------->>>>>>>', JSON.stringify(jsonData))
   };
 
   selectedType = (value, itemData) => {
@@ -68,7 +68,7 @@ class Card extends Component {
   };
 
   openArticle = (path) => {
-    let queryparam = this.props.queryParams && this.props.queryParams.product_family
+    let queryparam = this.props.queryParams.product_family;
     window.open(
       process.env.REACT_APP_NEWSELA_URL +
       path + "?preview_for=" + (queryparam)
