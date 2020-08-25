@@ -21,5 +21,6 @@
 }
 .navbar-brand{
     margin-right: 5px !important;
+    cursor: pointer;
 }
 

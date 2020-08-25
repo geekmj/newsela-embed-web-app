@@ -26,13 +26,11 @@ class Header extends Component {
         let launch_by = this.props.queryParams && this.props.queryParams.product_family
         return (
             <div className="header">
-
                <nav className="navbar">
-                <a className="navbar-brand" href="javascript:void(0);">
-                  
+                <div className="navbar-brand">
                     {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
                     : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
-                </a>
+                </div>
                 <p className="navbar-text">Search and Embed content for {launch_by}</p>
                    <div>
                    </div> 
