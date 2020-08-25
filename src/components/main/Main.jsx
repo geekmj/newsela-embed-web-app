@@ -149,7 +149,7 @@ class Main extends PureComponent {
         });
       }
 
-     if(getSelectedFilter.length > 0 && this.state.searchKey!==""){
+
       searchApi(requestParam, currentPage,this.state.pageSize).then((response) => {
         const filter = response.data.aggregations.facets;
         let filterRender = isFilterExist ? this.state.filter : filter.sort(this.sortByDisplayOrder);
@@ -182,7 +182,6 @@ class Main extends PureComponent {
         }
         this.props.saveResults(updatedJson);
       });
-     }
     }
   };
 
