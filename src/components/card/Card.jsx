@@ -35,10 +35,10 @@ class Card extends Component {
 
     let slug = selectedData.object.slug;
     let contentId = selectedData.content_id;
-    let contentItemUrl = process.env.REACT_APP_NEWSELA_URL+"/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
+    let contentItemUrl = "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId;
 
     set(jsonData, "['@graph'][0].title", selectedData.title);
-    set(jsonData,"['@graph'][0].url",process.env.REACT_APP_NEWSELA_URL + selectedData.url);
+    set(jsonData,"['@graph'][0].url",process.env.REACT_APP_NEWSELA_URL + contentItemUrl);
 
     switch (selectedType) {
       case "LtiLinkItem":
