@@ -35,16 +35,18 @@ class Card extends Component {
 
     let slug = selectedData.object.slug;
     let contentId = selectedData.content_id;
-    let contentItemUrl = "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId + "/";
+    let contentItemUrl = process.env.REACT_APP_NEWSELA_URL + "/apps/lti-tool-provider/content/article/" + slug + "/" + contentId + "/";
 
     set(jsonData, "['@graph'][0].title", selectedData.title);
-    set(jsonData,"['@graph'][0].url",process.env.REACT_APP_NEWSELA_URL + contentItemUrl);
+    set(jsonData,"['@graph'][0].url", contentItemUrl);
+    set(jsonData, "['@graph'][0]['@id']", contentItemUrl);
+    set(jsonData, "['@graph'][0].text", selectedData.title);
 
     switch (selectedType) {
-      case "LtiLinkItem":
-        set(jsonData, "['@graph'][0]['@id']", contentItemUrl);
-        set(jsonData, "['@graph'][0].text", selectedData.title);
-        break;
+      // case "LtiLinkItem":
+      //   set(jsonData, "['@graph'][0]['@id']", contentItemUrl);
+      //   set(jsonData, "['@graph'][0].text", selectedData.title);
+      //   break;
       case "smallThumbnail":
         set(jsonData, "['@graph'][0].thumbnail['@id']", selectedData.image);
         break;
@@ -57,7 +59,7 @@ class Card extends Component {
       default:
         break;
     }
-    this.handleHiddenForm(jsonData)
+    // this.handleHiddenForm(jsonData)
 
     console.log('SELECTED CARD DATA---->>>>>', JSON.stringify(selectedData))
     console.log('Prepared Respose JSON -------->>>>>>>', JSON.stringify(jsonData))
