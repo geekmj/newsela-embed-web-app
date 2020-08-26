@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Logo from '../../assets/logo/full-logo/White-Logomark.png'
 import Logo1 from '../../assets/logo/full-logo/1x/White-Full-Logo.png'
 import './Header.css'
+import createHistory from 'history/createBrowserHistory'
 
 class Header extends Component {
     state = {
@@ -24,10 +25,13 @@ class Header extends Component {
 
     render() {
         let launch_by = this.props.queryParams && this.props.queryParams.product_family
+        const history = createHistory();
+
+
         return (
             <div className="header">
                <nav className="navbar">
-                <div className="navbar-brand">
+                <div className="navbar-brand" onClick={() => history.go(0)}>
                     {this.state.width < 800 ? <img src={Logo} alt='logo' width="35px" height="35px"/>
                     : <img src={Logo1} alt='logo' width="100%" height="100%"/>}
                 </div>

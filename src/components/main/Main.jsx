@@ -35,13 +35,10 @@ class Main extends PureComponent {
   componentDidMount() {
     let getQueryParam = parseQuery(this.props.location.search);
     if(getQueryParam!==null){
-      window.localStorage.setItem('queryParam', JSON.stringify(getQueryParam));
+      //window.localStorage.setItem('queryParam', JSON.stringify(getQueryParam));
       this.setState({
         queryParam: getQueryParam
       });
-      
-    }else{
-      getQueryParam = JSON.parse(window.localStorage.getItem('queryParam'));
     }
     this.props.saveQueryParamsOnLaunch(getQueryParam);
     this.searchAndSave();
