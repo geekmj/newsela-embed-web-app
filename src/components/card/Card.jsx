@@ -59,7 +59,7 @@ class Card extends Component {
       default:
         break;
     }
-    // this.handleHiddenForm(jsonData)
+    this.handleHiddenForm(jsonData)
 
     console.log('SELECTED CARD DATA---->>>>>', JSON.stringify(selectedData))
     console.log('Prepared Respose JSON -------->>>>>>>', JSON.stringify(jsonData))
