@@ -17,7 +17,8 @@ import './Filter.css';
         filterClassName: "filterbutton  dropdown-toggle",
         catArray: [],
         isMoreFilter:'',
-        width:0
+        width:0,
+        isTemp :false
 
     }
 
@@ -123,13 +124,12 @@ import './Filter.css';
         for (let name of data.keys()) {
             filterItem.push(data.get(name));
         }
-            set(filterObject, 'filterCategory', searchType);
-            set(filterObject, 'filterItems', filterItem);
-
-            
-
-            this.props.callFilter(filterObject);
-            this.setState({ filterMenuId: 0, option1: false });
+        if(this.state.isTemp === true){
+                        set(filterObject, 'filterCategory', searchType);
+                        set(filterObject, 'filterItems', filterItem);
+                        this.props.callFilter(filterObject);
+                        this.setState({ filterMenuId: 0, option1: false ,isTemp:false});
+                       }            
       
         if (searchType === 'collection_id') {
             this.renderCollectionDisplayName()
@@ -183,6 +183,9 @@ import './Filter.css';
     }
 
     onChange = (value, type = '', title = '') => {
+        this.setState({
+            isTemp:true
+        })
 
         let currentSelectedFilter = cloneDeep(this.state.currentSelectedFilter), tempIndex
         if (currentSelectedFilter.length > 0) {
