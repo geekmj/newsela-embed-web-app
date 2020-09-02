@@ -25,7 +25,7 @@ module.exports = {
             "thumbnail":{
                "@id":"contentThumbnailImageUrl",
                "width":147,
-               "height":184
+               "height":83
             },
             "title":"title",
             "text":"summary",
@@ -46,7 +46,7 @@ module.exports = {
             "thumbnail":{
                "@id":"contentThumbnailImageUrl",
                "width":200,
-               "height":200
+               "height":113
             },
             "title":"title",
             "text":"summary",
@@ -67,7 +67,7 @@ module.exports = {
             "thumbnail":{
                "@id":"contentThumbnailImageUrl",
                "width":300,
-               "height":300
+               "height":169
             },
             "title":"title",
             "text":"summary",
