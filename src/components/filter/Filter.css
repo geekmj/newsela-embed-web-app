@@ -123,7 +123,6 @@
 }  
 .cancel{
     padding: 10px 15px;
-    border: 0.15em solid transparent;
     transition: all 0.12s;
     cursor: pointer;
     background-color: #fff;
@@ -194,7 +193,7 @@ label{
     padding: 6px 1.5rem;
     margin-bottom: .3rem;
     font-size:14px;
-    font-family: 'Circular';
+    font-family: "Circular",Helvetica,Arial,sans-serif;
 }
 label:hover{
     cursor: pointer;
@@ -206,7 +205,7 @@ label:hover{
 .filter p{
     width: 100%;
     padding: 5px 1rem;
-    font-family: 'Circular';
+    font-family: "Circular",Helvetica,Arial,sans-serif;
     font-weight:400;
     font-size:14px;
 }

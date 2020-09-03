@@ -78,7 +78,7 @@
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    font-family: 'Circular';
+    font-family: "Circular",Helvetica,Arial,sans-serif;
 }
             
 .card-text:hover{
@@ -92,7 +92,7 @@
 }
             
 .list-text{
-    font-size: 1.33rem;;
+    font-size: 1.33rem;
     color: #333;
     font-weight: 500;
     line-height: 1.69rem;
@@ -101,7 +101,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     margin-top: -10px;
-    font-family: 'Circular';
+    font-family: "Circular",Helvetica,Arial,sans-serif;
 }
 .list-text:hover{
     text-decoration: underline;
@@ -126,7 +126,7 @@
     left:-34px;
     top:32px;
     font-weight: 500;
-    font-family: 'Circular';
+    font-family: "Circular",Helvetica,Arial,sans-serif;
 }
 .tool:hover .tooltiptext {
     visibility: visible;
