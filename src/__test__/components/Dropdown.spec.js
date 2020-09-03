@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import DropDown from './../../components/dropdown';
 
 describe('Testcase for DropDown Component', () => {
@@ -41,7 +41,6 @@ describe('Testcase for DropDown Component', () => {
 
     it("testcase for componentDidMount", () => {
         const spy = jest.spyOn(DropDown.prototype, 'componentDidMount');
-        const wrapper = mount(<DropDown {...prop} />);
         wrapper.instance().componentDidMount();
         expect(spy).toHaveBeenCalled();
         const map = {};

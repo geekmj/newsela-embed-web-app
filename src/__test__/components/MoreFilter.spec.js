@@ -46,7 +46,6 @@ describe('Testcase for MoreFilter Component', () => {
     it("testcase for onChange ",()=>{
         let value ="Election 2020"
         let type ="collection"
-        let collectionSelected =["Election 2020","reading-comprehension"]
         wrapper.instance().onChange (value,type)
     })
 

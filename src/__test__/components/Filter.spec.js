@@ -78,7 +78,6 @@ describe('Testcase for Filter Component', () => {
     it("testcase for componentDidMount", () => {
 
         const spy = jest.spyOn(Filter.prototype, 'componentDidMount');
-        const wrapper = mount(<Filter {...props} />);
         wrapper.instance().componentDidMount();
         expect(spy).toHaveBeenCalled();
         map.click({
@@ -99,7 +98,6 @@ describe('Testcase for Filter Component', () => {
             moreCurrentFilter: ["3.0", "5.0", "Middle School"]
         }
         const spy = jest.spyOn(Filter.prototype, "componentWillReceiveProps");
-        const wrapper = mount(<Filter {...props} />);
         wrapper.instance().componentWillReceiveProps(nextProps);
         expect(spy).toHaveBeenCalled();
     });
@@ -108,7 +106,6 @@ describe('Testcase for Filter Component', () => {
             moreCurrentFilter: ["3.0", "5.0", "Middle School"]
         }
         const spy = jest.spyOn(Filter.prototype, "componentWillReceiveProps");
-        const wrapper = mount(<Filter {...props} />);
         wrapper.instance().componentWillReceiveProps(nextProps);
         expect(spy).toHaveBeenCalled();
     });
@@ -155,7 +152,6 @@ describe('Testcase for Filter Component', () => {
         wrapper.instance().isFilterItemSelected(category,items) 
     });
     it("testcase for isMoreFilterItemExist ",()=>{
-        let filterCategory ="grade_levels"
         wrapper.instance().isMoreFilterItemExist();
     });
     it("testcase for filterContent ",()=>{
@@ -168,12 +164,9 @@ describe('Testcase for Filter Component', () => {
 
     });
     it("testcase for renderCollectionDisplayName ",()=>{
-        let collectionSelected =["Election 2020"];
-        let collectionDisplayName ="Election 2020"
         wrapper.instance().renderCollectionDisplayName();
     });
     it("testcase for renderCollectionDisplayName ",()=>{
-        let collectionSelected =["Election 2020","reading-comprehension"]
         wrapper.instance().renderCollectionDisplayName();
     });
     it("testcase for renderDisplayName ",()=>{
@@ -198,7 +191,6 @@ describe('Testcase for Filter Component', () => {
     it("testcase for onChange ",()=>{
         let value ="Election 2020"
         let type ="collection"
-        let collectionSelected =["Election 2020","reading-comprehension"]
         wrapper.instance().onChange (value,type)
     })
 });

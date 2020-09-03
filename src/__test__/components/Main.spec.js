@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount,shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Main from './../../components/main';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -23,7 +23,6 @@ describe("Main component", () => {
             search:"abc"
         }
      }
-    const component = mount(<Provider store={store}><Main {...prop} /></Provider>)
     it(`render without crashing`, () => {
         const component = mount(<Provider store={store}><Main {...prop} /></Provider>)
         expect(component).toHaveLength(1);

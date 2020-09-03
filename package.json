@@ -33,9 +33,9 @@
     "build": "react-scripts build",
     "build:qc": "env-cmd -f ./.env.qc npm run build",
     "build:production": "env-cmd -f ./.env.production npm run build",
-    "test": "react-scripts test --setupFiles ./src/setupTests.js",
     "eject": "react-scripts eject",
-    "test:coverage": "jest --coverage --setupFiles ./src/setupTests.js --collectCoverageFrom=./src/components/**/*.jsx",
+    "test": "jest --coverage --setupFiles ./src/setupTests.js --collectCoverageFrom=./src/components/**/*.jsx",
+    "test:sonar": "jest --coverage --setupFiles ./src/setupTests.js --collectCoverageFrom=./src/components/**/*.jsx",
     "generate": "plop"
   },
   "eslintConfig": {
